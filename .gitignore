@@ -9,7 +9,7 @@ __pycache__/
 
 # Scratch files
 scratch/
-assets/
+
 *.zip
 .DS_Store
 ._*
