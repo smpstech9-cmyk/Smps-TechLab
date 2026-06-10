@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery — SMPS Tech Lab</title>
+    <meta name="description"
+        content="Explore the visual journey of SMPS Tech Lab's innovation, events, and research moments in our interactive premium gallery.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            /* Dark Mode (Default) */
+            --bg: #03050a;
+            --bg2: #050810;
+            --bg3: #0a0e1a;
+            --accent: #3b82f6;
+            --accent2: #0ea5e9;
+            --accent3: #6366f1;
+            --text: #f8fafc;
+            --muted: #64748b;
+            --border: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.03);
+            --card: rgba(8, 12, 24, 0.7);
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --font-classic: 'Playfair Display', serif;
+            --dot-color: rgba(255, 255, 255, 0.03);
+            --nav-bg: rgba(3, 5, 10, 0.85);
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --bg2: #ffffff;
+            --bg3: #f1f5f9;
+            --accent: #2563eb;
+            --accent2: #0284c7;
+            --accent3: #4f46e5;
+            --text: #0f172a;
+            --muted: #475569;
+            --border: rgba(15, 23, 42, 0.1);
+            --glass: rgba(255, 255, 255, 0.7);
+            --card: rgba(255, 255, 255, 0.9);
+            --dot-color: rgba(15, 23, 42, 0.06);
+            --nav-bg: rgba(248, 250, 252, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 2px 2px, var(--dot-color) 1px, transparent 0);
+            background-size: 48px 48px;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.035;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Navbar Styling */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            transition: all .3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 8px 40px rgba(0, 0, 0, .2);
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 800;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: 10px;
+            transition: all .25s;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+            background: var(--glass);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent), #1d4ed8);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .25s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+
+
+        /* Gallery Filter */
+        .gallery-filter {
+            padding: 20px 24px;
+            position: sticky;
+            top: 72px;
+            z-index: 900;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .gallery-filter .filter-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 4px;
+            scrollbar-width: none;
+        }
+
+        .gallery-filter .filter-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-filter .filter-btn {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .gallery-filter .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        .gallery-filter .filter-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Gallery Grid */
+        .gallery-section {
+            padding: 80px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(3, 5, 10, 0.8) 0%, transparent 60%);
+            z-index: 1;
+            opacity: 0.6;
+            transition: 0.4s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.9;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .gallery-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover .gallery-img img {
+            transform: scale(1.15);
+        }
+
+        .gallery-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 32px;
+            z-index: 2;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(to top, rgba(3, 5, 10, 0.95), transparent);
+        }
+
+        .gallery-item:hover .gallery-content {
+            padding-bottom: 40px;
+        }
+
+        .gallery-content h3 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .gallery-content p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .gallery-badge {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            padding: 6px 14px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 5, 10, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 3000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 3100;
+            transition: 0.3s;
+        }
+
+        .lightbox-close:hover {
+            background: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 3100;
+            transition: 0.3s;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--accent);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-prev {
+            left: 40px;
+        }
+
+        .lightbox-next {
+            right: 40px;
+        }
+
+        .lightbox-main {
+            position: relative;
+            max-width: 90vw;
+            max-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 12px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            object-fit: contain;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .lightbox-info {
+            position: fixed;
+            bottom: 100px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 20px;
+            z-index: 3100;
+            pointer-events: none;
+        }
+
+        .lightbox-info h3 {
+            font-size: 24px;
+            margin-bottom: 4px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .lightbox-info p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .lightbox-actions {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            gap: 12px;
+            z-index: 3100;
+        }
+
+        .lightbox-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .lightbox-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Thumbnails Strip */
+        .lightbox-thumbs {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            max-width: 80vw;
+            overflow-x: auto;
+            padding: 10px;
+            scrollbar-width: none;
+        }
+
+        .lightbox-thumbs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .thumb-item {
+            width: 60px;
+            height: 40px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: 0.3s;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+        }
+
+        .thumb-item.active {
+            opacity: 1;
+            border-color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 80px 24px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 16px 0 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .footer-col h4 {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 14px;
+            transition: color .2s;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            padding: 40px;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu a.active {
+            color: var(--accent);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: var(--accent2);
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .lightbox-nav {
+                width: 50px;
+                height: 50px;
+            }
+
+            .lightbox-prev {
+                left: 20px;
+            }
+
+            .lightbox-next {
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-hero {
+                padding: 120px 24px 60px;
+            }
+
+            .lightbox-info h3 {
+                font-size: 18px;
+            }
+
+            .lightbox-info p {
+                font-size: 14px;
+            }
+
+            .lightbox-thumbs {
+                display: none;
+            }
+
+            .lightbox-info {
+                bottom: 40px;
+            }
+        }
+    
+
+        /* FOOTER */
+        footer {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 80px 24px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo-name {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 16px 0 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all .2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            background: rgba(37, 99, 235, .1);
+        }
+
+        .footer-col h4 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 14px;
+            transition: color .2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--text);
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .contact-item .ci {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .contact-item p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: var(--text);
+            outline: none;
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--muted);
+        }
+
+        .newsletter-form button {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .newsletter-form button:hover {
+            background: #1d4ed8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .footer-bottom a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--text);
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+                <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/ruf/main 1 rem.png" class="logo-icon"
+                    style="object-fit:contain; background:none; border:none; border-radius:0; width:auto; height:50px;"
+                    alt="Logo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="ip-portfolio.html">IP Portfolio</a>
+                <a href="collaborate.html">Collaborate</a>
+                <a href="execom.html">Execom</a>
+                <a href="events.html">Events</a>
+                <a href="gallery.html" class="active">Gallery</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-sep"></div>
+            <a href="contact.html" class="nav-cta">Get In Touch →</a>
+            <button class="theme-toggle-nav" id="themeToggleNav" title="Toggle Theme">
+                <svg viewBox="0 0 24 24" id="themeIconNav">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+            </button>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mob">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="ip-portfolio.html">IP Portfolio</a>
+            <a href="collaborate.html">Collaborate</a>
+            <a href="execom.html">Execom</a>
+            <a href="events.html">Events</a>
+            <a href="gallery.html" class="active">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+    
+    <!-- Updates Strip Ticker -->
+    <div class="updates-ticker-wrap">
+        <div class="updates-label">UPDATES</div>
+        <div class="ticker-content-container">
+            <div class="ticker-track">
+                <span>Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru</span>
+                <span>•</span>
+                <span>Smart Power Hub Training — Starting May 2026</span>
+                <span>•</span>
+                <span>VLSI Design & Verilog Bootcamp — Applications Open</span>
+                <span>•</span>
+                <span>Core Tech Placement Drive 2026 — Join Now</span>
+                <span>•</span>
+                <span>Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru</span>
+                <span>•</span>
+                <span>Smart Power Hub Training — Starting May 2026</span>
+                <span>•</span>
+                <span>VLSI Design & Verilog Bootcamp — Applications Open</span>
+                <span>•</span>
+                <span>Core Tech Placement Drive 2026 — Join Now</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div class="breadcrumb reveal"><a href="index.html">Home</a> › <span>Gallery</span></div>
+            <h1 class="reveal" id="galHeroTitle">Visualizing <span>Innovation</span></h1>
+            <p class="reveal" id="galHeroDesc">A visual journey through our cutting-edge research, transformative events, and the people
+                behind the deep-tech revolution.</p>
+        </div>
+    </div>
+
+    <div class="gallery-filter">
+        <div class="filter-inner">
+            <button class="filter-btn active" id="btnGalAll" data-filter="all">All Moments</button>
+            <button class="filter-btn" id="btnGalSummit" data-filter="summit">Summits</button>
+            <button class="filter-btn" id="btnGalWorkshop" data-filter="workshop">Workshops</button>
+            <button class="filter-btn" id="btnGalLab" data-filter="lab">Innovation Lab</button>
+        </div>
+    </div>
+
+    <section class="gallery-section">
+        <div class="gallery-grid" id="galleryGrid"></div>
+        <div id="noResults" style="display:none; text-align:center; padding:100px; color: var(--muted);">No moments
+            found for this category.</div>
+    </section>
+
+    <!-- Fullscreen Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" id="lightboxClose">✕</div>
+        <div class="lightbox-nav lightbox-prev" id="lightboxPrev">←</div>
+        <div class="lightbox-nav lightbox-next" id="lightboxNext">→</div>
+
+        <div class="lightbox-actions">
+            <a href="#" class="lightbox-btn" id="lightboxDownload" download title="Download Image">↓</a>
+            <div class="lightbox-btn" id="lightboxShare" title="Share Moment">🔗</div>
+        </div>
+
+        <div class="lightbox-main">
+            <img src="" alt="" class="lightbox-img" id="lightboxImg">
+        </div>
+
+        <div class="lightbox-info">
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxDesc"></p>
+        </div>
+
+        <div class="lightbox-thumbs" id="lightboxThumbs"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                        <img src="assets/ruf/main 1 rem.png" class="logo-icon"
+                            style="object-fit:contain; background:none; border:none; border-radius:0; width:auto; height:50px;"
+                            alt="Logo">
+                        <div class="logo-name">SMPS Tech Lab</div>
+                    </div>
+                    <p>A National Platform bridging the gap between academia and industry. We empower students through
+                        real-world project experience and hands-on professional growth.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">ig</a>
+                        <a href="#" class="social-link">tw</a>
+                        <a href="#" class="social-link">yt</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="ip-portfolio.html">IP Portfolio</a></li>
+                        <li><a href="collaborate.html">Collaborate</a></li>
+                        <li><a href="execom.html">Execom</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">IP Licensing Terms</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>VTU-VRIF-TCOE Building, 1st Main Rd, RHCS Layout, Annasandraswari Nagar, Nagarabhavi,
+                                Bengaluru, Karnataka 560091</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>smpstechlab@gmail.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>9035874229 / 8792779543</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>10:00 AM – 8:00 PM (All days, Tuesday Holiday)</p>
+                        </div>
+                    </div>
+                    <div class="newsletter-form" style="margin-top:20px;">
+                        <input type="email" placeholder="Your email" id="nlEmail">
+                        <button onclick="subscribeNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SMPS Tech Lab. A subsidiary of SMPS Electric. All rights reserved.</p>
+                <div style="display:flex;gap:24px;">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script>
+        // Gallery Data
+        // Clear stale local storage cache for gallery
+        localStorage.removeItem('smps_sandbox_galleryData');
+        localStorage.removeItem('galleryData');
+
+        const defaultGalleryData = [];
+
+        // Gallery Page Settings Connection
+        const defaultGallerySettings = {
+            heroTitle: 'Visualizing <span>Innovation</span>',
+            heroDesc: 'A visual journey through our cutting-edge research, transformative events, and the people behind the deep-tech revolution.',
+            catAll: 'All Moments',
+            catSummit: 'Summits',
+            catWorkshop: 'Workshops',
+            catLab: 'Innovation Lab'
+        };
+
+        async function loadGallerySettings() {
+            let settings = defaultGallerySettings;
+            try {
+                const res = await fetch('/api/settings/gallerySettings');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && Object.keys(data).length > 0) {
+                        settings = data;
+                        applySettings(settings);
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.warn('Failed to fetch gallery settings from backend API, trying DataStore...', e);
+            }
+
+            if (window.DataStore && typeof DataStore.getDocument === 'function') {
+                try {
+                    const remote = await DataStore.getDocument('gallerySettings', null);
+                    if (remote && typeof remote === 'object' && Object.keys(remote).length > 0) {
+                        settings = remote;
+                    } else if (remote === null) {
+                        settings = defaultGallerySettings;
+                        await DataStore.saveDocument('gallerySettings', defaultGallerySettings);
+                    }
+                } catch (e) {
+                    console.warn('Failed to fetch gallery settings from DataStore', e);
+                }
+            }
+
+            applySettings(settings);
+        }
+
+        function applySettings(settings) {
+            // Update page elements dynamically
+            const setHTML = (id, val) => { const el = document.getElementById(id); if (el && val) el.innerHTML = val; };
+            const setText = (id, val) => { const el = document.getElementById(id); if (el && val) el.textContent = val; };
+
+            setHTML('galHeroTitle', settings.heroTitle);
+            setText('galHeroDesc', settings.heroDesc);
+            setText('btnGalAll', settings.catAll);
+            setText('btnGalSummit', settings.catSummit);
+            setText('btnGalWorkshop', settings.catWorkshop);
+            setText('btnGalLab', settings.catLab);
+        }
+
+        let galleryData = [];
+        let filteredItems = [];
+        let currentFilter = 'all';
+        let currentIndex = 0;
+
+        async function loadGallery() {
+            try {
+                const res = await fetch('/api/gallery?_=' + Date.now());
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data)) {
+                        galleryData = data;
+                        filteredItems = [...galleryData];
+                        renderGallery();
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.warn('Failed to fetch gallery from backend API', error);
+            }
+
+            galleryData = [];
+            filteredItems = [];
+            renderGallery();
+        }
+
+        // Theme Logic
+        const themeToggle = document.getElementById('themeToggleNav');
+        const themeIcon = document.getElementById('themeIconNav');
+        const htmlElement = document.documentElement;
+
+        function updateThemeIcon(theme) {
+            if (theme === 'light') {
+                if (typeof themeIcon !== 'undefined' && themeIcon) themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+            } else {
+                if (typeof themeIcon !== 'undefined' && themeIcon) themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        if (typeof themeIcon !== 'undefined' && themeIcon) updateThemeIcon(savedTheme);
+
+        if (typeof themeToggle !== 'undefined' && themeToggle) themeToggle.addEventListener('click', () => {
+            const current = htmlElement.getAttribute('data-theme');
+            const target = current === 'light' ? 'dark' : 'light';
+            htmlElement.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+            updateThemeIcon(target);
+        });
+
+        // Gallery Rendering
+        const grid = document.getElementById('galleryGrid');
+        const noResults = document.getElementById('noResults');
+
+        function renderGallery(filter = 'all') {
+            currentFilter = filter;
+            filteredItems = filter === 'all' ? galleryData : galleryData.filter(i => i.category === filter);
+
+            if (filteredItems.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+            } else {
+                grid.style.display = 'grid';
+                noResults.style.display = 'none';
+
+                grid.innerHTML = filteredItems.map((item, idx) => `
+                    <div class="gallery-item reveal" onclick="openLightbox(${idx})">
+                        <span class="gallery-badge">${item.category}</span>
+                        <div class="gallery-img">
+                            <img src="${item.img}" alt="${item.title}" loading="lazy">
+                        </div>
+                        <div class="gallery-content">
+                            <h3>${item.title}</h3>
+                            <p>${item.desc}</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Initialize reveal animations for new items
+                initReveal();
+            }
+        }
+
+        // Filter Logic
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderGallery(btn.dataset.filter);
+            });
+        });
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightboxImg');
+        const lbTitle = document.getElementById('lightboxTitle');
+        const lbDesc = document.getElementById('lightboxDesc');
+        const lbClose = document.getElementById('lightboxClose');
+        const lbNext = document.getElementById('lightboxNext');
+        const lbPrev = document.getElementById('lightboxPrev');
+        const lbDownload = document.getElementById('lightboxDownload');
+        const lbShare = document.getElementById('lightboxShare');
+        const lbThumbs = document.getElementById('lightboxThumbs');
+
+        function openLightbox(index) {
+            currentIndex = index;
+            const item = filteredItems[currentIndex];
+
+            lbImg.style.transform = 'scale(0.9)';
+            lbImg.src = item.img;
+            lbTitle.textContent = item.title;
+            lbDesc.textContent = item.desc;
+            lbDownload.href = item.img;
+
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            renderThumbs();
+
+            setTimeout(() => {
+                lbImg.style.transform = 'scale(1)';
+            }, 50);
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % filteredItems.length;
+            updateLightbox();
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + filteredItems.length) % filteredItems.length;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            const item = filteredItems[currentIndex];
+            lbImg.style.opacity = '0';
+            lbImg.style.transform = 'scale(0.95)';
+
+            setTimeout(() => {
+                lbImg.src = item.img;
+                lbTitle.textContent = item.title;
+                lbDesc.textContent = item.desc;
+                lbDownload.href = item.img;
+                lbImg.style.opacity = '1';
+                lbImg.style.transform = 'scale(1)';
+                updateThumbs();
+            }, 200);
+        }
+
+        function renderThumbs() {
+            lbThumbs.innerHTML = filteredItems.map((item, idx) => `
+                <div class="thumb-item ${idx === currentIndex ? 'active' : ''}" onclick="openLightbox(${idx})">
+                    <img src="${item.img}" alt="Thumbnail">
+                </div>
+            `).join('');
+        }
+
+        function updateThumbs() {
+            document.querySelectorAll('.thumb-item').forEach((t, idx) => {
+                t.classList.toggle('active', idx === currentIndex);
+            });
+            const activeThumb = lbThumbs.querySelector('.active');
+            if (activeThumb) {
+                activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+
+        // Listeners
+        lbClose.addEventListener('click', closeLightbox);
+        lbNext.addEventListener('click', nextImage);
+        lbPrev.addEventListener('click', prevImage);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-main')) {
+                closeLightbox();
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+        });
+
+        // Swipe Gestures
+        let touchStartX = 0;
+        lightbox.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        lightbox.addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) nextImage();
+            if (touchEndX - touchStartX > 50) prevImage();
+        });
+
+        // Share Logic
+        lbShare.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: filteredItems[currentIndex].title,
+                    text: filteredItems[currentIndex].desc,
+                    url: window.location.href
+                });
+            } else {
+                alert('Sharing is not supported on this browser. URL copied to clipboard!');
+                navigator.clipboard.writeText(window.location.href);
+            }
+        });
+
+        // Scroll & Reveal
+        const obs = new IntersectionObserver(e => {
+            e.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        function initReveal() {
+            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        }
+
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mob');
+
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+                const spans = hamburger.querySelectorAll('span');
+                if (mobileMenu.classList.contains('open')) {
+                    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    spans[1].style.opacity = '0';
+                    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+                } else {
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                }
+            });
+        }
+
+        // Initial Render
+        window.addEventListener('DOMContentLoaded', () => {
+            loadGallery();
+            loadGallerySettings();
+        });
+        if (document.readyState !== 'loading') {
+            loadGallery();
+            loadGallerySettings();
+        }
+
+        window.addEventListener('storage', (e) => {
+            if (!e) return;
+            if (e.key === 'galleryData') {
+                loadGallery();
+            }
+            if (e.key === 'gallerySettings' || e.key === 'smps_sandbox_gallerySettings') {
+                try { loadGallerySettings(); } catch (err) { console.warn('Failed to reload gallery settings after storage update', err); }
+            }
+        });
+    </script>
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/919035874229" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+        <div class="whatsapp-icon">
+            <svg viewBox="0 0 448 512">
+                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+            </svg>
+        </div>
+    </a>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="assets/js/firebase-init.js?v=1.0.1"></script>
+    <script src="assets/js/main.js?v=1.0.1"></script>
+
+    <div class="toast" id="toast"> Subscribed successfully!</div>
+</body>
+
+</html>

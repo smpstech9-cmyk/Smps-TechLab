@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — SMPS Tech Lab</title>
+  <link rel="stylesheet" href="style.css?v=1.0.5">
+</head>
+<body>
+  <script>
+    if (localStorage.getItem('smps_admin_logged_in') === 'true') {
+      document.write('<style>#loginScreen { display: none !important; } #adminApp { display: flex !important; }</style>');
+    }
+  </script>
+
+  <!-- ══════════════════ LOGIN ══════════════════ -->
+  <div id="loginScreen">
+    <div class="login-bg"></div>
+    <div class="login-grid"></div>
+    <div class="login-box">
+      <div class="login-logo">
+        <div class="logo-icon">ST</div>
+        <div>
+          <div class="login-brand">SMPS Tech Lab</div>
+          <div class="login-brand-sub">Admin Panel</div>
+        </div>
+      </div>
+      <h2 class="login-title">Welcome Back</h2>
+      <p class="login-sub">Sign in to access the admin dashboard</p>
+      <div class="login-field">
+        <label>Username</label>
+        <input type="text" id="loginUser" placeholder="admin" autocomplete="username">
+      </div>
+      <div class="login-field">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="login-btn" id="loginBtn">Sign In to Dashboard</button>
+      <div class="login-error" id="loginError">Invalid credentials. Please try again.</div>
+      <p class="login-hint">Demo: <code>admin</code> / <code>smps2026</code></p>
+    </div>
+  </div>
+
+  <!-- ══════════════════ ADMIN APP ══════════════════ -->
+  <div id="adminApp">
+
+    <!-- SIDEBAR OVERLAY (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <div class="logo-icon-sm">ST</div>
+          <div>
+            <div class="sidebar-logo-name">SMPS Tech Lab</div>
+            <div class="sidebar-logo-sub">Innovation Ecosystem</div>
+          </div>
+        </div>
+        <div class="admin-badge">ADMIN</div>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <div class="nav-section-label">Overview</div>
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">📊</span>Dashboard</button>
+
+        <div class="nav-section-label">Content Management</div>
+        <button class="nav-item" data-page="home"><span class="nav-icon">🏠</span>Home Page</button>
+        <button class="nav-item" data-page="about"><span class="nav-icon">ℹ️</span>About Page</button>
+        <button class="nav-item" data-page="products"><span class="nav-icon">⚡</span>Products</button>
+        <button class="nav-item" data-page="execom"><span class="nav-icon">👥</span>Execom</button>
+        <button class="nav-item" data-page="events"><span class="nav-icon">📅</span>Events</button>
+        <button class="nav-item" data-page="gallery"><span class="nav-icon">🖼️</span>Gallery</button>
+        <button class="nav-item" data-page="ip"><span class="nav-icon">🔬</span>IP Portfolio</button>
+        <button class="nav-item" data-page="collaborate"><span class="nav-icon">🤝</span>Collaborate</button>
+        <button class="nav-item" data-page="proposals"><span class="nav-icon">📥</span>Proposals</button>
+        <button class="nav-item" data-page="careers"><span class="nav-icon">🎓</span>Careers</button>
+        <button class="nav-item" data-page="ecosystem"><span class="nav-icon">🌐</span>Ecosystem</button>
+        <button class="nav-item" data-page="insights"><span class="nav-icon">💡</span>Insights / Blog</button>
+
+        <div class="nav-section-label">Communications</div>
+        <button class="nav-item" data-page="messages">
+          <span class="nav-icon">✉️</span>Messages
+          <span class="nav-badge red" id="msgBadge" style="display:none">0</span>
+        </button>
+        <button class="nav-item" data-page="subscribers"><span class="nav-icon">📬</span>Newsletter</button>
+
+        <div class="nav-section-label">Settings</div>
+        <button class="nav-item" data-page="settings"><span class="nav-icon">⚙️</span>Site Settings</button>
+        <button class="nav-item" data-page="users"><span class="nav-icon">👤</span>Admin Users</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn" id="logoutBtn">🚪 Sign Out</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+      <div class="topbar">
+        <div class="topbar-left">
+          <button class="hamburger" id="hamburger" aria-label="Toggle sidebar">☰</button>
+          <div>
+            <div class="topbar-title" id="topbarTitle">Dashboard</div>
+            <div class="topbar-sub" id="topbarSub">Welcome to SMPS Tech Lab Admin</div>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <a href="../index.html" target="_blank" rel="noopener noreferrer" class="topbar-btn">🔗 View Site</a>
+          <div class="admin-avatar" title="Admin">A</div>
+        </div>
+      </div>
+
+      <div class="page-content">
+
+        <!-- ═══ DASHBOARD ═══ -->
+        <div class="tab-page active" id="page-dashboard">
+          <div class="stats-row">
+            <div class="stat-card blue">
+              <div class="stat-icon">✉️</div>
+              <div class="stat-num" id="ds-msgs">0</div>
+              <div class="stat-lbl">Total Messages</div>
+              <div class="stat-trend" id="ds-unread"></div>
+            </div>
+            <div class="stat-card green">
+              <div class="stat-icon">📬</div>
+              <div class="stat-num" id="ds-subs">0</div>
+              <div class="stat-lbl">Newsletter Subscribers</div>
+              <div class="stat-trend trend-neutral">All time</div>
+            </div>
+            <div class="stat-card purple">
+              <div class="stat-icon">⚡</div>
+              <div class="stat-num" id="ds-prods">0</div>
+              <div class="stat-lbl">Products Listed</div>
+              <div class="stat-trend trend-neutral">Active catalog</div>
+            </div>
+            <div class="stat-card gold">
+              <div class="stat-icon">🔬</div>
+              <div class="stat-num" id="ds-patents">0</div>
+              <div class="stat-lbl">IP Assets</div>
+              <div class="stat-trend trend-neutral">Patents &amp; Research</div>
+            </div>
+            <div class="stat-card blue">
+              <div class="stat-icon">👥</div>
+              <div class="stat-num" id="ds-execom">0</div>
+              <div class="stat-lbl">Execom Members</div>
+              <div class="stat-trend trend-neutral">Core Committee</div>
+            </div>
+            <div class="stat-card purple">
+              <div class="stat-icon">📅</div>
+              <div class="stat-num" id="ds-events">0</div>
+              <div class="stat-lbl">Events Scheduled</div>
+              <div class="stat-trend trend-neutral">Summits &amp; Workshops</div>
+            </div>
+            <div class="stat-card green">
+              <div class="stat-icon">🖼️</div>
+              <div class="stat-num" id="ds-gallery">0</div>
+              <div class="stat-lbl">Gallery Moments</div>
+              <div class="stat-trend trend-neutral">Media Gallery</div>
+            </div>
+          </div>
+
+          <div class="dash-grid">
+            <div class="dash-card">
+              <div class="dash-card-title">
+                Recent Messages
+                <span class="pill pill-blue" id="unread-count-pill">0 unread</span>
+              </div>
+              <div id="recentMsgs">
+                <div class="empty-state">
+                  <div class="es-icon">📭</div>
+                  <h3>No messages yet</h3>
+                  <p>Contact form submissions will appear here.</p>
+                </div>
+              </div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-title">Quick Actions</div>
+              <div class="quick-links" id="quickLinks"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ HOME PAGE ═══ -->
+        <div class="tab-page" id="page-home">
+          <div class="section-header">
+            <h2>🏠 Home Page</h2>
+            <p>Edit hero text, stats, and featured content on the homepage.</p>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">🦸 Hero Section</div>
+            <div class="form-grid">
+              <div class="form-group span2">
+                <label>Hero Headline (HTML allowed)</label>
+                <textarea id="hp-heroTitle" placeholder="Where Technology Meets Leadership"></textarea>
+              </div>
+              <div class="form-group span2">
+                <label>Hero Subtitle</label>
+                <textarea id="hp-heroSub" placeholder="SMPS Tech Lab is a National Innovation Ecosystem Platform..."></textarea>
+              </div>
+              <div class="form-group">
+                <label>Primary Button Text</label>
+                <input type="text" id="hp-btn1" placeholder="Explore Products →">
+              </div>
+              <div class="form-group">
+                <label>Secondary Button Text</label>
+                <input type="text" id="hp-btn2" placeholder="Collaborate With Us">
+              </div>
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">📊 Stats Bar</div>
+            <div class="form-grid stats-grid">
+              <div class="form-group"><label>Stat 1 — Number</label><input type="text" id="hp-stat1" placeholder="50"></div>
+              <div class="form-group"><label>Stat 1 — Label</label><input type="text" id="hp-stat1l" placeholder="IP Patents &amp; Research Papers"></div>
+              <div class="form-group"><label>Stat 2 — Number</label><input type="text" id="hp-stat2" placeholder="200"></div>
+              <div class="form-group"><label>Stat 2 — Label</label><input type="text" id="hp-stat2l" placeholder="Innovators &amp; Researchers"></div>
+              <div class="form-group"><label>Stat 3 — Number</label><input type="text" id="hp-stat3" placeholder="15"></div>
+              <div class="form-group"><label>Stat 3 — Label</label><input type="text" id="hp-stat3l" placeholder="Strategic Partners"></div>
+              <div class="form-group"><label>Stat 4 — Number</label><input type="text" id="hp-stat4" placeholder="8"></div>
+              <div class="form-group"><label>Stat 4 — Label</label><input type="text" id="hp-stat4l" placeholder="Core Product Lines"></div>
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">🏢 About Preview Section</div>
+            <div class="form-grid">
+              <div class="form-group span2"><label>About Heading</label><input type="text" id="hp-aboutHead" placeholder="Technology Alone Does Not Define Progress"></div>
+              <div class="form-group span2"><label>About Description</label><textarea id="hp-aboutDesc"></textarea></div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <div class="form-card-title">🏆 Clients Section</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Badge Text</label><input type="text" id="hp-clients-badge" placeholder="The Experience Cycle"></div>
+              <div class="form-group"><label>Section Heading (HTML allowed)</label><input type="text" id="hp-clients-head" placeholder="Breaking the &quot;No Experience, No Job&quot; Cycle"></div>
+              <div class="form-group span2"><label>Section Subtitle</label><textarea id="hp-clients-sub" placeholder="We resolve the industry placement paradox..."></textarea></div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <div class="form-card-title">🥇 Awards Section</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Badge Text</label><input type="text" id="hp-awards-badge" placeholder="Recognition"></div>
+              <div class="form-group"><label>Section Heading (HTML allowed)</label><input type="text" id="hp-awards-head" placeholder="Awards &amp; Achievements"></div>
+              <div class="form-group span2"><label>Section Subtitle</label><textarea id="hp-awards-sub" placeholder="Honored for our commitment to excellence..."></textarea></div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <div class="form-card-title">🤝 Partners Section</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Badge Text</label><input type="text" id="hp-partners-badge" placeholder="Strategic Partners"></div>
+              <div class="form-group"><label>Section Heading (HTML allowed)</label><input type="text" id="hp-partners-head" placeholder="Collaborating for Future Excellence"></div>
+              <div class="form-group span2"><label>Section Subtitle</label><textarea id="hp-partners-sub" placeholder="Building a robust innovation ecosystem..."></textarea></div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <div class="form-card-title">🌐 Strategic Alliances Section</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Badge Text</label><input type="text" id="hp-alliances-badge" placeholder="Strategic Alliances"></div>
+              <div class="form-group"><label>Section Heading (HTML allowed)</label><input type="text" id="hp-alliances-head" placeholder="Trusted by Leading Organizations"></div>
+              <div class="form-group span2"><label>Section Subtitle</label><textarea id="hp-alliances-sub" placeholder="We collaborate with top-tier industrial..."></textarea></div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <div class="form-card-title">🚀 CTA Banner</div>
+            <div class="form-grid">
+              <div class="form-group span2"><label>Heading (HTML allowed, use &lt;span&gt; for highlight)</label><input type="text" id="hp-cta-head" placeholder="Your Career Starts Before &lt;span&gt;Your First Job&lt;/span&gt;"></div>
+              <div class="form-group"><label>Subtitle</label><input type="text" id="hp-cta-sub" placeholder="Don't wait for a placement..."></div>
+              <div class="form-group"><label>Button Text</label><input type="text" id="hp-cta-btn" placeholder="Build Your Future Today →"></div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <div class="form-card-title">📢 Updates Ticker Items</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">One item per line. These appear in the scrolling updates strip below the navigation bar on the homepage.</p>
+            <div class="form-group">
+              <label>Ticker Items (one per line)</label>
+              <textarea id="hp-ticker-items" rows="6" placeholder="Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru&#10;Smart Power Hub Training — Starting May 2026&#10;VLSI Design &amp; Verilog Bootcamp — Applications Open&#10;Core Tech Placement Drive 2026 — Join Now"></textarea>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="saveHomeBtn">💾 Save Home Page</button>
+            <button class="btn btn-secondary" id="resetHomeBtn">↺ Reset Defaults</button>
+          </div>
+        </div>
+
+        <!-- ═══ ABOUT PAGE ═══ -->
+        <div class="tab-page" id="page-about">
+          <div class="section-header">
+            <h2>ℹ️ About Page</h2>
+            <p>Edit vision, mission, team, and company story.</p>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">� About Hero Section</div>
+            <div class="form-grid">
+              <div class="form-group span2"><label>Hero Headline</label><textarea id="ab-heroTitle" placeholder="Pioneering Deeptech R&D & Power Electronics Innovation"></textarea></div>
+              <div class="form-group span2"><label>Hero Subtitle</label><textarea id="ab-heroSub" placeholder="SMPS Tech Lab is a center of excellence driving next-generation engineering research..."></textarea></div>
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">�🎯 Vision &amp; Mission</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Vision Statement</label><textarea id="ab-vision" placeholder="To position India as a global leader..."></textarea></div>
+              <div class="form-group"><label>Mission Statement</label><textarea id="ab-mission" placeholder="To foster innovation, enable technology transfer..."></textarea></div>
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">📖 Our Story</div>
+            <div class="form-grid full">
+              <div class="form-group"><label>Story Paragraph 1</label><textarea id="ab-story1"></textarea></div>
+              <div class="form-group"><label>Story Paragraph 2</label><textarea id="ab-story2"></textarea></div>
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">👥 Leadership Team</div>
+            <div class="form-grid full">
+              <div class="form-group span2"><label>Section Title</label><input type="text" id="ab-teamTitle" placeholder="The Minds Behind The Mission"></div>
+            </div>
+            <div id="teamList" style="margin-top:16px;"></div>
+            <button class="btn btn-secondary btn-sm" id="addTeamBtn" style="margin-top:12px">+ Add Team Member</button>
+          </div>
+          
+          <div class="form-card">
+            <div class="form-card-title">⚙️ Core Operations</div>
+            <div class="form-grid full">
+              <div class="form-group span2"><label>Section Title</label><input type="text" id="ab-coreTitle" placeholder="Our Operational Mandate & Business Scope"></div>
+              <div class="form-group span2"><label>Section Subtitle</label><textarea id="ab-coreSub" placeholder="As a legally chartered entity..."></textarea></div>
+            </div>
+            <div id="coreList" style="margin-top:16px;"></div>
+            <button class="btn btn-secondary btn-sm" id="addCoreBtn" style="margin-top:12px">+ Add Core Operation</button>
+          </div>
+
+          <div class="form-card">
+            <div class="form-card-title">💎 Our Values</div>
+            <div class="form-grid full">
+              <div class="form-group span2"><label>Section Title</label><input type="text" id="ab-valTitle" placeholder="The Principles That Guide Us"></div>
+            </div>
+            <div id="valList" style="margin-top:16px;"></div>
+            <button class="btn btn-secondary btn-sm" id="addValBtn" style="margin-top:12px">+ Add Value</button>
+          </div>
+
+          <div class="form-card">
+            <div class="form-card-title">🏆 Achievements</div>
+            <div class="form-grid full">
+              <div class="form-group span2"><label>Section Title</label><input type="text" id="ab-achTitle" placeholder="Our Track Record"></div>
+            </div>
+            <div id="achList" style="margin-top:16px;"></div>
+            <button class="btn btn-secondary btn-sm" id="addAchBtn" style="margin-top:12px">+ Add Achievement</button>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="saveAboutBtn">💾 Save About Page</button>
+            <button class="btn btn-secondary" id="resetAboutBtn">↺ Reset Defaults</button>
+          </div>
+        </div>
+
+        <!-- ═══ PRODUCTS ═══ -->
+        <div class="tab-page" id="page-products">
+          <div class="section-header">
+            <h2>⚡ Products Page</h2>
+            <p>Manage product catalog, page settings, descriptions, and status.</p>
+          </div>
+
+          <div class="form-card" style="margin-bottom: 24px;">
+            <div class="form-card-title">⚡ Products Page Header &amp; Category Settings</div>
+            <div class="form-grid">
+              <div class="form-group span2">
+                <label>Hero Headline (use &lt;span&gt;...&lt;/span&gt; for highlighted text)</label>
+                <input type="text" id="prod-heroTitle" placeholder="Master Industry <span>Standard</span><br>Workflows">
+              </div>
+              <div class="form-group"><label>Category 1: All Tracks</label><input type="text" id="prod-catAll" placeholder="All Tracks"></div>
+              <div class="form-group"><label>Category 2: Hardware &amp; Power</label><input type="text" id="prod-catHardware" placeholder="Hardware &amp; Power"></div>
+              <div class="form-group"><label>Category 3: AI &amp; Software</label><input type="text" id="prod-catAiSoftware" placeholder="AI &amp; Software"></div>
+              <div class="form-group"><label>Category 4: IoT &amp; Robotics</label><input type="text" id="prod-catIot" placeholder="IoT &amp; Robotics"></div>
+            </div>
+            <div class="btn-row" style="margin-top: 16px;">
+              <button class="btn btn-primary" id="saveProdSettingsBtn">💾 Save Page Settings</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <div class="table-toolbar">
+              <div class="table-search">
+                <span>🔍</span>
+                <input type="text" placeholder="Search products..." id="prodSearch">
+              </div>
+              <button class="btn btn-primary btn-sm" id="addProductBtn">+ Add Product</button>
+            </div>
+            <div class="table-responsive">
+              <table id="prodTable">
+                <thead><tr><th>Product</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="prodTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ EXECOM ═══ -->
+        <div class="tab-page" id="page-execom">
+          <div class="section-header">
+            <h2>👥 Execom &amp; Advisors Page</h2>
+            <p>Manage Executive Committee members, advisors, page header text, chairman message, and CTA banner.</p>
+          </div>
+
+          <div class="form-card" style="margin-bottom: 24px;">
+            <div class="form-card-title">👥 Execom Page Header &amp; Section Configurations</div>
+            <div class="form-grid">
+              <div class="form-group span2">
+                <label>Hero Headline (use &lt;span&gt;...&lt;/span&gt; for highlighted text)</label>
+                <input type="text" id="ex-heroTitle" placeholder="Leadership That <span>Inspires</span>">
+              </div>
+              <div class="form-group span2">
+                <label>Hero Description</label>
+                <textarea id="ex-heroDesc" placeholder="Meet the visionaries driving SMPS Tech Lab's mission..."></textarea>
+              </div>
+              
+              <div class="form-group"><label>Exec Committee Badge</label><input type="text" id="ex-execBadge" placeholder="Executive Committee"></div>
+              <div class="form-group"><label>Exec Committee Title</label><input type="text" id="ex-execTitle" placeholder="The Minds Behind <span>The Mission</span>"></div>
+              
+              <div class="form-group"><label>Chairman Message Badge</label><input type="text" id="ex-msgBadge" placeholder="Chairman's Message"></div>
+              <div class="form-group"><label>Chairman Message Title</label><input type="text" id="ex-msgTitle" placeholder="A Word from <span>Our Leadership</span>"></div>
+              
+              <div class="form-group span2"><label>Message Headline</label><input type="text" id="ex-msgHead" placeholder="Driving India's Deep Tech Revolution"></div>
+              <div class="form-group span2">
+                <label>Message Text</label>
+                <textarea id="ex-msgText" placeholder="At SMPS Tech Lab, we believe that the future..."></textarea>
+              </div>
+              <div class="form-group span2"><label>Message Author</label><input type="text" id="ex-msgAuthor" placeholder="— Suresh Kumar, Founder &amp; CEO"></div>
+
+              <div class="form-group"><label>Strategic Advisors Badge</label><input type="text" id="ex-advBadge" placeholder="Strategic Advisors"></div>
+              <div class="form-group"><label>Strategic Advisors Title</label><input type="text" id="ex-advTitle" placeholder="Our <span>Board of Advisors</span>"></div>
+
+              <div class="form-group"><label>CTA Banner Title</label><input type="text" id="ex-ctaTitle" placeholder="Connect With Our Leadership"></div>
+              <div class="form-group"><label>CTA Banner Subtitle</label><input type="text" id="ex-ctaText" placeholder="Interested in strategic discussions or partnership opportunities..."></div>
+              <div class="form-group span2"><label>CTA Button Text</label><input type="text" id="ex-ctaBtn" placeholder="Schedule an Executive Meeting →"></div>
+            </div>
+            <div class="btn-row" style="margin-top: 16px;">
+              <button class="btn btn-primary" id="saveExecomSettingsBtn">💾 Save Execom Page Settings</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <div class="table-toolbar">
+              <div class="table-search">
+                <span>🔍</span>
+                <input type="text" placeholder="Search members..." id="execomSearch">
+              </div>
+              <button class="btn btn-primary btn-sm" id="addExecomBtn">+ Add Member</button>
+            </div>
+            <div class="table-responsive">
+              <table id="execomTable">
+                <thead><tr><th>Member</th><th>Role</th><th>Type</th><th>Actions</th></tr></thead>
+                <tbody id="execomTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ EVENTS ═══ -->
+        <div class="tab-page" id="page-events">
+          <div class="section-header">
+            <h2>📅 Events Page</h2>
+            <p>Manage upcoming summits, workshops, hackathons, webinars, and page hero content.</p>
+          </div>
+
+          <div class="form-card" style="margin-bottom: 24px;">
+            <div class="form-card-title">📅 Events Page Header &amp; Category Settings</div>
+            <div class="form-grid">
+              <div class="form-group span2">
+                <label>Hero Headline (use &lt;span&gt;...&lt;/span&gt; for highlighted text)</label>
+                <input type="text" id="ev-heroTitle" placeholder="Where Career Potential<br><span>Meets Opportunity</span>">
+              </div>
+              <div class="form-group span2">
+                <label>Hero Description</label>
+                <textarea id="ev-heroDesc" placeholder="Join our flagship masterclasses, workshops..."></textarea>
+              </div>
+              
+              <div class="form-group"><label>Category 1: All Events</label><input type="text" id="ev-catAll" placeholder="All Events"></div>
+              <div class="form-group"><label>Category 2: Conferences</label><input type="text" id="ev-catConference" placeholder="Conferences"></div>
+              <div class="form-group"><label>Category 3: Workshops</label><input type="text" id="ev-catWorkshop" placeholder="Workshops"></div>
+              <div class="form-group"><label>Category 4: Networking</label><input type="text" id="ev-catNetworking" placeholder="Networking"></div>
+              <div class="form-group"><label>Category 5: Webinars</label><input type="text" id="ev-catWebinar" placeholder="Webinars"></div>
+            </div>
+            <div class="btn-row" style="margin-top: 16px;">
+              <button class="btn btn-primary" id="saveEventsSettingsBtn">💾 Save Page Settings</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <div class="table-toolbar">
+              <div class="table-search">
+                <span>🔍</span>
+                <input type="text" placeholder="Search events..." id="eventsSearch">
+              </div>
+              <button class="btn btn-primary btn-sm" id="addEventsBtn">+ Add Event</button>
+            </div>
+            <div class="table-responsive">
+              <table id="eventsTable">
+                <thead><tr><th>Event</th><th>Type</th><th>Date &amp; Location</th><th>Actions</th></tr></thead>
+                <tbody id="eventsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ GALLERY ═══ -->
+        <div class="tab-page" id="page-gallery">
+          <div class="section-header">
+            <h2>🖼️ Gallery Page</h2>
+            <p>Manage expo, workshop, lab pictures, and page hero content.</p>
+          </div>
+
+          <div class="form-card" style="margin-bottom: 24px;">
+            <div class="form-card-title">🖼️ Gallery Page Header &amp; Category Settings</div>
+            <div class="form-grid">
+              <div class="form-group span2">
+                <label>Hero Headline (use &lt;span&gt;...&lt;/span&gt; for highlighted text)</label>
+                <input type="text" id="gal-heroTitle" placeholder="Visualizing <span>Innovation</span>">
+              </div>
+              <div class="form-group span2">
+                <label>Hero Description</label>
+                <textarea id="gal-heroDesc" placeholder="A visual journey through our cutting-edge research..."></textarea>
+              </div>
+              
+              <div class="form-group"><label>Category 1: All Moments</label><input type="text" id="gal-catAll" placeholder="All Moments"></div>
+              <div class="form-group"><label>Category 2: Summits</label><input type="text" id="gal-catSummit" placeholder="Summits"></div>
+              <div class="form-group"><label>Category 3: Workshops</label><input type="text" id="gal-catWorkshop" placeholder="Workshops"></div>
+              <div class="form-group"><label>Category 4: Innovation Lab</label><input type="text" id="gal-catLab" placeholder="Innovation Lab"></div>
+            </div>
+            <div class="btn-row" style="margin-top: 16px;">
+              <button class="btn btn-primary" id="saveGallerySettingsBtn">💾 Save Page Settings</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <div class="table-toolbar">
+              <div class="table-search">
+                <span>🔍</span>
+                <input type="text" placeholder="Search gallery..." id="gallerySearch">
+              </div>
+              <button class="btn btn-primary btn-sm" id="addGalleryBtn">+ Add Gallery Item</button>
+            </div>
+            <div class="table-responsive">
+              <table id="galleryTable">
+                <thead><tr><th>Image</th><th>Title</th><th>Category</th><th>Actions</th></tr></thead>
+                <tbody id="galleryTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ IP PORTFOLIO ═══ -->
+        <div class="tab-page" id="page-ip">
+          <div class="section-header">
+            <h2>🔬 IP Portfolio Page</h2>
+            <p>Manage projects, published research papers, collaborative engagement models, and hero stats.</p>
+          </div>
+
+          <!-- Subtabs Navigation -->
+          <div class="subtabs-nav" style="display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 12px; flex-wrap: wrap;">
+            <button class="btn btn-primary ip-sub-tab active" data-subtab="patents">🔬 Projects &amp; Patents</button>
+            <button class="btn btn-secondary ip-sub-tab" data-subtab="research">📚 Research Papers</button>
+            <button class="btn btn-secondary ip-sub-tab" data-subtab="licensing">🤝 Collaborative Models</button>
+            <button class="btn btn-secondary ip-sub-tab" data-subtab="settings">⚙️ Hero &amp; Stats Settings</button>
+          </div>
+
+          <!-- SUBPAGE 1: Patents/Projects -->
+          <div class="ip-subpage" id="ip-subpage-patents">
+            <div class="table-wrap">
+              <div class="table-toolbar">
+                <div class="table-search">
+                  <span>🔍</span>
+                  <input type="text" placeholder="Search IP assets..." id="ipSearch">
+                </div>
+                <button class="btn btn-primary btn-sm" id="addIPBtn">+ Add IP Asset</button>
+              </div>
+              <div class="table-responsive">
+                <table id="ipTable">
+                  <thead><tr><th>Title</th><th>Type</th><th>Year</th><th>Status</th><th>Actions</th></tr></thead>
+                  <tbody id="ipTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBPAGE 2: Research Papers -->
+          <div class="ip-subpage" id="ip-subpage-research" style="display: none;">
+            <div class="table-wrap">
+              <div class="table-toolbar">
+                <div class="table-search">
+                  <span>🔍</span>
+                  <input type="text" placeholder="Search research papers..." id="researchSearch">
+                </div>
+                <button class="btn btn-primary btn-sm" id="addResearchBtn">+ Add Research Paper</button>
+              </div>
+              <div class="table-responsive">
+                <table id="researchTable">
+                  <thead><tr><th>Title</th><th>Journal &amp; Impact</th><th>Year</th><th>Icon</th><th>Actions</th></tr></thead>
+                  <tbody id="researchTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBPAGE 3: Collaborative Models -->
+          <div class="ip-subpage" id="ip-subpage-licensing" style="display: none;">
+            <div class="table-wrap">
+              <div class="table-toolbar">
+                <div class="table-search">
+                  <span>🔍</span>
+                  <input type="text" placeholder="Search models..." id="licensingSearch">
+                </div>
+                <button class="btn btn-primary btn-sm" id="addLicensingBtn">+ Add Collaborative Model</button>
+              </div>
+              <div class="table-responsive">
+                <table id="licensingTable">
+                  <thead><tr><th>Title</th><th>Description</th><th>Icon</th><th>Actions</th></tr></thead>
+                  <tbody id="licensingTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBPAGE 4: Hero Settings -->
+          <div class="ip-subpage" id="ip-subpage-settings" style="display: none;">
+            <div class="form-card">
+              <div class="form-card-title">📖 Hero Header Settings</div>
+              <div class="form-grid">
+                <div class="form-group span2">
+                  <label>Hero Title (use &lt;span&gt;...&lt;/span&gt; for highlighted text)</label>
+                  <input type="text" id="ip-heroTitle" placeholder="Innovations Built by <span>Job-Ready Talent</span>">
+                </div>
+                <div class="form-group span2">
+                  <label>Hero Description</label>
+                  <textarea id="ip-heroDesc" placeholder="A robust showcase of live projects..."></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-card" style="margin-top: 20px;">
+              <div class="form-card-title">📈 Statistics Grid Configurations</div>
+              <div class="form-grid">
+                <div class="form-group"><label>Stat 1 - Number Target</label><input type="text" id="ip-stat1Num" placeholder="100"></div>
+                <div class="form-group"><label>Stat 1 - Label</label><input type="text" id="ip-stat1Lbl" placeholder="Live Projects"></div>
+                
+                <div class="form-group"><label>Stat 2 - Number Target</label><input type="text" id="ip-stat2Num" placeholder="25"></div>
+                <div class="form-group"><label>Stat 2 - Label</label><input type="text" id="ip-stat2Lbl" placeholder="Industry Partners"></div>
+                
+                <div class="form-group"><label>Stat 3 - Number Target</label><input type="text" id="ip-stat3Num" placeholder="50"></div>
+                <div class="form-group"><label>Stat 3 - Label</label><input type="text" id="ip-stat3Lbl" placeholder="Research Papers"></div>
+                
+                <div class="form-group"><label>Stat 4 - Number Target</label><input type="text" id="ip-stat4Num" placeholder="500"></div>
+                <div class="form-group"><label>Stat 4 - Label</label><input type="text" id="ip-stat4Lbl" placeholder="Students Mentored"></div>
+                
+                <div class="form-group"><label>Stat 5 - Number Target</label><input type="text" id="ip-stat5Num" placeholder="90"></div>
+                <div class="form-group"><label>Stat 5 - Label</label><input type="text" id="ip-stat5Lbl" placeholder="Placement Rate %"></div>
+                
+                <div class="form-group"><label>Stat 6 - Number Target</label><input type="text" id="ip-stat6Num" placeholder="12"></div>
+                <div class="form-group"><label>Stat 6 - Label</label><input type="text" id="ip-stat6Lbl" placeholder="Core Tech Tracks"></div>
+              </div>
+            </div>
+            <div class="form-card" style="margin-top: 20px;">
+              <div class="form-card-title">🏢 Page Section Badges &amp; CTA Configurations</div>
+              <div class="form-grid">
+                <div class="form-group"><label>Projects Badge</label><input type="text" id="ip-projBadge" placeholder="Student Showcase"></div>
+                <div class="form-group"><label>Projects Section Title</label><input type="text" id="ip-projTitle" placeholder="Industry-Ready <span>Projects</span>"></div>
+                
+                <div class="form-group"><label>Research Badge</label><input type="text" id="ip-resBadge" placeholder="Research Output"></div>
+                <div class="form-group"><label>Research Section Title</label><input type="text" id="ip-resTitle" placeholder="Published <span>Research</span>"></div>
+                
+                <div class="form-group"><label>Engagement Badge</label><input type="text" id="ip-licBadge" placeholder="Engagement"></div>
+                <div class="form-group"><label>Engagement Section Title</label><input type="text" id="ip-licTitle" placeholder="Collaborative <span>Models</span>"></div>
+                
+                <div class="form-group"><label>CTA Banner Title</label><input type="text" id="ip-ctaTitle" placeholder="Interested in Our IP?"></div>
+                <div class="form-group"><label>CTA Banner Subtitle</label><input type="text" id="ip-ctaDesc" placeholder="Let's explore how our technology portfolio..."></div>
+                <div class="form-group span2"><label>CTA Button Text</label><input type="text" id="ip-ctaBtn" placeholder="Schedule a Meeting →"></div>
+              </div>
+            </div>
+            <div class="btn-row" style="margin-top: 20px;">
+              <button class="btn btn-primary" id="saveIpSettingsBtn">💾 Save Hero &amp; Stats</button>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ═══ COLLABORATE ═══ -->
+        <div class="tab-page" id="page-collaborate">
+          <div class="section-header">
+            <h2>🤝 Collaborate Page Settings</h2>
+            <p>Customize the page headers, tabs, process steps, success story details, and form contact info.</p>
+          </div>
+
+          <div class="form-card">
+            <div class="form-card-title">🌟 Collaborate Page Hero Settings</div>
+            <div class="form-grid">
+              <div class="form-group span2">
+                <label>Hero Title (use &lt;span&gt;...&lt;/span&gt; for highlighted text)</label>
+                <input type="text" id="col-heroTitle" placeholder="Build Partnerships That<br>Bridge the <span>Experience Gap</span>">
+              </div>
+              <div class="form-group span2">
+                <label>Hero Description</label>
+                <textarea id="col-heroDesc" placeholder="We believe the greatest breakthroughs happen when academic theory meets industry practice..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card" style="margin-top: 20px;">
+            <div class="form-card-title">🎓 Academia Partnership Track (3 Cards)</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Card 1 (SMPS) - Tag</label><input type="text" id="col-ac-smpsTag" placeholder="SMPS Perspective"></div>
+              <div class="form-group"><label>Card 1 - Title</label><input type="text" id="col-ac-smpsTitle" placeholder="Perspective of SMPS"></div>
+              <div class="form-group span2"><label>Card 1 - Description</label><textarea id="col-ac-smpsDesc"></textarea></div>
+
+              <div class="form-group"><label>Card 2 (Academia) - Tag</label><input type="text" id="col-ac-acadTag" placeholder="Academia Perspective"></div>
+              <div class="form-group"><label>Card 2 - Title</label><input type="text" id="col-ac-acadTitle" placeholder="Perspective of Academia"></div>
+              <div class="form-group span2"><label>Card 2 - Description</label><textarea id="col-ac-acadDesc"></textarea></div>
+
+              <div class="form-group"><label>Card 3 (Student) - Tag</label><input type="text" id="col-ac-studTag" placeholder="Student Perspective"></div>
+              <div class="form-group"><label>Card 3 - Title</label><input type="text" id="col-ac-studTitle" placeholder="Perspective of Students"></div>
+              <div class="form-group span2"><label>Card 3 - Description</label><textarea id="col-ac-studDesc"></textarea></div>
+            </div>
+          </div>
+
+          <div class="form-card" style="margin-top: 20px;">
+            <div class="form-card-title">🏭 Industry Partnership Track (3 Cards)</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Card 1 (SMPS) - Tag</label><input type="text" id="col-in-smpsTag" placeholder="SMPS Perspective"></div>
+              <div class="form-group"><label>Card 1 - Title</label><input type="text" id="col-in-smpsTitle" placeholder="Perspective of SMPS"></div>
+              <div class="form-group span2"><label>Card 1 - Description</label><textarea id="col-in-smpsDesc"></textarea></div>
+
+              <div class="form-group"><label>Card 2 (Industry) - Tag</label><input type="text" id="col-in-indTag" placeholder="Industry Perspective"></div>
+              <div class="form-group"><label>Card 2 - Title</label><input type="text" id="col-in-indTitle" placeholder="Perspective of Industry"></div>
+              <div class="form-group span2"><label>Card 2 - Description</label><textarea id="col-in-indDesc"></textarea></div>
+
+              <div class="form-group"><label>Card 3 (Employment) - Tag</label><input type="text" id="col-in-empTag" placeholder="Employment Perspective"></div>
+              <div class="form-group"><label>Card 3 - Title</label><input type="text" id="col-in-empTitle" placeholder="Perspective of Employment"></div>
+              <div class="form-grid span2"><textarea id="col-in-empDesc"></textarea></div>
+            </div>
+          </div>
+
+          <div class="form-card" style="margin-top: 20px;">
+            <div class="form-card-title">🚀 Startup Partnership Track (3 Cards)</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Card 1 (SMPS) - Tag</label><input type="text" id="col-st-smpsTag" placeholder="SMPS Perspective"></div>
+              <div class="form-group"><label>Card 1 - Title</label><input type="text" id="col-st-smpsTitle" placeholder="Perspective of SMPS"></div>
+              <div class="form-group span2"><label>Card 1 - Description</label><textarea id="col-st-smpsDesc"></textarea></div>
+
+              <div class="form-group"><label>Card 2 (Startup) - Tag</label><input type="text" id="col-st-startTag" placeholder="Startup Perspective"></div>
+              <div class="form-group"><label>Card 2 - Title</label><input type="text" id="col-st-startTitle" placeholder="Perspective of Startup"></div>
+              <div class="form-group span2"><label>Card 2 - Description</label><textarea id="col-st-startDesc"></textarea></div>
+
+              <div class="form-group"><label>Card 3 (Innovator) - Tag</label><input type="text" id="col-st-innTag" placeholder="Innovator Perspective"></div>
+              <div class="form-group"><label>Card 3 - Title</label><input type="text" id="col-st-innTitle" placeholder="Perspective of Innovators"></div>
+              <div class="form-group span2"><label>Card 3 - Description</label><textarea id="col-st-innDesc"></textarea></div>
+            </div>
+          </div>
+
+          <div class="form-card" style="margin-top: 20px;">
+            <div class="form-card-title">🏛️ Government Partnership Track (3 Cards)</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Card 1 (SMPS) - Tag</label><input type="text" id="col-gv-smpsTag" placeholder="SMPS Perspective"></div>
+              <div class="form-group"><label>Card 1 - Title</label><input type="text" id="col-gv-smpsTitle" placeholder="Perspective of SMPS"></div>
+              <div class="form-group span2"><label>Card 1 - Description</label><textarea id="col-gv-smpsDesc"></textarea></div>
+
+              <div class="form-group"><label>Card 2 (Government) - Tag</label><input type="text" id="col-gv-govTag" placeholder="Government Perspective"></div>
+              <div class="form-group"><label>Card 2 - Title</label><input type="text" id="col-gv-govTitle" placeholder="Perspective of Government"></div>
+              <div class="form-group span2"><label>Card 2 - Description</label><textarea id="col-gv-govDesc"></textarea></div>
+
+              <div class="form-group"><label>Card 3 (Public & Student) - Tag</label><input type="text" id="col-gv-pubTag" placeholder="Public & Student Perspective"></div>
+              <div class="form-group"><label>Card 3 - Title</label><input type="text" id="col-gv-pubTitle" placeholder="Public & Student Perspective"></div>
+              <div class="form-group span2"><label>Card 3 - Description</label><textarea id="col-gv-pubDesc"></textarea></div>
+            </div>
+          </div>
+
+          <div class="form-card" style="margin-top: 20px;">
+            <div class="form-card-title">⚙️ Collaboration Process Section</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Process Section Badge</label><input type="text" id="col-procBadge" placeholder="How It Works"></div>
+              <div class="form-group"><label>Process Section Title</label><input type="text" id="col-procTitle" placeholder="Our Collaboration <span>Process</span>"></div>
+              <div class="form-group span2"><label>Process Section Subtitle</label><textarea id="col-procSub" placeholder="A premium partnership journey..."></textarea></div>
+
+              <div class="form-group"><label>Step 1 - Title</label><input type="text" id="col-step1Title" placeholder="Send Your Interest"></div>
+              <div class="form-group"><label>Step 1 - Description</label><textarea id="col-step1Desc"></textarea></div>
+
+              <div class="form-group"><label>Step 2 - Title</label><input type="text" id="col-step2Title" placeholder="Discussion & Requirement Analysis"></div>
+              <div class="form-group"><label>Step 2 - Description</label><textarea id="col-step2Desc"></textarea></div>
+
+              <div class="form-group"><label>Step 3 - Title</label><input type="text" id="col-step3Title" placeholder="Mutual Agreement & NDA"></div>
+              <div class="form-group"><label>Step 3 - Description</label><textarea id="col-step3Desc"></textarea></div>
+
+              <div class="form-group"><label>Step 4 - Title</label><input type="text" id="col-step4Title" placeholder="Proposal & Action Plan"></div>
+              <div class="form-group"><label>Step 4 - Description</label><textarea id="col-step4Desc"></textarea></div>
+            </div>
+          </div>
+
+          <div class="form-card" style="margin-top: 20px;">
+            <div class="form-card-title">💬 Success Stories & Contact Form Information</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Success Stories Badge</label><input type="text" id="col-storyBadge" placeholder="Success Stories"></div>
+              <div class="form-group"><label>Success Stories Title</label><input type="text" id="col-storyTitle" placeholder="Partnerships That <span>Delivered Results</span>"></div>
+
+              <div class="form-group"><label>Contact Form Badge</label><input type="text" id="col-formBadge" placeholder="Start a Partnership"></div>
+              <div class="form-group"><label>Contact Form Title</label><input type="text" id="col-formTitle" placeholder="Let's Discuss How We Can Work Together"></div>
+              <div class="form-group span2"><label>Contact Form Description</label><textarea id="col-formDesc" placeholder="Fill out the proposal form and our partnership team..."></textarea></div>
+
+              <div class="form-group"><label>Contact Email Address</label><input type="email" id="col-formEmail" placeholder="smpstechlab@gmail.com"></div>
+              <div class="form-group"><label>Contact Phone Numbers</label><input type="text" id="col-formPhone" placeholder="9035874229 / 8792779543"></div>
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top: 20px;">
+            <button class="btn btn-primary" id="saveCollabBtn">💾 Save Collaborate Page Settings</button>
+          </div>
+        </div>
+
+        <!-- ═══ PROPOSALS ═══ -->
+        <div class="tab-page" id="page-proposals">
+          <div class="section-header">
+            <h2>📥 Collaboration Proposals</h2>
+            <p>Review all partnership requests submitted through the public Collaborate form.</p>
+          </div>
+          <div class="table-wrap">
+            <div class="table-toolbar">
+              <div class="table-search">
+                <span>🔍</span>
+                <input type="text" placeholder="Search proposals..." id="proposalSearch">
+              </div>
+              <button class="btn btn-danger btn-sm" id="clearProposalsBtn">🗑 Clear All</button>
+            </div>
+            <div class="table-responsive">
+              <table id="proposalTable">
+                <thead><tr><th>Name</th><th>Email</th><th>Organization</th><th>Type</th><th>Date</th></tr></thead>
+                <tbody id="proposalTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ CAREERS ═══ -->
+        <div class="tab-page" id="page-careers">
+          <div class="section-header">
+            <h2>🎓 Careers</h2>
+            <p>Post and manage job openings and internship opportunities.</p>
+          </div>
+          <div class="table-wrap">
+            <div class="table-toolbar">
+              <div class="table-search">
+                <span>🔍</span>
+                <input type="text" placeholder="Search jobs..." id="jobSearch">
+              </div>
+              <button class="btn btn-primary btn-sm" id="addJobBtn">+ Post New Opening</button>
+            </div>
+            <div class="table-responsive">
+              <table id="jobTable">
+                <thead><tr><th>Position</th><th>Type</th><th>Department</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="jobTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ ECOSYSTEM ═══ -->
+        <div class="tab-page" id="page-ecosystem">
+          <div class="section-header">
+            <h2>🌐 Ecosystem Page</h2>
+            <p>Manage ecosystem partners, alliances, and events.</p>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">🏛️ Strategic Alliances</div>
+            <div id="allianceList"></div>
+            <button class="btn btn-secondary btn-sm" id="addAllianceBtn" style="margin-top:12px">+ Add Alliance</button>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">📅 Upcoming Events</div>
+            <div id="eventList"></div>
+            <button class="btn btn-secondary btn-sm" id="addEventBtn" style="margin-top:12px">+ Add Event</button>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="saveEcosystemBtn">💾 Save Ecosystem Page</button>
+          </div>
+        </div>
+
+        <!-- ═══ INSIGHTS / BLOG ═══ -->
+        <div class="tab-page" id="page-insights">
+          <div class="section-header">
+            <h2>💡 Insights &amp; Blog</h2>
+            <p>Write, edit, and publish blog posts and insights.</p>
+          </div>
+          <div class="table-wrap">
+            <div class="table-toolbar">
+              <div class="table-search">
+                <span>🔍</span>
+                <input type="text" placeholder="Search posts..." id="blogSearch">
+              </div>
+              <button class="btn btn-primary btn-sm" id="addBlogBtn">+ New Post</button>
+            </div>
+            <div class="table-responsive">
+              <table id="blogTable">
+                <thead><tr><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="blogTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ MESSAGES ═══ -->
+        <div class="tab-page" id="page-messages">
+          <div class="section-header">
+            <h2>✉️ Messages</h2>
+            <p>Contact form submissions from the website.</p>
+          </div>
+          <div class="msg-grid">
+            <div class="msg-list">
+              <div class="msg-list-header">
+                Inbox
+                <button class="btn btn-secondary btn-sm" id="markAllReadBtn">Mark all read</button>
+              </div>
+              <div id="msgListInner">
+                <div class="empty-state" style="padding:40px">
+                  <div class="es-icon">📭</div>
+                  <h3>No messages</h3>
+                  <p>Form submissions appear here.</p>
+                </div>
+              </div>
+            </div>
+            <div class="msg-detail" id="msgDetail">
+              <div class="msg-detail-empty">
+                <div style="font-size:48px;opacity:.3">✉️</div>
+                <div>Select a message to read</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ NEWSLETTER ═══ -->
+        <div class="tab-page" id="page-subscribers">
+          <div class="section-header">
+            <h2>📬 Newsletter Subscribers</h2>
+            <p>Manage email subscribers from the newsletter form.</p>
+          </div>
+          <div class="table-wrap">
+            <div class="table-toolbar">
+              <div class="table-search">
+                <span>🔍</span>
+                <input type="text" placeholder="Search subscribers..." id="subSearch">
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button class="btn btn-secondary btn-sm" id="exportSubsBtn">⬇ Export CSV</button>
+                <button class="btn btn-danger btn-sm" id="clearSubsBtn">🗑 Clear All</button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table id="subTable">
+                <thead><tr><th>#</th><th>Email</th><th>Actions</th></tr></thead>
+                <tbody id="subTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ SETTINGS ═══ -->
+        <div class="tab-page" id="page-settings">
+          <div class="section-header">
+            <h2>⚙️ Site Settings</h2>
+            <p>Global configuration for the SMPS Tech Lab website.</p>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">🏢 Company Information</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Company Name</label><input type="text" id="s-name" value="SMPS Tech Lab"></div>
+              <div class="form-group"><label>Tagline</label><input type="text" id="s-tagline" value="Innovation Ecosystem Platform"></div>
+              <div class="form-group"><label>Email</label><input type="email" id="s-email" value="smpstechlab@gmail.com"></div>
+              <div class="form-group"><label>Phone 1</label><input type="text" id="s-phone1" value="9035874229"></div>
+              <div class="form-group"><label>Phone 2</label><input type="text" id="s-phone2" value="8792779543"></div>
+              <div class="form-group"><label>Working Hours</label><input type="text" id="s-hours" value="10:00 AM – 8:00 PM (All days, Tuesday Holiday)"></div>
+              <div class="form-group span2"><label>Full Address</label><textarea id="s-address">VTU-VRIF-TCOE Building, 1st Main Rd, RHCS Layout, Annasandraswari Nagar, Nagarabhavi, Bengaluru, Karnataka 560091</textarea></div>
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">🌐 Social Media Links</div>
+            <div class="form-grid">
+              <div class="form-group"><label>LinkedIn URL</label><input type="url" id="s-linkedin" placeholder="https://linkedin.com/company/..."></div>
+              <div class="form-group"><label>Instagram URL</label><input type="url" id="s-instagram" placeholder="https://instagram.com/..."></div>
+              <div class="form-group"><label>YouTube URL</label><input type="url" id="s-youtube" placeholder="https://youtube.com/..."></div>
+              <div class="form-group"><label>Twitter / X URL</label><input type="url" id="s-twitter" placeholder="https://x.com/..."></div>
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">🏷️ Ticker Settings</div>
+            <div class="form-group">
+              <label>Ticker Messages (one per line)</label>
+              <textarea id="s-ticker" rows="6">Innovation Ecosystem Platform
+Deep Tech Research Hub
+Subsidiary of SMPS Electric
+VTU-VRIF-TCOE Building, Bengaluru
+IP Portfolio Available for Licensing
+Collaborate with India's Leading Innovators
+Open for Strategic Partnerships</textarea>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="saveSettingsBtn">💾 Save Settings</button>
+          </div>
+        </div>
+
+        <!-- ═══ ADMIN USERS ═══ -->
+        <div class="tab-page" id="page-users">
+          <div class="section-header">
+            <h2>👤 Admin Users</h2>
+            <p>Manage who has access to this admin panel.</p>
+          </div>
+          <div class="form-card" style="max-width:500px">
+            <div class="form-card-title">🔐 Change Password</div>
+            <div class="alert alert-info">💡 Passwords are stored locally in this browser. Use a strong password in production.</div>
+            <div class="form-grid full">
+              <div class="form-group"><label>Current Password</label><input type="password" id="pw-current"></div>
+              <div class="form-group"><label>New Password</label><input type="password" id="pw-new"></div>
+              <div class="form-group"><label>Confirm New Password</label><input type="password" id="pw-confirm"></div>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-primary" id="changePwBtn">🔐 Update Password</button>
+            </div>
+          </div>
+          <div class="form-card" style="max-width:500px;margin-top:0">
+            <div class="form-card-title">ℹ️ Current Admin Account</div>
+            <div style="font-size:14px;color:var(--muted);line-height:1.8">
+              <div><strong style="color:var(--text)">Username:</strong> admin</div>
+              <div><strong style="color:var(--text)">Role:</strong> Super Administrator</div>
+              <div><strong style="color:var(--text)">Access:</strong> Full site management</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-content -->
+    </div><!-- /main -->
+  </div><!-- /adminApp -->
+
+  <!-- ═══ MODAL — PRODUCT ═══ -->
+  <div class="modal-overlay" id="productModal" role="dialog" aria-modal="true" aria-labelledby="prodModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="prodModalTitle">Add Product</h3>
+        <button class="modal-close" data-close="productModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group span2"><label>Product Name *</label><input type="text" id="pm-name" placeholder="Smart Power Management System"></div>
+          <div class="form-group span2"><label>Image URL</label><input type="text" id="pm-img" placeholder="https://images.unsplash.com/... (optional)"></div>
+          <div class="form-group">
+            <label>Category</label>
+            <select id="pm-tag">
+              <option value="hardware">Hardware & Power</option>
+              <option value="ai-software">AI & Software</option>
+              <option value="iot">IoT & Robotics</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="pm-status">
+              <option value="Live">Live</option>
+              <option value="Development">In Development</option>
+              <option value="Beta">Beta</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Icon (emoji)</label><input type="text" id="pm-icon" placeholder="⚡"></div>
+          <div class="form-group"><label>Tag Label</label><input type="text" id="pm-tagLabel" placeholder="ENERGY"></div>
+          <div class="form-group span2"><label>Short Description *</label><textarea id="pm-desc" placeholder="Brief description for product card..."></textarea></div>
+          <div class="form-group span2"><label>Full Description</label><textarea id="pm-fullDesc" placeholder="Detailed description for product modal..."></textarea></div>
+          <div class="form-group span2"><label>Key Features (one per line)</label><textarea id="pm-features" placeholder="Real-time load balancing&#10;Predictive demand forecasting&#10;Remote monitoring dashboard"></textarea></div>
+        </div>
+        <input type="hidden" id="pm-editId">
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close="productModal">Cancel</button>
+        <button class="btn btn-primary" id="saveProductBtn">💾 Save Product</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL — IP ═══ -->
+  <div class="modal-overlay" id="ipModal" role="dialog" aria-modal="true" aria-labelledby="ipModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="ipModalTitle">Add IP Asset</h3>
+        <button class="modal-close" data-close="ipModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group span2"><label>Title *</label><input type="text" id="im-title" placeholder="Adaptive Power Grid Topology Optimization"></div>
+          <div class="form-group">
+            <label>Type</label>
+            <select id="im-type">
+              <option value="patent">Patent</option>
+              <option value="research">Research</option>
+              <option value="trademark">Trademark</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Year</label><input type="number" id="im-year" placeholder="2024" min="2000" max="2099"></div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="im-status">
+              <option value="granted">Granted</option>
+              <option value="filed">Filed</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Tags (comma-separated)</label><input type="text" id="im-tags" placeholder="Power Electronics, Graph Neural Networks"></div>
+          <div class="form-group span2"><label>Description *</label><textarea id="im-desc"></textarea></div>
+        </div>
+        <input type="hidden" id="im-editId">
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close="ipModal">Cancel</button>
+        <button class="btn btn-primary" id="saveIPBtn">💾 Save IP Asset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL — RESEARCH ═══ -->
+  <div class="modal-overlay" id="researchModal" role="dialog" aria-modal="true" aria-labelledby="researchModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="researchModalTitle">Add Research Paper</h3>
+        <button class="modal-close" data-close="researchModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group span2"><label>Title *</label><input type="text" id="rm-title" placeholder="Adaptive Neural Control for Grid-Connected Inverters"></div>
+          <div class="form-group span2"><label>Journal / Book / Conference *</label><input type="text" id="rm-journal" placeholder="IEEE Transactions on Power Electronics"></div>
+          <div class="form-group"><label>Impact Factor</label><input type="text" id="rm-impactFactor" placeholder="6.7"></div>
+          <div class="form-group"><label>Year</label><input type="number" id="rm-year" placeholder="2024" min="2000" max="2099"></div>
+          <div class="form-group span2"><label>Lucide Icon (e.g. microscope, network, shield-check, zap) *</label><input type="text" id="rm-icon" placeholder="microscope"></div>
+          <div class="form-group span2"><label>Short Description *</label><textarea id="rm-desc" placeholder="Novel adaptive neural network control strategy..."></textarea></div>
+        </div>
+        <input type="hidden" id="rm-editId">
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close="researchModal">Cancel</button>
+        <button class="btn btn-primary" id="saveResearchBtn">💾 Save Research Paper</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL — COLLABORATIVE MODEL ═══ -->
+  <div class="modal-overlay" id="licensingModal" role="dialog" aria-modal="true" aria-labelledby="licensingModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="licensingModalTitle">Add Collaborative Model</h3>
+        <button class="modal-close" data-close="licensingModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group span2"><label>Title *</label><input type="text" id="lm-title" placeholder="Talent Hiring"></div>
+          <div class="form-group span2"><label>Lucide Icon (e.g. users, rocket, git-merge) *</label><input type="text" id="lm-icon" placeholder="users"></div>
+          <div class="form-group span2"><label>Description *</label><textarea id="lm-desc" placeholder="Directly recruit from our pool of job-ready students..."></textarea></div>
+        </div>
+        <input type="hidden" id="lm-editId">
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close="licensingModal">Cancel</button>
+        <button class="btn btn-primary" id="saveLicensingBtn">💾 Save Model</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL — JOB ═══ -->
+  <div class="modal-overlay" id="jobModal" role="dialog" aria-modal="true" aria-labelledby="jobModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="jobModalTitle">Post New Opening</h3>
+        <button class="modal-close" data-close="jobModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group span2"><label>Position Title *</label><input type="text" id="jm-title" placeholder="Research Engineer — AI/ML"></div>
+          <div class="form-group">
+            <label>Type</label>
+            <select id="jm-type">
+              <option value="Full-time">Full-time</option>
+              <option value="Internship">Internship</option>
+              <option value="Contract">Contract</option>
+              <option value="Part-time">Part-time</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Department</label><input type="text" id="jm-dept" placeholder="Research &amp; Development"></div>
+          <div class="form-group"><label>Location</label><input type="text" id="jm-loc" placeholder="Bengaluru / Remote"></div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="jm-status">
+              <option value="open">Open</option>
+              <option value="closed">Closed</option>
+            </select>
+          </div>
+          <div class="form-group span2"><label>Job Description *</label><textarea id="jm-desc" rows="4"></textarea></div>
+          <div class="form-group span2"><label>Requirements (one per line)</label><textarea id="jm-req" rows="4" placeholder="B.Tech/M.Tech in CS/EE&#10;Experience with PyTorch/TensorFlow&#10;Strong publication record"></textarea></div>
+        </div>
+        <input type="hidden" id="jm-editId">
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close="jobModal">Cancel</button>
+        <button class="btn btn-primary" id="saveJobBtn">💾 Post Opening</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL — BLOG ═══ -->
+  <div class="modal-overlay" id="blogModal" role="dialog" aria-modal="true" aria-labelledby="blogModalTitle">
+    <div class="modal" style="max-width:720px">
+      <div class="modal-head">
+        <h3 id="blogModalTitle">New Blog Post</h3>
+        <button class="modal-close" data-close="blogModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group span2"><label>Post Title *</label><input type="text" id="bm-title" placeholder="The Future of Smart Power Grids in India"></div>
+          <div class="form-group">
+            <label>Category</label>
+            <select id="bm-cat">
+              <option value="Research">Research</option>
+              <option value="Industry">Industry</option>
+              <option value="Innovation">Innovation</option>
+              <option value="Policy">Policy</option>
+              <option value="Events">Events</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Author</label><input type="text" id="bm-author" placeholder="Dr. Priya Rao"></div>
+          <div class="form-group"><label>Read Time (mins)</label><input type="number" id="bm-readtime" placeholder="5" min="1"></div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="bm-status">
+              <option value="Published">Published</option>
+              <option value="Draft">Draft</option>
+            </select>
+          </div>
+          <div class="form-group span2"><label>Summary / Excerpt *</label><textarea id="bm-summary" rows="3"></textarea></div>
+          <div class="form-group span2"><label>Full Content</label><textarea id="bm-content" rows="6" placeholder="Write the full blog post here..."></textarea></div>
+          <div class="form-group span2"><label>Tags (comma-separated)</label><input type="text" id="bm-tags" placeholder="Smart Grid, AI, India Tech"></div>
+        </div>
+        <input type="hidden" id="bm-editId">
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close="blogModal">Cancel</button>
+        <button class="btn btn-primary" id="saveBlogBtn">💾 Save Post</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL — EXECOM ═══ -->
+  <div class="modal-overlay" id="execomModal" role="dialog" aria-modal="true" aria-labelledby="execomModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="execomModalTitle">Add Excom Member</h3>
+        <button class="modal-close" data-close="execomModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group span2"><label>Full Name *</label><input type="text" id="em-name" placeholder="Amareshwar Karatagi"></div>
+          <div class="form-group"><label>Role *</label><input type="text" id="em-role" placeholder="Chief Technical Officer"></div>
+          <div class="form-group"><label>Initials (Avatar) *</label><input type="text" id="em-initials" placeholder="AK"></div>
+          <div class="form-group">
+            <label>Member Type</label>
+            <select id="em-type">
+              <option value="execom">Executive Committee (Execom)</option>
+              <option value="advisor">Advisor</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Image URL</label><input type="text" id="em-img" placeholder="assets/team/member1.png"></div>
+          <div class="form-group span2"><label>Expertise (comma-separated)</label><input type="text" id="em-expertise" placeholder="Deep Tech, Power Electronics, System Architecture"></div>
+          <div class="form-group span2"><label>Professional Biography *</label><textarea id="em-bio" placeholder="Brief background, publications, or career info..."></textarea></div>
+          <div class="form-group span2"><label>Quote (optional)</label><input type="text" id="em-quote" placeholder="True engineering is not just about solving complex equations..."></div>
+          <div class="form-group span2"><label>Key Achievements (one per line, optional)</label><textarea id="em-achievements" placeholder="Pioneered flagship microgrid designs.&#10;Holder of 8 patents.&#10;Led technical consultations for 12+ national deep-tech initiatives."></textarea></div>
+          <div class="form-group"><label>LinkedIn URL</label><input type="text" id="em-linkedin" placeholder="#"></div>
+          <div class="form-group"><label>Email Address</label><input type="email" id="em-email" placeholder="member@smpstechlab.com"></div>
+        </div>
+        <input type="hidden" id="em-editId">
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close="execomModal">Cancel</button>
+        <button class="btn btn-primary" id="saveExecomBtn">💾 Save Member</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL — EVENTS ═══ -->
+  <div class="modal-overlay" id="eventsModal" role="dialog" aria-modal="true" aria-labelledby="eventsModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="eventsModalTitle">Add Event</h3>
+        <button class="modal-close" data-close="eventsModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group span2"><label>Event Name *</label><input type="text" id="ev-name" placeholder="SMPS Deep-Tech Forum 2026"></div>
+          <div class="form-group">
+            <label>Event Type</label>
+            <select id="ev-type">
+              <option value="conference">Conference</option>
+              <option value="workshop">Workshop</option>
+              <option value="networking">Networking</option>
+              <option value="webinar">Webinar</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Date Display *</label><input type="text" id="ev-date" placeholder="Jun 15-17, 2026"></div>
+          <div class="form-group"><label>Month Code (e.g. JUN) *</label><input type="text" id="ev-month" placeholder="JUN"></div>
+          <div class="form-group"><label>Day Number (e.g. 15) *</label><input type="text" id="ev-day" placeholder="15"></div>
+          <div class="form-group span2"><label>Location *</label><input type="text" id="ev-location" placeholder="Bengaluru (Hybrid)"></div>
+          <div class="form-group span2"><label>Image URL *</label><input type="text" id="ev-img" placeholder="https://images.unsplash.com/... (required)"></div>
+          <div class="form-group span2"><label>Short Description *</label><textarea id="ev-desc" placeholder="Brief summary of what this event is about..."></textarea></div>
+          <div class="form-group span2"><label>Full Description (Biography/Context) *</label><textarea id="ev-fullDesc" placeholder="Detailed schedule, partner info, and context..."></textarea></div>
+          <div class="form-group span2"><label>Speakers (one per line, optional)</label><textarea id="ev-speakers" placeholder="Suresh Kumar (Founder &amp; CEO)&#10;Dr. Priya Rao (SMPS)"></textarea></div>
+          <div class="form-group span2"><label>Agenda (optional)</label><input type="text" id="ev-agenda" placeholder="Day 1: Quantum Forum | Day 2: Showcases"></div>
+          <div class="form-group"><label>Prerequisites (optional)</label><input type="text" id="ev-prerequisites" placeholder="Basic electronics knowledge."></div>
+          <div class="form-group"><label>Seats Availability (optional)</label><input type="text" id="ev-seats" placeholder="Limited to 40 participants"></div>
+          <div class="form-group span2" style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+            <input type="checkbox" id="ev-isFeatured" style="width:auto; margin:0;">
+            <label for="ev-isFeatured" style="margin:0; cursor:pointer; font-weight:600;">⭐ Mark as Flagship (Featured) Event</label>
+          </div>
+        </div>
+        <input type="hidden" id="ev-editId">
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close="eventsModal">Cancel</button>
+        <button class="btn btn-primary" id="saveEventsBtn">💾 Save Event</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL — GALLERY ═══ -->
+  <div class="modal-overlay" id="galleryModal" role="dialog" aria-modal="true" aria-labelledby="galleryModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="galleryModalTitle">Add Gallery Item</h3>
+        <button class="modal-close" data-close="galleryModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group span2"><label>Title *</label><input type="text" id="gm-title" placeholder="National Innovation Summit 2026"></div>
+          <div class="form-group">
+            <label>Category</label>
+            <select id="gm-category">
+              <option value="summit">Summit / Conference</option>
+              <option value="workshop">Workshop / Skilling</option>
+              <option value="lab">Lab / R&amp;D Inside</option>
+            </select>
+          </div>
+          <div class="form-group span2"><label>Description *</label><input type="text" id="gm-desc" placeholder="Industry leaders discussing India's deeptech roadmap."></div>
+          <div class="form-group span2"><label>Image URL *</label><input type="text" id="gm-img" placeholder="https://images.unsplash.com/photo-..."></div>
+        </div>
+        <input type="hidden" id="gm-editId">
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close="galleryModal">Cancel</button>
+        <button class="btn btn-primary" id="saveGalleryBtn">💾 Save Gallery Item</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROPOSAL DETAIL DIALOG -->
+  <div class="modal-overlay" id="proposalModal" role="dialog" aria-modal="true">
+    <div class="modal" style="max-width:600px">
+      <div class="modal-head"><h3 id="proposalModalTitle">Proposal Details</h3></div>
+      <div class="modal-body" id="proposalModalBody" style="font-size:14px;color:var(--muted);line-height:1.6;">
+        <!-- Filled dynamically -->
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-danger" id="deleteProposalBtn">🗑 Delete Proposal</button>
+        <button class="btn btn-secondary" data-close="proposalModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRM DIALOG -->
+  <div class="modal-overlay" id="confirmModal" role="dialog" aria-modal="true">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-head"><h3 id="confirmTitle">Confirm Action</h3></div>
+      <div class="modal-body"><p id="confirmMsg" style="color:var(--muted);font-size:14px"></p></div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close="confirmModal">Cancel</button>
+        <button class="btn btn-danger" id="confirmOkBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+  <script src="../assets/js/firebase-init.js?v=1.0.5"></script>
+  <script src="script.js?v=1.0.5"></script>
+</body>
+</html>

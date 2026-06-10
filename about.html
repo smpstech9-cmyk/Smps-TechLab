@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — SMPS Tech Lab</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            /* Dark Mode (Default) */
+            --bg: #03050a;
+            --bg2: #050810;
+            --bg3: #0a0e1a;
+            --accent: #3b82f6;
+            --accent2: #0ea5e9;
+            --accent3: #6366f1;
+            --text: #f8fafc;
+            --muted: #64748b;
+            --border: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.02);
+            --card: rgba(8, 12, 24, 0.7);
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --font-classic: 'Playfair Display', serif;
+            --dot-color: rgba(255, 255, 255, 0.03);
+            --nav-bg: rgba(3, 5, 10, 0.85);
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --bg2: #ffffff;
+            --bg3: #f1f5f9;
+            --accent: #2563eb;
+            --accent2: #0284c7;
+            --accent3: #4f46e5;
+            --text: #0f172a;
+            --muted: #475569;
+            --border: rgba(15, 23, 42, 0.1);
+            --glass: rgba(255, 255, 255, 0.7);
+            --card: rgba(255, 255, 255, 0.9);
+            --dot-color: rgba(15, 23, 42, 0.06);
+            --nav-bg: rgba(248, 250, 252, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 2px 2px, var(--dot-color) 1px, transparent 0);
+            background-size: 48px 48px;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.035;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .ticker-wrap {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            padding: 8px 0;
+            overflow: hidden;
+        }
+
+        .ticker {
+            display: flex;
+            gap: 40px;
+            animation: ticker 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker span {
+            font-size: 12px;
+            font-weight: 500;
+            opacity: .9;
+        }
+
+        .ticker span::before {
+            content: "◆ ";
+            opacity: .6;
+        }
+
+        @keyframes ticker {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            transition: all .3s ease;
+        }
+
+        nav.scrolled {
+            background: var(--nav-bg);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, .2);
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .logo-name {
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text);
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            padding: 8px 13px;
+            border-radius: 6px;
+            transition: all .25s;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+            background: var(--glass);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 2px;
+        }
+
+        .nav-sep {
+            width: 1px;
+            height: 24px;
+            background: var(--border);
+            margin: 0 8px;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent), #1d4ed8);
+            color: #fff;
+            padding: 9px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-decoration: none;
+            transition: all .25s;
+            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px;
+            z-index: 999;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 15px;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+
+
+        .hero-tags {
+            display: flex;
+            gap: 10px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 80px 24px;
+        }
+
+        .section-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent2);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: clamp(26px, 3.5vw, 40px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+            transition: all .35s cubic-bezier(.4, 0, .2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover {
+            border-color: rgba(37, 99, 235, .25);
+            transform: translateY(-5px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, .45), 0 0 0 1px rgba(37, 99, 235, .1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, .6), transparent);
+            opacity: 0;
+            transition: .35s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            background: rgba(37, 99, 235, .1);
+            border: 1px solid rgba(37, 99, 235, .2);
+        }
+
+        .card h3 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* VISION/MISSION */
+        .vm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .vm-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.5s;
+        }
+
+        .vm-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .vm-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent), var(--accent2));
+        }
+
+        .vm-card h2 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            margin: 16px 0 16px;
+        }
+
+        .vm-card p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .vm-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        /* STORY */
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .story-text p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .story-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .story-stat {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .story-stat .num {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .story-stat .lbl {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        /* VALUES */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        /* TEAM */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .team-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            transition: all .3s;
+        }
+
+        .team-card:hover {
+            border-color: rgba(37, 99, 235, .3);
+            transform: translateY(-4px);
+        }
+
+        .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0 auto 16px;
+        }
+
+        .team-card h3 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .team-card .role {
+            font-size: 13px;
+            color: var(--accent2);
+            margin-bottom: 10px;
+        }
+
+        .team-card p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* ACHIEVEMENTS */
+        .ach-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .ach-card {
+            text-align: center;
+            padding: 32px 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .ach-icon {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        .ach-num {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 40px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ach-label {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        /* CTA */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent3) 100%);
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .cta-banner p {
+            font-size: 17px;
+            color: rgba(255, 255, 255, .8);
+            margin-bottom: 36px;
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--accent);
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .2s;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .3);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            padding: 13px 28px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 80px 24px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo-name {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 16px 0 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all .2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            background: rgba(37, 99, 235, .1);
+        }
+
+        .footer-col h4 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 14px;
+            transition: color .2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--text);
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .contact-item .ci {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .contact-item p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: var(--text);
+            outline: none;
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--muted);
+        }
+
+        .newsletter-form button {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .newsletter-form button:hover {
+            background: #1d4ed8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .footer-bottom a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--text);
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    
+                <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/ruf/main 1 rem.png" class="logo-icon"
+                    style="object-fit:contain; background:none; border:none; border-radius:0; width:auto; height:50px;"
+                    alt="Logo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html" class="active">About</a>
+                <a href="products.html">Products</a>
+                <a href="ip-portfolio.html">IP Portfolio</a>
+                <a href="collaborate.html">Collaborate</a>
+                <a href="execom.html">Execom</a>
+                <a href="events.html">Events</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-sep"></div>
+            <a href="contact.html" class="nav-cta">Get In Touch →</a>
+            <button class="theme-toggle-nav" id="themeToggleNav" title="Toggle Theme">
+                <svg viewBox="0 0 24 24" id="themeIconNav">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+            </button>
+            <div class="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mob">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="products.html">Products</a>
+            <a href="ip-portfolio.html">IP Portfolio</a>
+            <a href="collaborate.html">Collaborate</a>
+            <a href="execom.html">Execom</a>
+            <a href="events.html">Events</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+    
+    <!-- Updates Strip Ticker -->
+    <div class="updates-ticker-wrap">
+        <div class="updates-label">UPDATES</div>
+        <div class="ticker-content-container">
+            <div class="ticker-track">
+                <span>Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru</span>
+                <span>•</span>
+                <span>Smart Power Hub Training — Starting May 2026</span>
+                <span>•</span>
+                <span>VLSI Design & Verilog Bootcamp — Applications Open</span>
+                <span>•</span>
+                <span>Core Tech Placement Drive 2026 — Join Now</span>
+                <span>•</span>
+                <span>Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru</span>
+                <span>•</span>
+                <span>Smart Power Hub Training — Starting May 2026</span>
+                <span>•</span>
+                <span>VLSI Design & Verilog Bootcamp — Applications Open</span>
+                <span>•</span>
+                <span>Core Tech Placement Drive 2026 — Join Now</span>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div class="breadcrumb reveal"><a href="index.html">Home</a> › <span>About</span></div>
+            <h1 class="reveal" id="aboutHeroTitle">Pioneering Deeptech R&D & <span>Power Electronics Innovation</span></h1>
+            <p class="reveal" id="aboutHeroSub">SMPS Tech Lab is a center of excellence driving next-generation engineering research, prototype development, and system integration. We bridge the gap between academic theory and deeptech industrial applications through hands-on project execution.</p>
+            <div class="hero-tags reveal">
+                <span class="tag"> Power Electronics R&D</span>
+                <span class="tag"> Deeptech Prototyping</span>
+                <span class="tag"> ESDM Innovation</span>
+                <span class="tag"> Embedded Systems R&D</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- VISION / MISSION -->
+    <section>
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:0;">
+                <div class="section-badge">Our Purpose</div>
+                <h2 class="section-title">What Drives <span>Everything We Do</span></h2>
+            </div>
+            <div class="vm-grid">
+                <div class="vm-card reveal">
+                    <div class="vm-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    </div>
+                    <h2>Our Vision</h2>
+                    <p id="aboutVision">To empower every student in India with the practical skills, industry confidence, and real-world experience needed to lead the global technology landscape. We envision a future where "fresher" means "industry-ready."</p>
+                </div>
+                <div class="vm-card reveal" style="--accent:#8b5cf6;--accent2:#06b6d4;">
+                    <div class="vm-icon" style="background:linear-gradient(135deg,#8b5cf6,#06b6d4);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                    </div>
+                    <h2>Our Mission</h2>
+                    <p id="aboutMission">To provide a high-impact learning environment where students work on live industry projects, mentored by veterans, and graduate as experts. We are committed to closing the skills gap through practical, hands-on engineering leadership.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUR STORY -->
+    <section style="background:var(--bg2);">
+        <div class="section-inner">
+            <div class="story-grid">
+                <div class="story-text reveal">
+                    <div class="section-badge">Our Story</div>
+                    <h2 class="section-title">Technology Alone Does Not <span>Define Progress</span></h2>
+                    <p id="aboutStory1">SMPS Tech Lab was founded with a singular purpose: to solve the biggest challenge facing fresh graduates—the "No Experience" paradox.</p>
+                    <p id="aboutStory2">As a subsidiary of SMPS Electric, we realized that while the industry was starving for talent, thousands of graduates were struggling to find work. The missing link was practical, industry-standard project experience.</p>
+                    <p>We built this platform to be the bridge. Today, we are a hub where students become professionals by working on actual hardware and software products that serve real-world clients.</p>
+                    <a href="collaborate.html" class="btn-primary" style="margin-top:16px;">Partner With Us →</a>
+                </div>
+                <div class="story-stats reveal">
+                    <div class="story-stat">
+                        <div class="num" data-target="100">0</div>
+                        <div class="lbl">Live Industry Projects</div>
+                    </div>
+                    <div class="story-stat">
+                        <div class="num" data-target="500">0</div>
+                        <div class="lbl">Job-Ready Students</div>
+                    </div>
+                    <div class="story-stat">
+                        <div class="num" data-target="25">0</div>
+                        <div class="lbl">Industry Mentors</div>
+                    </div>
+                    <div class="story-stat">
+                        <div class="num" data-target="90">0</div>
+                        <div class="lbl">Placement Rate %</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE OPERATIONAL SCOPE -->
+    <section style="background: var(--bg3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center; margin-bottom:40px;">
+                <div class="section-badge">Core Operations</div>
+                <h2 class="section-title" id="aboutCoreTitle">Our <span>Operational Mandate</span> & Business Scope</h2>
+                <p id="aboutCoreSub" style="margin: 0 auto; max-width: 800px; color: var(--muted); text-align: center;">As a legally chartered entity, SMPS Tech Lab is built to drive technological innovation, product engineering, and deeptech commercialization.</p>
+            </div>
+            <div class="values-grid" id="coreGrid">
+                <div class="card reveal">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 17V5a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v12"/><path d="M9 22V12h6v10"/></svg>
+                    </div>
+                    <h3>Deeptech R&D & Manufacturing</h3>
+                    <p>Research, prototyping, system integration, and manufacturing of next-generation deeptech hardware and software solutions suitable for critical sectors including power, railway, defense, space, nuclear, and oil & gas.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3>Advanced Engineering Systems</h3>
+                    <p>Providing specialized engineering, design, testing, validation, and consulting across embedded systems, power electronics, industrial automation, IoT, AI, data acquisition, telecom, and quantum technologies.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
+                    </div>
+                    <h3>Incubation & Innovation Hubs</h3>
+                    <p>Establishing and managing innovation-driven platforms, incubation-support systems, proof-of-concept (POC) sandboxes, and applied research environments in physical, digital, and hybrid modes.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <h3>IP Development & Licensing</h3>
+                    <p>Developing, licensing, and distributing proprietary intellectual property (IP), simulation models, hardware reference designs, software suites, and technical documentation to facilitate tech transfer.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>Tri-Sector Collaborations</h3>
+                    <p>Partnering with academia, private industry, and government bodies (incubation programs, sponsored research, and pilot deployments) to bridge the commercialization gap for indigenous technologies.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10v6"/><path d="M6 12h12"/><path d="M12 4v16"/></svg>
+                    </div>
+                    <h3>ESDM Technical Skilling</h3>
+                    <p>Providing high-impact technical education, training, and ESDM (Electronics System Design & Manufacturing) skilling for new-age engineering students, faculties, and researchers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES -->
+    <section>
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:0;">
+                <div class="section-badge">Our Values</div>
+                <h2 class="section-title" id="aboutValTitle">The Principles That <span>Guide Us</span></h2>
+                    <div class="values-grid" id="valGrid">
+                <div class="card reveal">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="microscope" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Deeptech R&D</h3>
+                    <p>Executing industrial research, prototype development, and advanced system integration suitable for power, railway, defense, space, nuclear, and oil & gas sectors.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="handshake" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Academia Collaborations</h3>
+                    <p>Partnering with academic institutions, accelerators, OEMs, and government bodies on sponsored research projects, pilot deployments, and commercialization of indigenous technologies.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="lightbulb" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Technical Entrepreneurship</h3>
+                    <p>Fostering problem-solving, technology commercialization, and product innovation through ideation programs, innovation labs, and technology-driven engagements.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="rocket" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Start-up Ecosystem</h3>
+                    <p>Operating innovation-driven incubation-support systems, startup creation initiatives, conclaves, demo days, and proof-of-concept environments in physical, digital, and hybrid modes.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="cpu" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Deeptech Core Platforms</h3>
+                    <p>Designing, developing, testing, and validating advanced systems in embedded electronics, power electronics, industrial automation, control networks, IoT, and AI.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="atom" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Quantum Technology</h3>
+                    <p>Driving design research and prototype manufacturing of innovative deeptech hardware and software in quantum engineering, AI systems, and consumer electronics.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="wifi" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>5G + 6G Technology</h3>
+                    <p>Pioneering the adoption of next-generation networks, high-frequency transceivers, antenna layouts, and low-latency communication architectures.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="network" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Telecom Innovation</h3>
+                    <p>Developing, licensing, and distributing proprietary hardware reference designs, simulation models, technical documentation, and software tools for telecom subassemblies.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="graduation-cap" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>ESDM Professional Advancement</h3>
+                    <p>Empowering new-age engineering students, faculties, and researchers with advanced capabilities and competency for manufacturing roles in ESDM sectors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- ACHIEVEMENTS -->
+    <section>
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:0;">
+                <div class="section-badge">Achievements</div>
+                <h2 class="section-title" id="aboutAchTitle">Our <span>Track Record</span></h2>
+            </div>
+            <div class="ach-grid" id="achGrid">
+                <div class="ach-card reveal">
+                    <div class="ach-icon"></div>
+                    <div class="ach-num">100+</div>
+                    <div class="ach-label">Live Industry Projects</div>
+                </div>
+                <div class="ach-card reveal">
+                    <div class="ach-icon"></div>
+                    <div class="ach-num">500+</div>
+                    <div class="ach-label">Job-Ready Students</div>
+                </div>
+                <div class="ach-card reveal">
+                    <div class="ach-icon"></div>
+                    <div class="ach-num">25+</div>
+                    <div class="ach-label">Industry Partners</div>
+                </div>
+                <div class="ach-card reveal">
+                    <div class="ach-icon"></div>
+                    <div class="ach-num">90%</div>
+                    <div class="ach-label">Placement Success</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEADERSHIP TEAM -->
+    <section style="background:var(--bg2);">
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:0;">
+                <div class="section-badge">Leadership</div>
+                <h2 class="section-title" id="aboutTeamTitle">The Minds Behind <span>The Mission</span></h2>
+            </div>
+            <div class="team-grid" id="teamGrid">
+                <div class="team-card reveal">
+                    <div class="avatar">SK</div>
+                    <h3>Suresh Kumar</h3>
+                    <div class="role">Founder & CEO</div>
+                    <p>Visionary leader with 20+ years in power electronics and technology entrepreneurship.</p>
+                </div>
+                <div class="team-card reveal">
+                    <div class="avatar">PR</div>
+                    <h3>Dr. Priya Rao</h3>
+                    <div class="role">Chief Research Officer</div>
+                    <p>PhD from IIT Bombay. Leads our R&D division with expertise in AI and energy systems.</p>
+                </div>
+                <div class="team-card reveal">
+                    <div class="avatar">AM</div>
+                    <h3>Arjun Mehta</h3>
+                    <div class="role">VP, Partnerships</div>
+                    <p>Former NASSCOM executive. Drives our academic and industry partnership strategy.</p>
+                </div>
+                <div class="team-card reveal">
+                    <div class="avatar">NV</div>
+                    <h3>Nisha Verma</h3>
+                    <div class="role">Head of Products</div>
+                    <p>Serial entrepreneur. Brings deep-tech products from lab to market with precision.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-banner">
+        <h2>Ready to Build Your Future?</h2>
+        <p>Join the only platform that prioritizes your practical growth and industry readiness.</p>
+        <a href="contact.html" class="btn-white">Start Your Journey →</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                        <img src="assets/ruf/main 1 rem.png" class="logo-icon"
+                            style="object-fit:contain; background:none; border:none; border-radius:0; width:auto; height:50px;"
+                            alt="Logo">
+                        <div class="logo-name">SMPS Tech Lab</div>
+                    </div>
+                    <p>A National Platform bridging the gap between academia and industry. We empower students through
+                        real-world project experience and hands-on professional growth.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">ig</a>
+                        <a href="#" class="social-link">tw</a>
+                        <a href="#" class="social-link">yt</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="ip-portfolio.html">IP Portfolio</a></li>
+                        <li><a href="collaborate.html">Collaborate</a></li>
+                        <li><a href="execom.html">Execom</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">IP Licensing Terms</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>VTU-VRIF-TCOE Building, 1st Main Rd, RHCS Layout, Annasandraswari Nagar, Nagarabhavi,
+                                Bengaluru, Karnataka 560091</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>smpstechlab@gmail.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>9035874229 / 8792779543</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>10:00 AM – 8:00 PM (All days, Tuesday Holiday)</p>
+                        </div>
+                    </div>
+                    <div class="newsletter-form" style="margin-top:20px;">
+                        <input type="email" placeholder="Your email" id="nlEmail">
+                        <button onclick="subscribeNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SMPS Tech Lab. A subsidiary of SMPS Electric. All rights reserved.</p>
+                <div style="display:flex;gap:24px;">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        
+        function updateIcon(theme) {
+            if (theme === 'light') {
+                if (typeof themeIcon !== 'undefined' && themeIcon) themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; // Moon
+            } else {
+                if (typeof themeIcon !== 'undefined' && themeIcon) themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'; // Sun
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        if (typeof themeIcon !== 'undefined' && themeIcon) updateIcon(savedTheme);
+
+        if (typeof themeToggle !== 'undefined' && themeToggle) themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50));
+        window.obs = new IntersectionObserver(e => e.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); }), { threshold: .15 });
+        document.querySelectorAll('.reveal').forEach(el => window.obs.observe(el));
+        const cObs = new IntersectionObserver(e => e.forEach(el => { if (el.isIntersecting) { const t = parseInt(el.target.dataset.target); let s = 0; const i = setInterval(() => { s += Math.ceil(t / 60); if (s >= t) { s = t; clearInterval(i); } el.target.textContent = s + (t >= 100 ? '+' : ''); }, 33); cObs.unobserve(el.target); } }), { threshold: .5 });
+        document.querySelectorAll('[data-target]').forEach(el => cObs.observe(el));
+
+        const defaultAboutData = {
+            heroTitle: 'Pioneering Deeptech R&D & <span>Power Electronics Innovation</span>',
+            heroSub: 'SMPS Tech Lab is a center of excellence driving next-generation engineering research, prototype development, and system integration. We bridge the gap between academic theory and deeptech industrial applications through hands-on project execution.',
+            vision: 'To empower every student in India with the practical skills, industry confidence, and real-world experience needed to lead the global technology landscape. We envision a future where "fresher" means "industry-ready."',
+            mission: 'To provide a high-impact learning environment where students work on live industry projects, mentored by veterans, and graduate as experts. We are committed to closing the skills gap through practical, hands-on engineering leadership.',
+            story1: 'SMPS Tech Lab was founded with a singular purpose: to solve the biggest challenge facing fresh graduates—the "No Experience" paradox.',
+            story2: 'As a subsidiary of SMPS Electric, we realized that while the industry was starving for talent, thousands of graduates were struggling to find work. The missing link was practical, industry-standard project experience.',
+            teamTitle: 'The Minds Behind <span>The Mission</span>',
+            coreTitle: 'Our <span>Operational Mandate</span> & Business Scope',
+            coreSub: 'As a legally chartered entity, SMPS Tech Lab is built to drive technological innovation, product engineering, and deeptech commercialization.',
+            valTitle: 'The Principles That <span>Guide Us</span>',
+            achTitle: 'Our <span>Track Record</span>',
+            team: [
+                { initials: 'SK', name: 'Suresh Kumar', role: 'Founder & CEO', bio: 'Visionary leader with 20+ years in power electronics and technology entrepreneurship.' },
+                { initials: 'PR', name: 'Dr. Priya Rao', role: 'Chief Research Officer', bio: 'PhD from IIT Bombay. Leads our R&D division with expertise in AI and energy systems.' },
+                { initials: 'AM', name: 'Arjun Mehta', role: 'VP, Partnerships', bio: 'Former NASSCOM executive. Drives our academic and industry partnership strategy.' },
+                { initials: 'NV', name: 'Nisha Verma', role: 'Head of Products', bio: 'Serial entrepreneur. Brings deep-tech products from lab to market with precision.' }
+            ],
+            coreOps: [
+                { icon: 'microscope', title: 'Deeptech R&D & Manufacturing', desc: 'Research, prototyping, system integration, and manufacturing of next-generation deeptech hardware and software solutions suitable for critical sectors including power, railway, defense, space, nuclear, and oil & gas.' },
+                { icon: 'cpu', title: 'Advanced Engineering Systems', desc: 'Providing specialized engineering, design, testing, validation, and consulting across embedded systems, power electronics, industrial automation, IoT, AI, data acquisition, telecom, and quantum technologies.' },
+                { icon: 'rocket', title: 'Incubation & Innovation Hubs', desc: 'Establishing and managing innovation-driven platforms, incubation-support systems, proof-of-concept (POC) sandboxes, and applied research environments in physical, digital, and hybrid modes.' },
+                { icon: 'lightbulb', title: 'IP Development & Licensing', desc: 'Developing, licensing, and distributing proprietary intellectual property (IP), simulation models, hardware reference designs, software suites, and technical documentation to facilitate tech transfer.' },
+                { icon: 'handshake', title: 'Tri-Sector Collaborations', desc: 'Partnering with academia, private industry, and government bodies (incubation programs, sponsored research, and pilot deployments) to bridge the commercialization gap for indigenous technologies.' },
+                { icon: 'graduation-cap', title: 'ESDM Technical Skilling', desc: 'Providing high-impact technical education, training, and ESDM (Electronics System Design & Manufacturing) skilling for new-age engineering students, faculties, and researchers.' }
+            ],
+            values: [
+                { icon: 'microscope', title: 'Deeptech R&D', desc: 'Executing industrial research, prototype development, and advanced system integration suitable for power, railway, defense, space, nuclear, and oil & gas sectors.' },
+                { icon: 'handshake', title: 'Academia Collaborations', desc: 'Partnering with academic institutions, accelerators, OEMs, and government bodies on sponsored research projects, pilot deployments, and commercialization of indigenous technologies.' },
+                { icon: 'lightbulb', title: 'Technical Entrepreneurship', desc: 'Fostering problem-solving, technology commercialization, and product innovation through ideation programs, innovation labs, and technology-driven engagements.' },
+                { icon: 'rocket', title: 'Start-up Ecosystem', desc: 'Operating innovation-driven incubation-support systems, startup creation initiatives, conclaves, demo days, and proof-of-concept environments in physical, digital, and hybrid modes.' },
+                { icon: 'cpu', title: 'Deeptech Core Platforms', desc: 'Designing, developing, testing, and validating advanced systems in embedded electronics, power electronics, industrial automation, control networks, IoT, and AI.' },
+                { icon: 'atom', title: 'Quantum Technology', desc: 'Driving design research and prototype manufacturing of innovative deeptech hardware and software in quantum engineering, AI systems, and consumer electronics.' },
+                { icon: 'wifi', title: '5G + 6G Technology', desc: 'Pioneering the adoption of next-generation networks, high-frequency transceivers, antenna layouts, and low-latency communication architectures.' },
+                { icon: 'network', title: 'Telecom Innovation', desc: 'Developing, licensing, and distributing proprietary hardware reference designs, simulation models, technical documentation, and software tools for telecom subassemblies.' },
+                { icon: 'graduation-cap', title: 'ESDM Professional Advancement', desc: 'Empowering new-age engineering students, faculties, and researchers with advanced capabilities and competency for manufacturing roles in ESDM sectors.' }
+            ],
+            achievements: [
+                { num: '100+', label: 'Live Industry Projects', icon: '' },
+                { num: '500+', label: 'Job-Ready Students', icon: '' },
+                { num: '25+', label: 'Industry Partners', icon: '' },
+                { num: '90%', label: 'Placement Success', icon: '' }
+            ]
+        };
+
+        function safeParseLocalAbout() {
+            return {};
+        }
+
+        function renderTeamCards(team) {
+            const container = document.getElementById('teamGrid');
+            if (!container) return;
+
+            if (!Array.isArray(team) || team.length === 0) {
+                return;
+            }
+
+            container.innerHTML = team.map(member => {
+                const initials = String(member.initials || '').trim().slice(0, 3).toUpperCase();
+                const name = String(member.name || '').trim();
+                const role = String(member.role || '').trim();
+                const bio = String(member.bio || '').trim();
+
+                return `
+                    <div class="team-card reveal">
+                        <div class="avatar">${initials || 'TE'}</div>
+                        <h3>${name || 'Team Member'}</h3>
+                        <div class="role">${role || 'Team Role'}</div>
+                        <p>${bio || ''}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderCoreOps(ops) {
+            const container = document.getElementById('coreGrid');
+            if (!container || !Array.isArray(ops)) return;
+
+            container.innerHTML = ops.map(op => `
+                <div class="card reveal">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="${op.icon || 'star'}" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>${op.title || ''}</h3>
+                    <p>${op.desc || ''}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderValues(vals) {
+            const container = document.getElementById('valGrid');
+            if (!container || !Array.isArray(vals)) return;
+
+            container.innerHTML = vals.map(val => `
+                <div class="card reveal">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i data-lucide="${val.icon || 'star'}" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>${val.title || ''}</h3>
+                    <p>${val.desc || ''}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderAchievements(achs) {
+            const container = document.getElementById('achGrid');
+            if (!container || !Array.isArray(achs)) return;
+
+            container.innerHTML = achs.map(ach => `
+                <div class="ach-card reveal">
+                    <div class="ach-icon"></div>
+                    <div class="ach-num">${ach.num || '0'}</div>
+                    <div class="ach-label">${ach.label || ''}</div>
+                </div>
+            `).join('');
+        }
+
+        async function loadAboutData() {
+            let aboutData = null;
+
+            // 1. Try local SQLite backend API first
+            try {
+                const res = await fetch('/api/settings/aboutData');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && Object.keys(data).length > 0) {
+                        aboutData = data;
+                    }
+                }
+            } catch (error) {
+                console.warn('about.html: Failed to fetch from backend API, trying DataStore...', error);
+            }
+
+            // 2. Try DataStore
+            if (!aboutData) {
+                if (window.DataStore && typeof DataStore.getDocument === 'function') {
+                    try {
+                        const remoteData = await DataStore.getDocument('aboutData', null);
+                        if (remoteData && typeof remoteData === 'object' && Object.keys(remoteData).length > 0) {
+                            aboutData = remoteData;
+                        }
+                    } catch (error) {
+                        console.warn('about.html: DataStore getDocument failed, using defaults', error);
+                    }
+                }
+            }
+
+            // Fallback to default
+            if (!aboutData) {
+                aboutData = defaultAboutData;
+            }
+            if (!aboutData || typeof aboutData !== 'object') return;
+            
+            if (aboutData.heroTitle) document.getElementById('aboutHeroTitle').innerHTML = aboutData.heroTitle;
+            if (aboutData.heroSub) document.getElementById('aboutHeroSub').textContent = aboutData.heroSub;
+            if (aboutData.vision) document.getElementById('aboutVision').textContent = aboutData.vision;
+            if (aboutData.mission) document.getElementById('aboutMission').textContent = aboutData.mission;
+            if (aboutData.story1) document.getElementById('aboutStory1').textContent = aboutData.story1;
+            if (aboutData.story2) document.getElementById('aboutStory2').textContent = aboutData.story2;
+            
+            if (aboutData.teamTitle) document.getElementById('aboutTeamTitle').innerHTML = aboutData.teamTitle;
+            
+            if (aboutData.coreTitle) document.getElementById('aboutCoreTitle').innerHTML = aboutData.coreTitle;
+            if (aboutData.coreSub) document.getElementById('aboutCoreSub').textContent = aboutData.coreSub;
+            if (aboutData.valTitle) document.getElementById('aboutValTitle').innerHTML = aboutData.valTitle;
+            if (aboutData.achTitle) document.getElementById('aboutAchTitle').innerHTML = aboutData.achTitle;
+
+            const teamToRender = (Array.isArray(aboutData.team) && aboutData.team.length > 0) ? aboutData.team : defaultAboutData.team;
+            renderTeamCards(teamToRender);
+
+            const coreToRender = (Array.isArray(aboutData.coreOps) && aboutData.coreOps.length > 0) ? aboutData.coreOps : defaultAboutData.coreOps;
+            renderCoreOps(coreToRender);
+
+            const valuesToRender = (Array.isArray(aboutData.values) && aboutData.values.length > 0) ? aboutData.values : defaultAboutData.values;
+            renderValues(valuesToRender);
+
+            const achToRender = (Array.isArray(aboutData.achievements) && aboutData.achievements.length > 0) ? aboutData.achievements : defaultAboutData.achievements;
+            renderAchievements(achToRender);
+
+            // Re-initialize Lucide icons for dynamically added content
+            if (window.lucide && typeof lucide.createIcons === 'function') {
+                lucide.createIcons();
+            }
+
+            // Re-observe newly created reveal elements
+            if (window.obs) {
+                document.querySelectorAll('.reveal').forEach(el => window.obs.observe(el));
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadAboutData);
+        if (document.readyState !== 'loading') {
+            loadAboutData();
+        }
+        window.addEventListener('storage', (e) => {
+            if (e && (e.key === 'aboutData' || e.key === 'smps_sandbox_aboutData')) {
+                loadAboutData();
+            }
+        });
+    </script>
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/919035874229" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+        <div class="whatsapp-icon">
+            <svg viewBox="0 0 448 512">
+                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+            </svg>
+        </div>
+    </a>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="assets/js/firebase-init.js?v=1.0.1"></script>
+    <script src="assets/js/main.js?v=1.0.1"></script>
+
+    <div class="toast" id="toast"> Subscribed successfully!</div>
+</body>
+
+</html>

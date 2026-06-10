@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Committee — SMPS Tech Lab</title>
+    <meta name="description"
+        content="Meet the leadership team and strategic advisors driving innovation at SMPS Tech Lab. Our executive committee brings together industry experts and visionary leaders.">
+    <meta name="keywords"
+        content="SMPS Tech Lab, Executive Committee, Leadership, Innovation, Engineering, India, Strategic Advisors">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            /* Dark Mode (Default) */
+            --bg: #03050a;
+            --bg2: #050810;
+            --bg3: #0a0e1a;
+            --accent: #3b82f6;
+            --accent2: #0ea5e9;
+            --accent3: #6366f1;
+            --text: #f8fafc;
+            --muted: #64748b;
+            --border: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.02);
+            --card: rgba(8, 12, 24, 0.7);
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --font-classic: 'Playfair Display', serif;
+            --dot-color: rgba(255, 255, 255, 0.03);
+            --nav-bg: rgba(3, 5, 10, 0.85);
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --bg2: #ffffff;
+            --bg3: #f1f5f9;
+            --accent: #2563eb;
+            --accent2: #0284c7;
+            --accent3: #4f46e5;
+            --text: #0f172a;
+            --muted: #475569;
+            --border: rgba(15, 23, 42, 0.1);
+            --glass: rgba(255, 255, 255, 0.7);
+            --card: rgba(255, 255, 255, 0.9);
+            --dot-color: rgba(15, 23, 42, 0.06);
+            --nav-bg: rgba(248, 250, 252, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 2px 2px, var(--dot-color) 1px, transparent 0);
+            background-size: 48px 48px;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.035;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .ticker-wrap {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            padding: 8px 0;
+            overflow: hidden;
+        }
+
+        .ticker {
+            display: flex;
+            gap: 40px;
+            animation: ticker 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker span {
+            font-size: 12px;
+            font-weight: 500;
+            opacity: .9;
+        }
+
+        .ticker span::before {
+            content: "◆ ";
+            opacity: .6;
+        }
+
+        @keyframes ticker {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            transition: all .3s ease;
+        }
+
+        nav.scrolled {
+            background: var(--nav-bg);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, .2);
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .logo-name {
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text);
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            color: var(--muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 13.5px;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all .2s;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+            background: var(--glass);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .nav-sep {
+            width: 1px;
+            height: 24px;
+            background: var(--border);
+            margin: 0 8px;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent), #1d4ed8);
+            color: #fff;
+            padding: 9px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-decoration: none;
+            transition: all .25s;
+            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all .3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px;
+            z-index: 999;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 15px;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+
+
+        section {
+            padding: 80px 24px;
+        }
+
+        .section-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent3);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: clamp(26px, 3.5vw, 40px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, var(--accent3), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .execom-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .execom-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all .4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .execom-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.08), transparent 70%);
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            opacity: 0.5;
+        }
+
+        .execom-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.2);
+        }
+
+        .execom-card:hover::before {
+            opacity: 1;
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.15), transparent 70%);
+        }
+
+        .execom-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--accent), var(--accent3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 44px;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(59, 130, 246, 0.15);
+            transition: all 0.4s ease;
+            border: 3px solid rgba(255, 255, 255, 0.05);
+            object-fit: cover;
+        }
+
+        .execom-card:hover .execom-avatar {
+            transform: scale(1.08) rotate(3deg);
+            box-shadow: 0 10px 24px rgba(99, 102, 241, 0.35);
+            border-color: var(--accent);
+        }
+
+        .execom-card h3 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .execom-role {
+            font-size: 13px;
+            color: var(--accent2);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .execom-expertise {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .execom-social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .execom-social a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 16px;
+            transition: color .2s;
+        }
+
+        .execom-social a:hover {
+            color: var(--accent2);
+        }
+
+        .message-card {
+            background: linear-gradient(135deg, rgba(37, 99, 235, .1), rgba(139, 92, 246, .05));
+            border: 1px solid rgba(139, 92, 246, .3);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .message-card .quote {
+            font-size: 48px;
+            color: var(--accent3);
+            opacity: .5;
+            margin-bottom: 16px;
+        }
+
+        .message-card h3 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .message-card p {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 24px;
+        }
+
+        .advisor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 5, 10, 0.45);
+            backdrop-filter: blur(0px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+            perspective: 1200px;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+            backdrop-filter: blur(16px);
+        }
+
+        .modal {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            max-width: 850px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: rotateX(15deg) translateY(40px) scale(0.92);
+            transform-origin: bottom center;
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-overlay.open .modal {
+            transform: rotateX(0deg) translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            padding: 24px 32px 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .modal-close {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 0;
+            text-align: left;
+        }
+
+        /* modal-content-grid */
+        .modal-content-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 40px;
+            padding: 8px 40px 48px;
+        }
+
+        @media(max-width: 768px) {
+            .modal-content-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+                padding: 8px 24px 32px;
+            }
+            .modal-left {
+                text-align: center;
+                border-right: none !important;
+                border-bottom: 1px solid var(--border);
+                padding-bottom: 28px !important;
+                padding-right: 0 !important;
+            }
+            .modal-left-avatar {
+                margin: 0 auto 20px !important;
+            }
+        }
+
+        .modal-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid var(--border);
+            padding-right: 32px;
+        }
+
+        .modal-left-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, var(--accent), var(--accent3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 54px;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.25);
+            border: 3px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 24px;
+            transition: all 0.4s ease;
+        }
+
+        .modal-left h2 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .modal-left-role {
+            font-size: 12.5px;
+            color: var(--accent2);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-right {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .modal-quote-block {
+            position: relative;
+            padding-left: 24px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .modal-quote-text {
+            font-family: var(--font-classic);
+            font-size: 17.5px;
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .modal-section-title {
+            font-family: var(--font-heading);
+            font-size: 12.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent3);
+            margin-bottom: 12px;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .modal-tag {
+            font-size: 11px;
+            background: rgba(59, 130, 246, 0.06);
+            border: 1px solid rgba(59, 130, 246, 0.12);
+            color: var(--accent2);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .modal-bio-text {
+            font-size: 14.5px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .modal-achievements {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-achievement-item {
+            font-size: 13.5px;
+            color: var(--text);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.6;
+        }
+
+        .modal-achievement-item::before {
+            content: '✦';
+            color: var(--accent2);
+            font-size: 12px;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        .modal-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--accent), var(--accent3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            font-weight: 800;
+        }
+
+        .cta-banner {
+            background: linear-gradient(135deg, var(--accent3) 0%, var(--accent2) 100%);
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .cta-banner p {
+            font-size: 17px;
+            color: rgba(255, 255, 255, .8);
+            margin-bottom: 36px;
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--accent3);
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .2s;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent3));
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .25s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        footer {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 60px 24px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 16px 0 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .footer-col h4 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: all .7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media(max-width:1024px) {
+            .execom-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .advisor-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width:768px) {
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .execom-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .advisor-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: var(--accent2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-toggle-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    
+
+        /* FOOTER */
+        footer {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 80px 24px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo-name {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 16px 0 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all .2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            background: rgba(37, 99, 235, .1);
+        }
+
+        .footer-col h4 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 14px;
+            transition: color .2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--text);
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .contact-item .ci {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .contact-item p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: var(--text);
+            outline: none;
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--muted);
+        }
+
+        .newsletter-form button {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .newsletter-form button:hover {
+            background: #1d4ed8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .footer-bottom a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--text);
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    
+
+                <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/ruf/main 1 rem.png" class="logo-icon"
+                    style="object-fit:contain; background:none; border:none; border-radius:0; width:auto; height:50px;"
+                    alt="Logo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="ip-portfolio.html">IP Portfolio</a>
+                <a href="collaborate.html">Collaborate</a>
+                <a href="execom.html" class="active">Execom</a>
+                <a href="events.html">Events</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-sep"></div>
+            <a href="contact.html" class="nav-cta">Get In Touch →</a>
+            <button class="theme-toggle-nav" id="themeToggleNav" title="Toggle Theme">
+                <svg viewBox="0 0 24 24" id="themeIconNav">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+            </button>
+            <div class="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mob">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="ip-portfolio.html">IP Portfolio</a>
+            <a href="collaborate.html">Collaborate</a>
+            <a href="execom.html" class="active">Execom</a>
+            <a href="events.html">Events</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+    
+    <!-- Updates Strip Ticker -->
+    <div class="updates-ticker-wrap">
+        <div class="updates-label">UPDATES</div>
+        <div class="ticker-content-container">
+            <div class="ticker-track">
+                <span>Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru</span>
+                <span>•</span>
+                <span>Smart Power Hub Training — Starting May 2026</span>
+                <span>•</span>
+                <span>VLSI Design & Verilog Bootcamp — Applications Open</span>
+                <span>•</span>
+                <span>Core Tech Placement Drive 2026 — Join Now</span>
+                <span>•</span>
+                <span>Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru</span>
+                <span>•</span>
+                <span>Smart Power Hub Training — Starting May 2026</span>
+                <span>•</span>
+                <span>VLSI Design & Verilog Bootcamp — Applications Open</span>
+                <span>•</span>
+                <span>Core Tech Placement Drive 2026 — Join Now</span>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div class="breadcrumb reveal"><a href="index.html">Home</a> › <span>Executive Committee</span></div>
+            <h1 class="reveal" id="exHeroTitle">Leadership That <span>Inspires</span></h1>
+            <p class="reveal" id="exHeroDesc">Meet the visionaries driving SMPS Tech Lab's mission — a diverse team of industry experts,
+                researchers, and strategic leaders committed to building India's innovation ecosystem.</p>
+        </div>
+    </div>
+
+    <section>
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:0;">
+                <div class="section-badge" id="exExecBadge">Executive Committee</div>
+                <h2 class="section-title" id="exExecTitle">The Minds Behind <span>The Mission</span></h2>
+            </div>
+            <div class="execom-grid" id="execomGrid"></div>
+        </div>
+    </section>
+
+    <section style="background:var(--bg2);">
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:0;">
+                <div class="section-badge" id="exMsgBadge">Chairman's Message</div>
+                <h2 class="section-title" id="exMsgTitle">A Word from <span>Our Leadership</span></h2>
+            </div>
+            <div class="message-card reveal">
+                <div class="quote">"</div>
+                <h3 id="exMsgHead">Driving India's Deep Tech Revolution</h3>
+                <p id="exMsgText">At SMPS Tech Lab, we believe that the future of technology leadership lies in collaboration. Our
+                    executive committee brings together decades of experience across industry, academia, and government
+                    to create an ecosystem where innovation thrives. We are committed to nurturing talent, protecting
+                    intellectual property, and building partnerships that transform ideas into impact.</p>
+                <div style="font-weight:600;" id="exMsgAuthor">— Suresh Kumar, Founder & CEO</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:0;">
+                <div class="section-badge" id="exAdvBadge">Strategic Advisors</div>
+                <h2 class="section-title" id="exAdvTitle">Our <span>Board of Advisors</span></h2>
+            </div>
+            <div class="advisor-grid" id="advisorGrid"></div>
+        </div>
+    </section>
+
+    <div class="cta-banner">
+        <h2 id="exCtaTitle">Connect With Our Leadership</h2>
+        <p id="exCtaText">Interested in strategic discussions or partnership opportunities at the executive level?</p>
+        <a href="contact.html" class="btn-white" id="exCtaBtn">Schedule an Executive Meeting →</a>
+    </div>
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                        <img src="assets/ruf/main 1 rem.png" class="logo-icon"
+                            style="object-fit:contain; background:none; border:none; border-radius:0; width:auto; height:50px;"
+                            alt="Logo">
+                        <div class="logo-name">SMPS Tech Lab</div>
+                    </div>
+                    <p>A National Platform bridging the gap between academia and industry. We empower students through
+                        real-world project experience and hands-on professional growth.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">ig</a>
+                        <a href="#" class="social-link">tw</a>
+                        <a href="#" class="social-link">yt</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="ip-portfolio.html">IP Portfolio</a></li>
+                        <li><a href="collaborate.html">Collaborate</a></li>
+                        <li><a href="execom.html">Execom</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">IP Licensing Terms</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>VTU-VRIF-TCOE Building, 1st Main Rd, RHCS Layout, Annasandraswari Nagar, Nagarabhavi,
+                                Bengaluru, Karnataka 560091</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>smpstechlab@gmail.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>9035874229 / 8792779543</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>10:00 AM – 8:00 PM (All days, Tuesday Holiday)</p>
+                        </div>
+                    </div>
+                    <div class="newsletter-form" style="margin-top:20px;">
+                        <input type="email" placeholder="Your email" id="nlEmail">
+                        <button onclick="subscribeNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SMPS Tech Lab. A subsidiary of SMPS Electric. All rights reserved.</p>
+                <div style="display:flex;gap:24px;">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer> </div>
+    </footer>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2><button class="modal-close" onclick="closeModalBtn()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        function updateIcon(theme) {
+            if (theme === 'light') {
+                if (typeof themeIcon !== 'undefined' && themeIcon) themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; // Moon
+            } else {
+                if (typeof themeIcon !== 'undefined' && themeIcon) themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'; // Sun
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        if (typeof themeIcon !== 'undefined' && themeIcon) updateIcon(savedTheme);
+
+        if (typeof themeToggle !== 'undefined' && themeToggle) themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50));
+
+        const obs = new IntersectionObserver(e => e.forEach(el => {
+            if (el.isIntersecting) {
+                el.target.classList.add('visible');
+                obs.unobserve(el.target); // Stop observing once visible
+            }
+        }), { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        function initReveal() {
+            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        }
+
+        // Clear stale local storage cache for committee
+        localStorage.removeItem('smps_sandbox_execomMembers');
+        localStorage.removeItem('execomMembers');
+        localStorage.removeItem('smps_sandbox_advisors');
+        localStorage.removeItem('advisors');
+
+        const defaultExecomMembers = [];
+        const defaultAdvisors = [];
+
+        // Execom Page Settings Connection
+        const defaultExecomSettings = {
+            heroTitle: 'Leadership That <span>Inspires</span>',
+            heroDesc: "Meet the visionaries driving SMPS Tech Lab's mission — a diverse team of industry experts, researchers, and strategic leaders committed to building India's innovation ecosystem.",
+            execBadge: 'Executive Committee',
+            execTitle: 'The Minds Behind <span>The Mission</span>',
+            msgBadge: "Chairman's Message",
+            msgTitle: 'A Word from <span>Our Leadership</span>',
+            msgHead: "Driving India's Deep Tech Revolution",
+            msgText: "At SMPS Tech Lab, we believe that the future of technology leadership lies in collaboration. Our executive committee brings together decades of experience across industry, academia, and government to create an ecosystem where innovation thrives. We are committed to nurturing talent, protecting intellectual property, and building partnerships that transform ideas into impact.",
+            msgAuthor: '— Suresh Kumar, Founder & CEO',
+            advBadge: 'Strategic Advisors',
+            advTitle: 'Our <span>Board of Advisors</span>',
+            ctaTitle: 'Connect With Our Leadership',
+            ctaText: 'Interested in strategic discussions or partnership opportunities at the executive level?',
+            ctaBtn: 'Schedule an Executive Meeting →'
+        };
+
+        async function loadExecomSettings() {
+            let settings = defaultExecomSettings;
+            try {
+                const res = await fetch('/api/settings/execomSettings');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && Object.keys(data).length > 0) {
+                        settings = data;
+                        applySettings(settings);
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.warn('Failed to fetch execom settings from backend API, trying DataStore...', e);
+            }
+
+            if (window.DataStore && typeof DataStore.getDocument === 'function') {
+                try {
+                    const remote = await DataStore.getDocument('execomSettings', null);
+                    if (remote && typeof remote === 'object' && Object.keys(remote).length > 0) {
+                        settings = remote;
+                    } else if (remote === null) {
+                        settings = defaultExecomSettings;
+                        await DataStore.saveDocument('execomSettings', defaultExecomSettings);
+                    }
+                } catch (e) {
+                    console.warn('Failed to fetch execom settings from DataStore', e);
+                }
+            }
+
+            applySettings(settings);
+        }
+
+        function applySettings(settings) {
+            // Update page elements dynamically
+            const setHTML = (id, val) => { const el = document.getElementById(id); if (el && val) el.innerHTML = val; };
+            const setText = (id, val) => { const el = document.getElementById(id); if (el && val) el.textContent = val; };
+
+            setHTML('exHeroTitle', settings.heroTitle);
+            setText('exHeroDesc', settings.heroDesc);
+            setText('exExecBadge', settings.execBadge);
+            setHTML('exExecTitle', settings.execTitle);
+            setText('exMsgBadge', settings.msgBadge);
+            setHTML('exMsgTitle', settings.msgTitle);
+            setText('exMsgHead', settings.msgHead);
+            setText('exMsgText', settings.msgText);
+            setText('exMsgAuthor', settings.msgAuthor);
+            setText('exAdvBadge', settings.advBadge);
+            setHTML('exAdvTitle', settings.advTitle);
+            setText('exCtaTitle', settings.ctaTitle);
+            setText('exCtaText', settings.ctaText);
+            setText('exCtaBtn', settings.ctaBtn);
+        }
+
+        let execomMembers = [];
+        let advisors = [];
+
+        async function loadCommittee() {
+            try {
+                const res = await fetch('/api/execom?_=' + Date.now());
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data)) {
+                        execomMembers = data.filter(x => x.type === 'execom');
+                        advisors = data.filter(x => x.type === 'advisor');
+                        renderExecom();
+                        renderAdvisors();
+                        initReveal();
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.warn('Failed to fetch committee from backend API', error);
+            }
+
+            execomMembers = [];
+            advisors = [];
+            renderExecom();
+            renderAdvisors();
+            initReveal();
+        }
+
+        function renderExecom() {
+            document.getElementById('execomGrid').innerHTML = execomMembers.map(m => `
+      <div class="execom-card reveal" onclick="openMemberModal('${m.id}','execom')">
+        ${m.img ? '<img src="' + m.img + '" class="execom-avatar">' : '<div class="execom-avatar">' + m.initials + '</div>'}
+        <h3>${m.name}</h3>
+        <div class="execom-role">${m.role}</div>
+        <div class="execom-expertise">${m.expertise}</div>
+        <div class="execom-social"><a href="${m.linkedin}" class="social-link">in</a><a href="mailto:${m.email}" class="social-link">✉️</a></div>
+      </div>
+    `).join('');
+        }
+
+        function renderAdvisors() {
+            document.getElementById('advisorGrid').innerHTML = advisors.map(a => `
+      <div class="execom-card reveal" onclick="openMemberModal('${a.id}','advisor')">
+        <div class="execom-avatar">${a.initials}</div>
+        <h3>${a.name}</h3>
+        <div class="execom-role">${a.role}</div>
+        <div class="execom-expertise">${a.expertise}</div>
+      </div>
+    `).join('');
+        }
+
+        function openMemberModal(id, type) {
+            const member = type === 'execom' ? execomMembers.find(m => String(m.id) === String(id)) : advisors.find(a => String(a.id) === String(id));
+            if (!member) return;
+            
+            // Overwrite overlay style / hide regular modalTitle
+            document.getElementById('modalTitle').style.display = 'none';
+
+            const expertiseTags = member.expertise.split(',').map(tag => `<span class="modal-tag">${tag.trim()}</span>`).join('');
+            const achievementsList = (member.achievements || []).map(ach => `<li class="modal-achievement-item">${ach}</li>`).join('');
+            const quoteSection = member.quote ? `
+                <div class="modal-quote-block">
+                    <p class="modal-quote-text">“${member.quote}”</p>
+                </div>
+            ` : '';
+            const achievementsSection = achievementsList ? `
+                <div>
+                    <h4 class="modal-section-title">Key Contributions & Impact</h4>
+                    <ul class="modal-achievements">
+                        ${achievementsList}
+                    </ul>
+                </div>
+            ` : '';
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="modal-content-grid">
+                    <div class="modal-left">
+                        ${member.img ? '<img src="' + member.img + '" class="modal-left-avatar" style="object-fit: cover;">' : '<div class="modal-left-avatar">' + member.initials + '</div>'}
+                        <h2>${member.name}</h2>
+                        <div class="modal-left-role">${member.role}</div>
+                        ${member.email ? `
+                            <a href="mailto:${member.email}" class="btn-primary" style="width: 100%; text-align: center; justify-content: center; margin-top: 16px;">
+                                Connect via Email ✉️
+                            </a>
+                        ` : ''}
+                    </div>
+                    <div class="modal-right">
+                        ${quoteSection}
+                        <div>
+                            <h4 class="modal-section-title">Areas of Expertise</h4>
+                            <div class="modal-tags">
+                                ${expertiseTags}
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="modal-section-title">Professional Biography</h4>
+                            <p class="modal-bio-text">${member.bio}</p>
+                        </div>
+                        ${achievementsSection}
+                    </div>
+                </div>
+            `;
+            document.getElementById('modalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(e) { if (e.target === document.getElementById('modalOverlay')) closeModalBtn(); }
+        function closeModalBtn() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCommittee();
+            loadExecomSettings();
+        });
+        if (document.readyState !== 'loading') {
+            loadCommittee();
+            loadExecomSettings();
+        }
+
+        window.addEventListener('storage', (e) => {
+            if (!e) return;
+            if (e.key === 'execomMembers' || e.key === 'advisors') {
+                loadCommittee();
+            }
+            if (e.key === 'execomSettings' || e.key === 'smps_sandbox_execomSettings') {
+                try { loadExecomSettings(); } catch (err) { console.warn('Failed to reload execom settings after storage update', err); }
+            }
+        });
+    </script>
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/919035874229" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+        <div class="whatsapp-icon">
+            <svg viewBox="0 0 448 512">
+                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+            </svg>
+        </div>
+    </a>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="assets/js/firebase-init.js?v=1.0.1"></script>
+    <script src="assets/js/main.js?v=1.0.1"></script>
+
+    <div class="toast" id="toast"> Subscribed successfully!</div>
+</body>
+
+</html>

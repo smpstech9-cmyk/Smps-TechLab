@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers — SMPS Tech Lab</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --bg: #03050a;
+            --bg2: #050810;
+            --accent: #3b82f6;
+            --text: #f8fafc;
+            --muted: #64748b;
+            --border: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.02);
+            --nav-bg: rgba(3, 5, 10, 0.85);
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --bg2: #ffffff;
+            --accent: #2563eb;
+            --text: #0f172a;
+            --muted: #475569;
+            --border: rgba(15, 23, 42, 0.1);
+            --glass: rgba(255, 255, 255, 0.7);
+            --nav-bg: rgba(248, 250, 252, 0.85);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            transition: background 0.4s, color 0.4s;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: var(--nav-bg); backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px; height: 64px; display: flex; align-items: center;
+        }
+        .nav-inner { max-width: 1280px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { text-decoration: none; color: var(--text); font-weight: 700; font-size: 18px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; }
+        .nav-links a:hover { color: var(--text); }
+
+        .content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; text-align: center; }
+        .content h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 48px; margin-bottom: 16px; }
+        .content p { color: var(--muted); font-size: 18px; max-width: 600px; }
+
+        .theme-toggle-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%;
+            background: var(--accent); color: #fff; border: none; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; z-index: 9998;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2); transition: all 0.4s;
+        }
+
+        @media(max-width:768px) { .nav-links { display: none; } }
+    
+
+        /* FOOTER */
+        footer {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 80px 24px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo-name {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 16px 0 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all .2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            background: rgba(37, 99, 235, .1);
+        }
+
+        .footer-col h4 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 14px;
+            transition: color .2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--text);
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .contact-item .ci {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .contact-item p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: var(--text);
+            outline: none;
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--muted);
+        }
+
+        .newsletter-form button {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .newsletter-form button:hover {
+            background: #1d4ed8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .footer-bottom a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--text);
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">SMPS Tech Lab</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Updates Strip Ticker -->
+    <div class="updates-ticker-wrap">
+        <div class="updates-label">UPDATES</div>
+        <div class="ticker-content-container">
+            <div class="ticker-track">
+                <span>Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru</span>
+                <span>•</span>
+                <span>Smart Power Hub Training — Starting May 2026</span>
+                <span>•</span>
+                <span>VLSI Design & Verilog Bootcamp — Applications Open</span>
+                <span>•</span>
+                <span>Core Tech Placement Drive 2026 — Join Now</span>
+                <span>•</span>
+                <span>Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru</span>
+                <span>•</span>
+                <span>Smart Power Hub Training — Starting May 2026</span>
+                <span>•</span>
+                <span>VLSI Design & Verilog Bootcamp — Applications Open</span>
+                <span>•</span>
+                <span>Core Tech Placement Drive 2026 — Join Now</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content">
+        <h1>Coming Soon</h1>
+        <p>We are currently shaping the future of deep tech. Check back soon for exciting career opportunities at SMPS Tech Lab.</p>
+        <a href="contact.html" style="margin-top:32px; color:var(--accent); text-decoration:none; font-weight:600;">Join our talent pool →</a>
+    </div>
+
+    <button class="theme-toggle-btn" id="themeToggle" title="Toggle Theme">
+        <svg viewBox="0 0 24 24" id="themeIcon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+
+    <script>
+        const htmlElement = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        function updateIcon(theme) {
+            if (theme === 'light') themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+            else themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        updateIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+    </script>
+<!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                        <img src="assets/ruf/main 1 rem.png" class="logo-icon"
+                            style="object-fit:contain; background:none; border:none; border-radius:0; width:auto; height:50px;"
+                            alt="Logo">
+                        <div class="logo-name">SMPS Tech Lab</div>
+                    </div>
+                    <p>A National Platform bridging the gap between academia and industry. We empower students through
+                        real-world project experience and hands-on professional growth.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">ig</a>
+                        <a href="#" class="social-link">tw</a>
+                        <a href="#" class="social-link">yt</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="ip-portfolio.html">IP Portfolio</a></li>
+                        <li><a href="collaborate.html">Collaborate</a></li>
+                        <li><a href="execom.html">Execom</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">IP Licensing Terms</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>VTU-VRIF-TCOE Building, 1st Main Rd, RHCS Layout, Annasandraswari Nagar, Nagarabhavi,
+                                Bengaluru, Karnataka 560091</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>smpstechlab@gmail.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>9035874229 / 8792779543</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>10:00 AM – 8:00 PM (All days, Tuesday Holiday)</p>
+                        </div>
+                    </div>
+                    <div class="newsletter-form" style="margin-top:20px;">
+                        <input type="email" placeholder="Your email" id="nlEmail">
+                        <button onclick="subscribeNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SMPS Tech Lab. A subsidiary of SMPS Electric. All rights reserved.</p>
+                <div style="display:flex;gap:24px;">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"> Subscribed successfully!</div>
+</body>
+</html>

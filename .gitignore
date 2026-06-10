@@ -1,0 +1,18 @@
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# macOS metadata files
+._*
+.DS_Store
+
+# Scratch files
+scratch/
+assets/
+*.zip
+.DS_Store
+._*
+*.zip
+.DS_Store
+._*

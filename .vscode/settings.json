@@ -1,0 +1,12 @@
+{
+  "python.defaultInterpreterPath": "/Volumes/B RAJESH/SMPSTHING/SMPS WEBSITE FOR BANGLORE/UPDATESMPSWEB/MAIN SMPS ROOT new/MAIN SMPS ROOT/venv/bin/python",
+  "python.analysis.extraPaths": [
+    "/Volumes/B RAJESH/SMPSTHING/SMPS WEBSITE FOR BANGLORE/UPDATESMPSWEB/MAIN SMPS ROOT new/MAIN SMPS ROOT/venv/lib/python3.14/site-packages"
+  ],
+  "liveServer.settings.proxy": {
+    "enable": true,
+    "baseUri": "/api",
+    "proxyUri": "http://127.0.0.1:5002/api"
+  },
+  "liveServer.settings.port": 5500
+}

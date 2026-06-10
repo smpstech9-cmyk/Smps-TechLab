@@ -1,0 +1,3676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMPS Tech Lab — Bridging Academia & Industry</title>
+    <meta name="description"
+        content="SMPS Tech Lab provides real-world project experience and practical industry exposure for engineering students. We bridge the academic-industry gap to make you job-ready.">
+    <style>
+        /* ─────────────────────────────────────────────────────────
+           PREMIUM FONT STACK: Plus Jakarta Sans + Inter + Fraunces
+           Used by top SaaS, AI startups, and design-forward brands
+        ───────────────────────────────────────────────────────── */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
+
+
+        :root {
+            /* Dark Mode (Default) */
+            --bg: #03050a;
+            --bg2: #050810;
+            --bg3: #0a0e1a;
+            --accent: #3b82f6;
+            --accent2: #0ea5e9;
+            --accent3: #6366f1;
+            --gold: #d4af37;
+            --text: #f8fafc;
+            --muted: #64748b;
+            --border: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.02);
+            --card: rgba(8, 12, 24, 0.7);
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --font-classic: 'Fraunces', serif;
+            --dot-color: rgba(255, 255, 255, 0.03);
+            --nav-bg: rgba(3, 5, 10, 0.85);
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --bg2: #ffffff;
+            --bg3: #f1f5f9;
+            --accent: #2563eb;
+            --accent2: #0284c7;
+            --accent3: #4f46e5;
+            --gold: #b45309;
+            --text: #0f172a;
+            --muted: #475569;
+            --border: rgba(15, 23, 42, 0.1);
+            --glass: rgba(255, 255, 255, 0.7);
+            --card: rgba(255, 255, 255, 0.9);
+            --dot-color: rgba(15, 23, 42, 0.06);
+            --nav-bg: rgba(248, 250, 252, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 2px 2px, var(--dot-color) 1px, transparent 0);
+            background-size: 48px 48px;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* GRAIN OVERLAY */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.035;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* TICKER */
+        .ticker-wrap {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            padding: 8px 0;
+            overflow: hidden;
+        }
+
+        .ticker {
+            display: flex;
+            gap: 40px;
+            animation: ticker 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker span {
+            font-size: 12px;
+            font-weight: 500;
+            opacity: .9;
+        }
+
+        .ticker span::before {
+            content: "◆ ";
+            opacity: .6;
+        }
+
+        @keyframes ticker {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        /* NAVBAR */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            transition: all .3s ease;
+        }
+
+        nav.scrolled {
+            background: var(--nav-bg);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, .2);
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .logo-name {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            padding: 8px 13px;
+            border-radius: 6px;
+            transition: all .25s;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+            background: var(--glass);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 2px;
+        }
+
+        .nav-sep {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+            margin: 0 8px;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent), #1d4ed8);
+            color: #fff;
+            padding: 9px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-decoration: none;
+            transition: all .25s;
+            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all .3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px;
+            z-index: 999;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 15px;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--glass);
+            color: var(--text);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 92vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 80px 24px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37, 99, 235, .2) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 60%, rgba(6, 182, 212, .1) 0%, transparent 50%), radial-gradient(ellipse 40% 40% at 20% 80%, rgba(139, 92, 246, .1) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(var(--dot-color) 1px, transparent 1px), linear-gradient(90deg, var(--dot-color) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 99, 235, .15);
+            border: 1px solid rgba(37, 99, 235, .3);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent2);
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            animation: fadeUp .8s ease both;
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent2);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(1.5)
+            }
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(44px, 7vw, 84px);
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 24px;
+            letter-spacing: -0.05em;
+            animation: textReveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) both;
+        }
+
+        @keyframes textReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) skewY(2deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) skewY(0deg);
+            }
+        }
+
+        .hero h1 span {
+            font-family: var(--font-classic);
+            font-style: italic;
+            font-weight: 400;
+            background: linear-gradient(135deg, var(--text), var(--muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        span.highlight {
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent2), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline;
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 36px;
+            animation: fadeUp .8s .2s ease both;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            animation: fadeUp .8s .3s ease both;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #fff;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid var(--text);
+            transition: all .4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.95;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            background: var(--glass);
+            color: var(--accent);
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeUp .8s .4s ease both;
+        }
+
+        .hero-orb {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(37, 99, 235, .4), rgba(6, 182, 212, .2), transparent 70%);
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-20px)
+            }
+        }
+
+        .hero-orb::before {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border-radius: 50%;
+            border: 1px solid rgba(37, 99, 235, .2);
+            animation: spin 20s linear infinite;
+        }
+
+        .hero-orb::after {
+            content: '';
+            position: absolute;
+            inset: 60px;
+            border-radius: 50%;
+            border: 1px solid rgba(6, 182, 212, .15);
+            animation: spin 30s linear infinite reverse;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .hero-stat-card {
+            position: absolute;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 20px;
+            backdrop-filter: blur(20px);
+        }
+
+        .hero-stat-card:nth-child(2) {
+            top: 10%;
+            right: -20px;
+            animation: float 5s 1s ease-in-out infinite;
+        }
+
+        .hero-stat-card:nth-child(3) {
+            bottom: 20%;
+            left: -20px;
+            animation: float 5s 2s ease-in-out infinite;
+        }
+
+        .stat-num {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent2);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* STATS */
+        .stats-section {
+            padding: 60px 24px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg2);
+        }
+
+        .stats-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .num {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-item .lbl {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        /* SECTION COMMONS */
+        section {
+            padding: 100px 24px;
+        }
+
+        .section-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent2);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+        }
+
+        .section-title span {
+            font-family: var(--font-classic);
+            font-style: italic;
+            font-weight: 400;
+            color: var(--accent2);
+            background: none;
+            -webkit-text-fill-color: var(--accent2);
+            text-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+        }
+
+        .section-sub {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+            transition: all .35s cubic-bezier(.4, 0, .2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            border-color: rgba(37, 99, 235, .25);
+            transform: translateY(-5px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, .45), 0 0 0 1px rgba(37, 99, 235, .1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, .6), transparent);
+            opacity: 0;
+            transition: .35s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            background: rgba(37, 99, 235, .1);
+            border: 1px solid rgba(37, 99, 235, .2);
+        }
+
+        .card h3 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ABOUT PREVIEW */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ─────────────────────────────────────────────
+           PLACEMENT & TALENT GAP SECTION
+        ───────────────────────────────────────────── */
+        .placement-section {
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        /* Subtle radial glow behind the section */
+        .placement-section::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 600px;
+            background: radial-gradient(ellipse at center,
+                    rgba(59, 130, 246, 0.12) 0%,
+                    rgba(14, 165, 233, 0.07) 40%,
+                    transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 2-column layout: left content | right cards */
+        .placement-section .container {
+            width: min(1200px, 90%);
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        /* LEFT: section header */
+        .placement-section .section-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+        }
+
+        .placement-section .section-header .section-badge {
+            margin-bottom: 20px;
+        }
+
+        /* Main headline – scoped tightly so it never bleeds */
+        .placement-section .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(32px, 4vw, 52px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.035em;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        /* Gradient accent on second line of headline */
+        .placement-section .gradient-text {
+            background: linear-gradient(120deg, var(--accent2) 0%, var(--accent) 50%, var(--accent3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline;
+            font-family: var(--font-heading);
+            font-style: normal;
+            font-weight: 800;
+        }
+
+        .placement-section .section-sub {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.75;
+            max-width: 480px;
+            margin-bottom: 36px;
+        }
+
+        /* CTA button group */
+        .placement-section .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+
+        /* Primary CTA – white pill */
+        .placement-section .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--text);
+            color: var(--bg);
+            font-family: var(--font-heading);
+            font-size: 14px;
+            font-weight: 700;
+            padding: 13px 28px;
+            border-radius: 100px;
+            border: 1px solid var(--text);
+            text-decoration: none;
+            letter-spacing: 0.2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .placement-section .cta-primary:hover {
+            background: transparent;
+            color: var(--text);
+            box-shadow: 0 0 0 1px var(--text), 0 8px 24px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Secondary CTA – ghost pill */
+        .placement-section .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text);
+            font-family: var(--font-heading);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 13px 28px;
+            border-radius: 100px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            text-decoration: none;
+            letter-spacing: 0.2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .placement-section .cta-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* RIGHT: 2×2 feature card grid */
+        .placement-section .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        /* Individual feature card */
+        .placement-section .feature-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            background: var(--card);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: 16px;
+            padding: 28px;
+            text-decoration: none;
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Top edge glow on hover */
+        .placement-section .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.7), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .placement-section .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .placement-section .feature-card:hover {
+            border-color: rgba(59, 130, 246, 0.22);
+            transform: translateY(-4px);
+            box-shadow:
+                0 20px 48px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(59, 130, 246, 0.08);
+        }
+
+        /* Icon container inside feature card */
+        .placement-section .feature-card .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.18);
+            margin-bottom: 18px;
+            color: var(--accent2);
+            flex-shrink: 0;
+        }
+
+        .placement-section .feature-card .card-icon svg {
+            display: block;
+        }
+
+        /* Card title */
+        .placement-section .feature-card h3 {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 10px;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        /* Card body text */
+        .placement-section .feature-card p {
+            font-family: var(--font-main);
+            font-size: 13.5px;
+            color: var(--muted);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .placement-section .container {
+                grid-template-columns: 1fr;
+                gap: 56px;
+            }
+
+            .placement-section .section-header {
+                max-width: 640px;
+            }
+
+            .placement-section .section-sub {
+                max-width: 600px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .placement-section {
+                padding: 80px 0;
+            }
+
+            .placement-section .container {
+                width: min(100%, 90%);
+                gap: 44px;
+            }
+
+            .placement-section .section-title {
+                font-size: clamp(28px, 8vw, 40px);
+            }
+
+            .placement-section .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .placement-section .feature-card {
+                padding: 22px;
+            }
+
+            .placement-section .cta-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .placement-section .cta-primary,
+            .placement-section .cta-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* PRODUCTS */
+        .products-section {
+            background: var(--bg2);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .product-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all .3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+            border-color: rgba(37, 99, 235, .3);
+        }
+
+        .product-img {
+            height: 180px;
+            background: var(--bg3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .6s;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+
+        .product-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 60%, var(--card));
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 1;
+            background: var(--accent);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 100px;
+            letter-spacing: .5px;
+        }
+
+        .product-body {
+            padding: 20px;
+        }
+
+        .product-body h3 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .product-body p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .product-link {
+            font-size: 13px;
+            color: var(--accent2);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .product-link:hover {
+            gap: 10px;
+        }
+
+        /* IP SECTION */
+        .ip-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .ip-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all .3s;
+            position: relative;
+        }
+
+        .ip-card:hover {
+            border-color: rgba(139, 92, 246, .3);
+            transform: translateY(-4px);
+        }
+
+        .ip-num {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent3);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .ip-card h3 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .ip-card p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* COLLAB */
+        .collab-section {
+            background: var(--bg2);
+        }
+
+        .collab-tabs {
+            display: flex;
+            gap: 12px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 100px;
+            width: max-content;
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 100px;
+            transition: all .3s;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            margin-top: 28px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .testimonial {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .testimonial .quote {
+            font-size: 32px;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .testimonial p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .author-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .author-role {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* CTA BANNER */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent3) 100%);
+            padding: 80px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .cta-banner h2 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .cta-banner p {
+            font-size: 17px;
+            color: rgba(255, 255, 255, .8);
+            margin-bottom: 36px;
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--accent);
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .2s;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .3);
+        }
+
+        /* ALLIANCES */
+        .alliances {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .alliance-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 28px;
+            text-align: center;
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .alliance-item .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .alliance-item h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .alliance-item p {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 80px 24px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo-name {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 16px 0 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all .2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            background: rgba(37, 99, 235, .1);
+        }
+
+        .footer-col h4 {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 14px;
+            transition: color .2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--text);
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .contact-item .ci {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .contact-item p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: var(--text);
+            outline: none;
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--muted);
+        }
+
+        .newsletter-form button {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .newsletter-form button:hover {
+            background: #1d4ed8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .footer-bottom a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--text);
+        }
+
+
+        .link-card {
+            text-decoration: none !important;
+            color: inherit !important;
+            display: block;
+            cursor: pointer;
+        }
+
+        /* REVEAL ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: all .7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* LOADING SCREEN */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity .6s, visibility .6s;
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-inner {
+            text-align: center;
+        }
+
+        .loader-logo {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 3px;
+            background: rgba(255, 255, 255, .1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .loader-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 2px;
+            animation: load 1.5s ease forwards;
+        }
+
+        @keyframes load {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--accent);
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 9999;
+            transform: translateX(120%);
+            transition: transform .3s;
+            box-shadow: 0 8px 30px rgba(37, 99, 235, .4);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        /* PERSPECTIVES GRID & CARDS */
+        .perspective-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 24px;
+        }
+
+        .perspective-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Trigger animation when parent is active */
+        .tab-content.active .perspective-card {
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .tab-content.active .perspective-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .tab-content.active .perspective-card:nth-child(2) {
+            animation-delay: 0.25s;
+        }
+
+        .tab-content.active .perspective-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .perspective-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+        }
+
+        .perspective-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            opacity: 0.8;
+        }
+
+        .perspective-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .perspective-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke-width: 2;
+        }
+
+        .perspective-card:hover .perspective-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .pi-smps {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+        }
+
+        .pi-industry {
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            color: var(--accent2);
+        }
+
+        .pi-employment {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--accent3);
+        }
+
+        .perspective-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: -10px;
+        }
+
+        .perspective-card h3 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .perspective-card p {
+            font-size: 14.5px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1024px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .ip-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .perspective-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+
+        @media(max-width:768px) {
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ip-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .perspective-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* LOGO SECTIONS - Professional Premium Upgrade */
+        .logo-section {
+            padding: 60px 24px !important;
+            background: var(--bg) !important;
+            position: relative;
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        /* Sleek Glassmorphic Logo Cards */
+        .logo-card {
+            background: var(--logo-bg) !important;
+            border: 1px solid var(--logo-border) !important;
+            border-radius: 16px !important;
+            padding: 12px 24px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+        }
+
+        /* Marquee Specific Sleek Sizing */
+        .marquee-track .logo-card {
+            width: 170px !important;
+            height: 70px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .logo-card:hover {
+            transform: translateY(-2px) scale(1.03) !important;
+            border-color: var(--logo-hover-border) !important;
+            background: var(--logo-hover-bg) !important;
+            box-shadow: var(--logo-hover-shadow) !important;
+        }
+
+        /* Premium Monochrome-to-Color Transition */
+        .logo-card img {
+            max-width: 85% !important;
+            max-height: 65% !important;
+            object-fit: contain !important;
+            filter: var(--logo-filter) !important;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .logo-card:hover img {
+            transform: scale(1.04) !important;
+            filter: var(--logo-hover-filter) !important;
+        }
+
+        /* Light/Dark Dynamic Theme Design Tokens */
+        :root {
+            --logo-bg: rgba(255, 255, 255, 0.02);
+            --logo-border: rgba(255, 255, 255, 0.06);
+            --logo-hover-bg: rgba(255, 255, 255, 0.06);
+            --logo-hover-border: rgba(59, 130, 246, 0.45);
+            --logo-filter: none;
+            --logo-hover-filter: none;
+            --logo-hover-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+        }
+
+        [data-theme="light"] {
+            --logo-bg: rgba(15, 23, 42, 0.02);
+            --logo-border: rgba(15, 23, 42, 0.05);
+            --logo-hover-bg: rgba(255, 255, 255, 0.95);
+            --logo-hover-border: rgba(37, 99, 235, 0.3);
+            --logo-filter: none;
+            --logo-hover-filter: none;
+            --logo-hover-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Marquee rows: alternating directions */
+        .marquee-container {
+            overflow: hidden;
+            width: 100%;
+            margin-top: 28px;
+        }
+
+        .marquee-row {
+            overflow: hidden;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .marquee-track-wrapper {
+            display: flex;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .marquee-left {
+            animation: marquee-left 22s linear infinite;
+        }
+
+        .marquee-right {
+            animation: marquee-right 22s linear infinite;
+        }
+
+        @keyframes marquee-left {
+            from {
+                transform: translateX(0%);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes marquee-right {
+            from {
+                transform: translateX(-50%);
+            }
+
+            to {
+                transform: translateX(0%);
+            }
+        }
+
+        @media (max-width: 980px) {
+            .marquee-track .logo-card {
+                width: 140px !important;
+                height: 56px !important;
+            }
+
+            .marquee-left,
+            .marquee-right {
+                animation-duration: 28s;
+            }
+        }
+
+        .partner-section {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Premium Awards Section Styling */
+        .awards-section {
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.12) 0%, rgba(3, 5, 10, 0.6) 50%, var(--bg) 100%);
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            position: relative;
+            overflow: hidden;
+            padding: 90px 24px;
+        }
+
+        .awards-section .section-inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Background Highlighting Lights */
+        .awards-light {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.18;
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity 0.4s ease;
+        }
+
+        [data-theme="light"] .awards-light {
+            opacity: 0.08;
+            filter: blur(100px);
+        }
+
+        .awards-light-1 {
+            top: -10%;
+            left: 10%;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+            animation: awardsFloat 12s ease-in-out infinite;
+        }
+
+        .awards-light-2 {
+            bottom: -15%;
+            right: 5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            animation: awardsFloat 16s ease-in-out infinite reverse;
+        }
+
+        .awards-light-3 {
+            top: 25%;
+            left: 45%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent3) 0%, transparent 70%);
+            animation: awardsFloat 14s ease-in-out infinite 3s;
+        }
+
+        @keyframes awardsFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(40px, -30px) scale(1.15);
+            }
+        }
+
+        [data-theme="light"] .awards-section {
+            background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.08) 0%, rgba(255, 255, 255, 0.6) 60%, var(--bg) 100%);
+            border-top: 1px solid rgba(217, 119, 6, 0.2);
+            border-bottom: 1px solid rgba(217, 119, 6, 0.2);
+        }
+
+        .awards-section::before,
+        .awards-section::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+        }
+
+        .awards-section::before {
+            top: 0;
+        }
+
+        .awards-section::after {
+            bottom: 0;
+        }
+
+        [data-theme="light"] .awards-section::before,
+        [data-theme="light"] .awards-section::after {
+            background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.4), transparent);
+        }
+
+        /* Elegant Golden Glow Title */
+        .awards-section .section-title span {
+            color: var(--gold);
+            text-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+        }
+
+        /* Premium Glassmorphic Award Card */
+        .award-card {
+            background: rgba(212, 175, 55, 0.02) !important;
+            border: 1px solid rgba(212, 175, 55, 0.12) !important;
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        [data-theme="light"] .award-card {
+            background: rgba(217, 119, 6, 0.02) !important;
+            border: 1px solid rgba(217, 119, 6, 0.12) !important;
+        }
+
+        .award-card:hover {
+            border-color: rgba(212, 175, 55, 0.6) !important;
+            background: rgba(212, 175, 55, 0.05) !important;
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.18), 0 0 0 1px rgba(212, 175, 55, 0.2) !important;
+            transform: translateY(-6px) scale(1.03) !important;
+        }
+
+        [data-theme="light"] .award-card:hover {
+            border-color: rgba(217, 119, 6, 0.6) !important;
+            background: rgba(217, 119, 6, 0.05) !important;
+            box-shadow: 0 12px 35px rgba(217, 119, 6, 0.15), 0 0 0 1px rgba(217, 119, 6, 0.15) !important;
+        }
+
+        .award-card img {
+            transition: all 0.4s ease !important;
+        }
+
+        .award-card:hover img {
+            filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.45));
+            transform: scale(1.08);
+        }
+
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(45deg, transparent, rgba(245, 158, 11, 0.05), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 4s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        @media(max-width: 768px) {
+            .logo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+                gap: 12px;
+            }
+
+            .logo-card {
+                height: 80px;
+                padding: 16px;
+            }
+        }
+
+        /* MARQUEE SLIDER */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 40px 0;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .marquee-container::before,
+        .marquee-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 150px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .marquee-container::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg), transparent);
+        }
+
+        .marquee-container::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg), transparent);
+        }
+
+        .marquee-row {
+            overflow: hidden;
+            width: 100%;
+            margin: 16px 0;
+        }
+
+        .marquee-track-wrapper {
+            display: flex;
+            width: max-content;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            animation-play-state: running;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        .marquee-left {
+            animation: marquee-left linear infinite;
+        }
+
+        .marquee-right {
+            animation: marquee-right linear infinite;
+        }
+
+        @keyframes marquee-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes marquee-right {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: var(--accent2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-toggle-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Hero Video Custom Showcase */
+        .hero-video-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 16/9;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            background: #030712;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+        }
+
+        .hero-video-wrap:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 25px rgba(37, 99, 235, 0.2);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        [data-theme="light"] .hero-video-wrap {
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+        }
+
+        [data-theme="light"] .hero-video-wrap:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25), 0 0 25px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Hover-Expanding Floating Admin Panel Button */
+        #admin-float-btn {
+            position: fixed;
+            bottom: 105px;
+            right: 30px;
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 54px;
+            height: 54px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(99, 102, 241, 0.35);
+            border-radius: 50px;
+            color: #e2e8f0;
+            text-decoration: none;
+            box-shadow: 0 4px 24px rgba(99, 102, 241, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        #admin-float-btn .admin-icon-wrap {
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #admin-float-btn .admin-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            padding-right: 20px;
+        }
+
+        #admin-float-btn:hover {
+            width: 160px;
+            background: rgba(99, 102, 241, 0.25);
+            border-color: rgba(99, 102, 241, 0.7);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.35), 0 0 0 1px rgba(99, 102, 241, 0.2);
+            transform: translateY(-2px);
+        }
+
+        #admin-float-btn:hover .admin-icon-wrap {
+            transform: rotate(45deg);
+        }
+
+        #admin-float-btn:hover .admin-text {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        [data-theme="light"] #admin-float-btn {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(99, 102, 241, 0.3);
+            color: #0f172a;
+            box-shadow: 0 4px 24px rgba(99, 102, 241, 0.1), 0 0 0 1px rgba(99, 102, 241, 0.05);
+        }
+
+        [data-theme="light"] #admin-float-btn:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            #admin-float-btn {
+                bottom: 85px;
+                right: 20px;
+                width: 48px;
+                height: 48px;
+            }
+
+            #admin-float-btn .admin-icon-wrap {
+                width: 48px;
+                height: 48px;
+            }
+
+            #admin-float-btn:hover {
+                width: 150px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div id="loader">
+        <div class="loader-inner">
+            <div class="loader-logo" style="font-family:var(--font-heading);">SMPS Tech Lab</div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/ruf/main 1 rem.png" class="logo-icon"
+                    style="object-fit:contain; background:none; border:none; border-radius:0; width:auto; height:50px;"
+                    alt="Logo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="ip-portfolio.html">IP Portfolio</a>
+                <a href="collaborate.html">Collaborate</a>
+                <a href="execom.html">Execom</a>
+                <a href="events.html">Events</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-sep"></div>
+            <a href="contact.html" class="nav-cta">Get In Touch →</a>
+            <button class="theme-toggle-nav" id="themeToggleNav" title="Toggle Theme">
+                <svg viewBox="0 0 24 24" id="themeIconNav">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+            </button>
+            <div class="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mob">
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="ip-portfolio.html">IP Portfolio</a>
+            <a href="collaborate.html">Collaborate</a>
+            <a href="execom.html">Execom</a>
+            <a href="events.html">Events</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Updates Strip Ticker -->
+    <div class="updates-ticker-wrap">
+        <div class="updates-label">UPDATES</div>
+        <div class="ticker-content-container">
+            <div class="ticker-track" id="ticker-track">
+                <span>Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru</span>
+                <span>•</span>
+                <span>Smart Power Hub Training — Starting May 2026</span>
+                <span>•</span>
+                <span>VLSI Design & Verilog Bootcamp — Applications Open</span>
+                <span>•</span>
+                <span>Core Tech Placement Drive 2026 — Join Now</span>
+                <span>•</span>
+                <span>Industry-Academia Conclave 2026 — VTU Regional Center Bengaluru</span>
+                <span>•</span>
+                <span>Smart Power Hub Training — Starting May 2026</span>
+                <span>•</span>
+                <span>VLSI Design & Verilog Bootcamp — Applications Open</span>
+                <span>•</span>
+                <span>Core Tech Placement Drive 2026 — Join Now</span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-inner">
+            <div>
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    <span id="hp-badge">India’s Deep-Tech Innovation &amp; Engineering Ecosystem</span>
+                </div>
+                <h1 id="hp-heroTitle">Enabling Future Industrial Transformation<br>Through <span>Deep-Tech
+                        Innovation</span>.</h1>
+                <p id="hp-heroSub">SMPS Tech Lab is a research-driven technology and innovation division of SMPS
+                    Electric Control Pvt. Ltd. focused on <span class="highlight">DeepTech</span> <span
+                        class="highlight">R&D</span>, Artificial Intelligence, Power Electronics, Telecom Technologies,
+                    Industrial Automation, Embedded Systems, and Advanced Product Engineering.</p>
+                <div class="hero-btns">
+                    <a id="hp-btn1" href="collaborate.html" class="btn-primary">Get Real Experience →</a>
+                    <a id="hp-btn2" href="about.html" class="btn-secondary">Learn Our Mission</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-video-wrap">
+                    <video id="hero-video" autoplay loop muted playsinline
+                        style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                        <source src="assets/videos/video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <!-- Audio Control Toggle Button -->
+                    <button id="video-audio-toggle"
+                        style="position: absolute; bottom: 16px; right: 16px; background: rgba(15, 76, 129, 0.85); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25); color: #fff; border-radius: 30px; padding: 10px 18px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.2s ease; z-index: 10;">
+                        <i data-lucide="volume-x" id="audio-toggle-icon" style="width: 16px; height: 16px;"></i>
+                        <span id="audio-toggle-text">Unmute</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-section">
+        <div class="stats-inner"
+            style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:24px; padding:40px; backdrop-filter:blur(10px);">
+            <div class="stat-item reveal">
+                <div class="num" id="hp-stat1" style="color:var(--accent2); font-weight:800;">16+</div>
+                <div class="lbl" id="hp-stat1l"
+                    style="text-transform:uppercase; letter-spacing:0.1em; font-size:11px; opacity:0.7;">Intellectual
+                    Properties</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="num" id="hp-stat2" style="color:var(--accent2); font-weight:800;">10+</div>
+                <div class="lbl" id="hp-stat2l"
+                    style="text-transform:uppercase; letter-spacing:0.1em; font-size:11px; opacity:0.7;">Quantum
+                    Innovation Force</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="num" id="hp-stat3" style="color:var(--accent2); font-weight:800;">500+</div>
+                <div class="lbl" id="hp-stat3l"
+                    style="text-transform:uppercase; letter-spacing:0.1em; font-size:11px; opacity:0.7;">R&D Contributor
+                </div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="num" id="hp-stat4" style="color:var(--accent2); font-weight:800;">100+</div>
+                <div class="lbl" id="hp-stat4l"
+                    style="text-transform:uppercase; letter-spacing:0.1em; font-size:11px; opacity:0.7;">Research
+                    Ecosystem</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLIENTS -->
+    <section class="logo-section">
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;">
+                <div class="section-badge" id="hp-clients-badge">The SMPS Ecosystem</div>
+                <h2 class="section-title" id="hp-clients-head">This is the <span>SMPS Ecosystem</span></h2>
+                <p class="section-sub" id="hp-clients-sub" style="margin: 0 auto;">An interconnected engineering
+                    ecosystem uniting academic researchers, startup innovators, and industrial experts under one
+                    collaborative roof. By providing hands-on project ownership and advanced corporate-scale resources,
+                    we translate emerging ideas into market-ready technologies.</p>
+            </div>
+            <div class="marquee-container reveal" id="clientLogos">
+                <!-- Rendered via JS -->
+            </div>
+        </div>
+    </section>
+
+    <section id="placement-section" class="placement-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">Placement & Talent Gap</div>
+                <h1 class="section-title">Graduates Need Placements.<br><span class="gradient-text">Startups Need
+                        Experts.</span></h1>
+                <p class="section-sub">We bridge the talent gap by turning engineering students into industry‑ready
+                    DeepTech professionals, delivering plug‑in‑play talent for high‑impact startups.</p>
+                <div class="cta-group">
+                    <a href="about.html" class="btn-primary cta-primary">Explore the Mission</a>
+                    <a href="programs.html" class="btn-secondary cta-secondary">View Programs</a>
+                </div>
+            </div>
+            <div class="cards-grid reveal">
+                <a href="collaborate.html" class="card feature-card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 16v-4" />
+                            <path d="M12 8h.01" />
+                        </svg>
+                    </div>
+                    <h3>Industry‑Grade Experience</h3>
+                    <p>Work on live, industry‑standard projects commissioned by fast‑growing companies and startups.</p>
+                </a>
+                <a href="collaborate.html" class="card feature-card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v8" />
+                            <path d="m4.93 10.93 1.41 1.41" />
+                            <path d="M2 18h2" />
+                            <path d="m4.93 19.07 1.41-1.41" />
+                            <path d="M12 22v-2" />
+                        </svg>
+                    </div>
+                    <h3>Startup & Corporate Connect</h3>
+                    <p>Direct collaboration with senior founders and industry veterans, building networks that bypass
+                        traditional screening.</p>
+                </a>
+                <a href="collaborate.html" class="card feature-card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
+                            <path d="M9 3v18" />
+                            <path d="m9 15 3-3 3 3" />
+                            <path d="m9 9 3 3-3 3" />
+                        </svg>
+                    </div>
+                    <h3>Verified Competence</h3>
+                    <p>Earn certifications backed by real‑world R&amp;D experience, proving immediate capability.</p>
+                </a>
+                <a href="collaborate.html" class="card feature-card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="18" height="18" x="3" y="3" rx="2" />
+                            <path d="M9 3v18" />
+                            <path d="m9 15 3-3 3 3" />
+                            <path d="m9 9 3 3-3 3" />
+                        </svg>
+                    </div>
+                    <h3>Accelerated Placement</h3>
+                    <p>Match your project experience directly with our hiring network eager for pre‑trained talent.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AWARDS -->
+    <section class="logo-section awards-section">
+        <!-- Background Highlighting Lights -->
+        <div class="awards-light awards-light-1"></div>
+        <div class="awards-light awards-light-2"></div>
+        <div class="awards-light awards-light-3"></div>
+
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;">
+                <div class="section-badge" id="hp-awards-badge">Recognition</div>
+                <h2 class="section-title" id="hp-awards-head">Awards & <span>Achievements</span></h2>
+                <p class="section-sub" id="hp-awards-sub" style="margin: 0 auto;">Honored for our commitment to
+                    excellence, innovation, and
+                    technological leadership.</p>
+            </div>
+            <div class="marquee-container reveal" id="awardLogos">
+                <!-- Rendered via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="products-section" style="display:none;">
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:0;">
+                <div class="section-badge">Skill Tracks</div>
+                <h2 class="section-title">Master the <span>Industry Skills</span></h2>
+                <p class="section-sub" style="margin:0 auto;">Practical, hands-on learning modules designed to make you
+                    industry-ready from day one.</p>
+            </div>
+            <div class="products-grid" id="featuredProductsGrid"></div>
+            <div style="text-align:center;margin-top:40px;" class="reveal">
+                <a href="products.html" class="btn-secondary">View All Programs →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- IP PORTFOLIO PREVIEW -->
+    <section>
+        <div class="section-inner">
+            <div class="reveal"
+                style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:60px;">
+                <div>
+                    <div class="section-badge">IP Portfolio</div>
+                    <h2 class="section-title">Innovation Protected,<br><span>Ready to License</span></h2>
+                </div>
+                <a href="ip-portfolio.html" class="btn-secondary">Full Portfolio →</a>
+            </div>
+            <div class="ip-grid">
+                <a href="ip-portfolio.html" class="ip-card reveal link-card">
+                    <div class="ip-num">PATENT · 2024</div>
+                    <h3>Adaptive Power Grid Topology Optimization</h3>
+                    <p>Novel algorithm for dynamic power grid optimization reducing energy losses by 34% in real-world
+                        deployments.</p>
+                </a>
+                <a href="ip-portfolio.html" class="ip-card reveal link-card">
+                    <div class="ip-num">PATENT · 2024</div>
+                    <h3>AI-Based Predictive Fault Detection</h3>
+                    <p>Deep learning system for early fault detection in electrical infrastructure with 97.3% accuracy
+                        rate.</p>
+                </a>
+                <a href="ip-portfolio.html" class="ip-card reveal link-card">
+                    <div class="ip-num">RESEARCH · 2026</div>
+                    <h3>Quantum-Resistant Communication Protocol</h3>
+                    <p>Post-quantum cryptography framework for secure communication in critical infrastructure
+                        environments.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLLABORATIONS -->
+    <section class="collab-section">
+        <div class="section-inner">
+            <div class="reveal"
+                style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:40px;">
+                <div>
+                    <div class="section-badge">Collaborate</div>
+                    <h2 class="section-title">Building Partnerships<br>That <span>Drive Innovation</span></h2>
+                </div>
+            </div>
+            <div class="collab-tabs reveal">
+                <button class="tab-btn active" onclick="switchTab('academia')">Academia</button>
+                <button class="tab-btn" onclick="switchTab('industry')">Industry</button>
+                <button class="tab-btn" onclick="switchTab('startups')">Startups</button>
+                <button class="tab-btn" onclick="switchTab('government')">Government</button>
+            </div>
+            <div class="tab-content active" id="tab-academia">
+                <div class="perspective-grid">
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-smps"><i data-lucide="award"></i></div>
+                        <div class="perspective-tag">SMPS Perspective</div>
+                        <h3>Perspective of SMPS</h3>
+                        <p>SMPS collaborates with universities to create industry-oriented learning opportunities,
+                            strengthen academic partnerships, and connect students with research and innovation programs
+                            in Deep Tech domains.</p>
+                    </div>
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-industry"><i data-lucide="factory"></i></div>
+                        <div class="perspective-tag">Academia Perspective</div>
+                        <h3>Perspective of Academia</h3>
+                        <p>Industries can engage with academia through R&D initiatives, consultancy projects, workshops,
+                            and collaborative skill development programs aligned with real-world industrial needs.</p>
+                    </div>
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-employment"><i data-lucide="graduation-cap"></i></div>
+                        <div class="perspective-tag">Student Perspective</div>
+                        <h3>Perspective of Students</h3>
+                        <p>Students gain access to industry-ready internships and practical exposure in AI, ML, IoT,
+                            Telecom, Embedded Systems, and Power Electronics through hands-on learning experiences.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="tab-industry">
+                <div class="perspective-grid">
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-smps"><i data-lucide="shield-check"></i></div>
+                        <div class="perspective-tag">SMPS Perspective</div>
+                        <h3>Perspective of SMPS</h3>
+                        <p>SMPS works closely with industries to promote innovation, technical consultancy, and
+                            collaborative development programs that bridge academic learning with industrial practice.
+                        </p>
+                    </div>
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-industry"><i data-lucide="handshake"></i></div>
+                        <div class="perspective-tag">Industry Perspective</div>
+                        <h3>Perspective of Industry</h3>
+                        <p>Industries benefit from access to skilled talent, collaborative research opportunities, and
+                            technical engagement through workshops, hackathons, and industrial training initiatives.</p>
+                    </div>
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-employment"><i data-lucide="briefcase"></i></div>
+                        <div class="perspective-tag">Employment Perspective</div>
+                        <h3>Perspective of Employment</h3>
+                        <p>Employment opportunities are enhanced through industry-focused training, practical technical
+                            exposure, and skill development in emerging technologies and Industry 5.0 domains.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="tab-startups">
+                <div class="perspective-grid">
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-smps"><i data-lucide="cpu"></i></div>
+                        <div class="perspective-tag">SMPS Perspective</div>
+                        <h3>Perspective of SMPS</h3>
+                        <p>SMPS supports startup ecosystems by encouraging innovation, prototype development, and
+                            collaboration between academia, research teams, and industry experts.</p>
+                    </div>
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-industry"><i data-lucide="rocket"></i></div>
+                        <div class="perspective-tag">Startup Perspective</div>
+                        <h3>Perspective of Startup</h3>
+                        <p>Startups can leverage technical expertise, research infrastructure, and skilled talent to
+                            develop innovative Deep Tech solutions and accelerate product development.</p>
+                    </div>
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-employment"><i data-lucide="lightbulb"></i></div>
+                        <div class="perspective-tag">Innovator Perspective</div>
+                        <h3>Perspective of Innovators</h3>
+                        <p>Innovators and aspiring entrepreneurs gain opportunities to transform ideas into practical
+                            ventures through mentorship, R&D support, and exposure to startup-oriented programs.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="tab-government">
+                <div class="perspective-grid">
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-smps"><i data-lucide="globe"></i></div>
+                        <div class="perspective-tag">SMPS Perspective</div>
+                        <h3>Perspective of SMPS</h3>
+                        <p>SMPS partners with government initiatives to support technology advancement, skill
+                            development, and collaborative research programs in emerging sectors.</p>
+                    </div>
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-industry"><i data-lucide="landmark"></i></div>
+                        <div class="perspective-tag">Government Perspective</div>
+                        <h3>Perspective of Government</h3>
+                        <p>Government organizations can promote innovation, workforce development, and industry-academia
+                            collaboration through Centers of Excellence and technology-driven initiatives.</p>
+                    </div>
+                    <div class="perspective-card">
+                        <div class="perspective-icon pi-employment"><i data-lucide="users"></i></div>
+                        <div class="perspective-tag">Public & Student Perspective</div>
+                        <h3>Public & Student Perspective</h3>
+                        <p>Students and the public benefit from access to advanced technical training, innovation
+                            programs, and opportunities that encourage research, employability, and entrepreneurship.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNERS -->
+    <section class="logo-section partner-section">
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;">
+                <div class="section-badge" id="hp-partners-badge">Strategic Partners</div>
+                <h2 class="section-title" id="hp-partners-head">Collaborating for <span>Future Excellence</span></h2>
+                <p class="section-sub" id="hp-partners-sub" style="margin: 0 auto;">Building a robust innovation
+                    ecosystem through strategic
+                    global alliances.</p>
+            </div>
+            <div class="marquee-container reveal" id="partnerLogos">
+                <!-- Rendered via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section>
+        <div class="section-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:60px;">
+                <div class="section-badge">What They Say</div>
+                <h2 class="section-title">Trusted by <span>Innovators</span></h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial reveal">
+                    <div class="quote">"</div>
+                    <p>SMPS Tech Lab gave me the practical confidence I lacked after my engineering degree. Working on a
+                        live power electronics project was exactly what got me hired.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AK</div>
+                        <div>
+                            <div class="author-name">Ankit Kumar</div>
+                            <div class="author-role">Embedded Engineer, TechCorp</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial reveal">
+                    <div class="quote">"</div>
+                    <p>The mentorship at SMPS is real. I wasn't just another student; I was part of a team solving
+                        actual industry problems. It completely changed my career trajectory.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RS</div>
+                        <div>
+                            <div class="author-name">Riya Sharma</div>
+                            <div class="author-role">Data Scientist, InnovateX</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial reveal">
+                    <div class="quote">"</div>
+                    <p>Before SMPS, I only had theoretical knowledge. After 6 months of live project work, I felt ready
+                        for any technical challenge. Highly recommended for freshers!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">VS</div>
+                        <div>
+                            <div class="author-name">Vikram Singh</div>
+                            <div class="author-role">Systems Architect, GlobalLink</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STRATEGIC ALLIANCES -->
+    <section class="highlight-alliances"
+        style="background:var(--bg3);padding:100px 24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;overflow:hidden;">
+        <div class="glow-bg"
+            style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);pointer-events:none;">
+        </div>
+        <div class="section-inner" style="position:relative;z-index:1;">
+            <div class="reveal" style="text-align:center;margin-bottom:60px;">
+                <div class="section-badge" id="hp-alliances-badge"
+                    style="background:rgba(59, 130, 246, 0.1);color:var(--accent);">Strategic Alliances</div>
+                <h2 class="section-title" id="hp-alliances-head">Trusted by <span>Leading Organizations</span></h2>
+                <p class="section-sub" id="hp-alliances-sub" style="margin: 0 auto; max-width: 700px;">We collaborate
+                    with top-tier
+                    industrial, academic, and government bodies to drive national technological excellence.</p>
+            </div>
+            <div class="marquee-container reveal" id="mainLogos">
+                <!-- Rendered via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner">
+        <h2 id="hp-cta-head">Your Career Starts Before <span>Your First Job</span></h2>
+        <p id="hp-cta-sub">Don't wait for a placement. Build the experience that makes you un-ignorable.</p>
+        <a href="contact.html" class="btn-white" id="hp-cta-btn">Build Your Future Today →</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                        <img src="assets/ruf/main 1 rem.png" class="logo-icon"
+                            style="object-fit:contain; background:none; border:none; border-radius:0; width:auto; height:50px;"
+                            alt="Logo">
+                        <div class="logo-name">SMPS Tech Lab</div>
+                    </div>
+                    <p>A National Platform bridging the gap between academia and industry. We empower students through
+                        real-world project experience and hands-on professional growth.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">ig</a>
+                        <a href="#" class="social-link">tw</a>
+                        <a href="#" class="social-link">yt</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="ip-portfolio.html">IP Portfolio</a></li>
+                        <li><a href="collaborate.html">Collaborate</a></li>
+                        <li><a href="execom.html">Execom</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">IP Licensing Terms</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>VTU-VRIF-TCOE Building, 1st Main Rd, RHCS Layout, Annasandraswari Nagar, Nagarabhavi,
+                                Bengaluru, Karnataka 560091</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>smpstechlab@gmail.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>9035874229 / 8792779543</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="ci"></span>
+                            <p>10:00 AM – 8:00 PM (All days, Tuesday Holiday)</p>
+                        </div>
+                    </div>
+                    <div class="newsletter-form" style="margin-top:20px;">
+                        <input type="email" placeholder="Your email" id="nlEmail">
+                        <button onclick="subscribeNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SMPS Tech Lab. A subsidiary of SMPS Electric. All rights reserved.</p>
+                <div style="display:flex;gap:24px;">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"> Subscribed successfully!</div>
+
+
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        function updateIcon(theme) {
+            if (theme === 'light') {
+                if (typeof themeIcon !== 'undefined' && themeIcon) themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; // Moon
+            } else {
+                if (typeof themeIcon !== 'undefined' && themeIcon) themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'; // Sun
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        if (typeof themeIcon !== 'undefined' && themeIcon) updateIcon(savedTheme);
+
+        if (typeof themeToggle !== 'undefined' && themeToggle) themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        // Rest of the scripts...
+        // LOADER
+        window.addEventListener('load', () => {
+            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1500);
+        });
+
+        // NAVBAR SCROLL
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // MOBILE MENU
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
+
+        // SCROLL REVEAL
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: .15 });
+        revealEls.forEach(el => observer.observe(el));
+
+        // COUNTER
+        function animateCounter(el, target) {
+            let start = 0, dur = 2000, step = dur / target;
+            let timer = setInterval(() => {
+                start += Math.ceil(target / 60);
+                if (start >= target) { start = target; clearInterval(timer); }
+                el.textContent = start + (target >= 100 ? '+' : '');
+            }, step);
+        }
+        const counterObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const target = parseInt(e.target.dataset.target);
+                    animateCounter(e.target, target);
+                    counterObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: .5 });
+        document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
+
+        // TABS
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => {
+                c.classList.remove('active');
+                c.querySelectorAll('.perspective-card').forEach(card => {
+                    card.style.animation = 'none';
+                });
+            });
+            event.target.classList.add('active');
+            const activeTab = document.getElementById('tab-' + tab);
+            activeTab.classList.add('active');
+
+            activeTab.querySelectorAll('.perspective-card').forEach((card, index) => {
+                card.offsetHeight; // trigger reflow
+                card.style.animation = `fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards`;
+                card.style.animationDelay = `${0.1 + index * 0.15}s`;
+            });
+        }
+
+        // NEWSLETTER
+        async function subscribeNewsletter() {
+            const emailEl = document.getElementById('nlEmail');
+            if (!emailEl) return;
+            const email = emailEl.value.trim();
+            if (!email || !email.includes('@')) { showToast('Please enter a valid email.'); return; }
+            const subs = await DataStore.getList('subscribers', []);
+            if (!subs.includes(email)) {
+                subs.push(email);
+                await DataStore.saveList('subscribers', subs);
+            }
+            emailEl.value = '';
+            showToast('Subscribed successfully!');
+        }
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        async function loadHomeData() {
+            let homeData = null;
+            try {
+                const res = await fetch('/api/settings/homeData');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && Object.keys(data).length > 0) {
+                        homeData = data;
+                    }
+                }
+            } catch (e) {}
+            if (!homeData) {
+                try {
+                    homeData = await DataStore.getDocument('homeData', {});
+                } catch(e) {}
+            }
+            if (homeData) {
+                if (homeData.heroTitle) { document.querySelector('.hero h1').innerHTML = homeData.heroTitle; }
+                if (homeData.heroSub) { document.querySelector('.hero p').textContent = homeData.heroSub; }
+            }
+        }
+        window.addEventListener('load', loadHomeData);
+
+        // DYNAMIC LOGO RENDERING
+        const clients = [
+            'cl 1.png', 'cl 2.png', 'cl 3.png', 'cl 4 (2).png', 'cl 5 (3).png', 'cl 6(4).png',
+            'cl 7.png', 'cl 8.png', 'cl 9.png', 'cl 10.png', 'cl 11.png', 'cl 12.png',
+            'cl 13.png', 'cl 14.png', 'cl 15.png', 'cl 16.png', 'cl 17.png', 'cl 18.png', 'cl 19.png'
+        ].map(n => `assets/logos/clinets/${n}`);
+
+        const partners = [
+            'pt1.png', 'pt2.png', 'pt3.png', 'pt4.png', 'pt5.png'
+        ].map(n => `assets/logos/partners/${n}`);
+
+        const awards = [
+            'aw 1.png', 'aw 2.png'
+        ].map(n => `assets/logos/aw/${n}`);
+
+        const mainLogos = [
+            'main 1.png', 'main 2.png', 'main 3.png', 'main 4.png', 'main 5.png', 'main 6.png', 'main 7.png'
+        ].map(n => `assets/logos/main/${n}`);
+
+        function renderLogos(containerId, list, type) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const track = document.createElement('div');
+            track.className = `marquee-track ${type}-track`;
+
+            const createCard = (src) => {
+                const card = document.createElement('div');
+                card.className = `logo-card ${type === 'partner' ? 'partner-card' : ''} ${type === 'award' ? 'award-card shimmer' : ''}`;
+
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = 'Logo';
+                img.loading = 'lazy';
+
+                card.appendChild(img);
+                return card;
+            };
+
+            // Duplicate the list enough times to ensure smooth scrolling
+            const displayList = [...list, ...list, ...list];
+
+            displayList.forEach((src) => {
+                track.appendChild(createCard(src));
+            });
+
+            container.appendChild(track);
+        }
+
+        // Create alternating marquee rows for logos
+        function renderMarquee(containerId, list, type, rows = 3, speed = 22) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            const createCard = (src) => {
+                const card = document.createElement('div');
+                card.className = `logo-card ${type === 'partner' ? 'partner-card' : ''} ${type === 'award' ? 'award-card shimmer' : ''}`;
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = 'Logo';
+                img.loading = 'lazy';
+                card.appendChild(img);
+                return card;
+            };
+
+            // Distribute items evenly across rows if the dataset is large enough
+            const shouldDistribute = list.length >= rows * 3;
+            const itemsPerRow = shouldDistribute ? Math.ceil(list.length / rows) : list.length;
+
+            for (let r = 0; r < rows; r++) {
+                let rowList = [];
+                if (shouldDistribute) {
+                    const start = r * itemsPerRow;
+                    const end = Math.min(start + itemsPerRow, list.length);
+                    rowList = list.slice(start, end);
+                    if (rowList.length === 0) continue;
+
+                    // Pad rows with items from the list to keep all row widths identical for perfect sync
+                    while (rowList.length < itemsPerRow) {
+                        rowList.push(list[rowList.length % list.length]);
+                    }
+                } else {
+                    rowList = [...list];
+                }
+
+                // Make sure the row has enough items to span screen width and loop cleanly
+                let displayList = [...rowList];
+                if (rowList.length > 0) {
+                    while (displayList.length < 18) {
+                        displayList = [...displayList, ...rowList];
+                    }
+                }
+
+                const row = document.createElement('div');
+                row.className = 'marquee-row';
+
+                const track = document.createElement('div');
+                track.className = 'marquee-track';
+
+                // Add a small speed variation to make the looping feel organic and non-synchronized
+                const rowSpeed = (containerId === 'clientLogos') ? speed : speed + (r * 3) - 2;
+                const direction = (containerId === 'clientLogos') ? 'marquee-left' : ((r % 2 === 0) ? 'marquee-left' : 'marquee-right');
+
+                // Set animation properties individually to avoid overriding hover-pause behavior
+                track.style.animationName = direction;
+                track.style.animationDuration = `${rowSpeed}s`;
+                track.style.animationTimingFunction = 'linear';
+                track.style.animationIterationCount = 'infinite';
+
+                // For alternating rows, reverse the order for visual layout variety
+                if (containerId !== 'clientLogos' && r % 2 === 1) displayList.reverse();
+
+                displayList.forEach(src => {
+                    track.appendChild(createCard(src));
+                });
+
+                // Wrap track twice to double content width for seamless translation animation
+                const trackWrapper = document.createElement('div');
+                trackWrapper.className = 'marquee-track-wrapper';
+                trackWrapper.appendChild(track.cloneNode(true));
+                trackWrapper.appendChild(track.cloneNode(true));
+
+                row.appendChild(trackWrapper);
+                container.appendChild(row);
+            }
+        }
+
+        // Special two-row marquee for clients: two lines, balanced logos, alternate directions
+        function renderTwoRowMarquee(containerId, list, perRow = 4, speed = 22) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            const createCard = (src) => {
+                const card = document.createElement('div');
+                card.className = `logo-card`;
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = 'Logo';
+                img.loading = 'lazy';
+                card.appendChild(img);
+                return card;
+            };
+
+            const effectiveCount = Math.min(list.length, perRow * 2);
+            const half = Math.ceil(effectiveCount / 2);
+            let firstRow = list.slice(0, half);
+            let secondRow = list.slice(half, effectiveCount);
+
+            // Balance the rows so they split evenly when possible.
+            if (secondRow.length < firstRow.length - 1) {
+                secondRow = firstRow.splice(firstRow.length - 1).concat(secondRow);
+            }
+
+            [firstRow, secondRow].forEach((rowList, idx) => {
+                const row = document.createElement('div');
+                row.className = 'marquee-row';
+
+                const track = document.createElement('div');
+                track.className = 'marquee-track ' + (idx === 0 ? 'marquee-left' : 'marquee-right');
+                track.style.animationDuration = `${speed}s`;
+
+                const repeated = [...rowList, ...rowList];
+                if (idx === 1) repeated.reverse();
+
+                repeated.forEach(src => track.appendChild(createCard(src)));
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'marquee-track-wrapper';
+                wrapper.appendChild(track.cloneNode(true));
+                wrapper.appendChild(track.cloneNode(true));
+
+                row.appendChild(wrapper);
+                container.appendChild(row);
+            });
+        }
+
+        renderMarquee('clientLogos', clients, 'client', 3, 25);
+        renderMarquee('partnerLogos', partners, 'partner', 1, 20);
+        renderMarquee('awardLogos', awards, 'award', 1, 18);
+        renderMarquee('mainLogos', mainLogos, 'partner', 1, 20); // Using partner style for main logos
+
+        // PARALLAX EFFECT
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelectorAll('.hero-orb').forEach(orb => {
+                orb.style.transform = `translateY(${scrolled * 0.15}px)`;
+            });
+            document.querySelector('.hero-inner').style.transform = `translateY(${scrolled * 0.1}px)`;
+        });
+
+        // Re-run observer for new elements
+        const newReveals = document.querySelectorAll('.reveal, .logo-card');
+        newReveals.forEach(el => observer.observe(el));
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
+            // Hero Video Mute/Unmute toggle logic
+            const heroVideo = document.getElementById('hero-video');
+            const audioToggleBtn = document.getElementById('video-audio-toggle');
+            const audioToggleIcon = document.getElementById('audio-toggle-icon');
+            const audioToggleText = document.getElementById('audio-toggle-text');
+
+            if (heroVideo && audioToggleBtn) {
+                audioToggleBtn.addEventListener('click', () => {
+                    heroVideo.muted = !heroVideo.muted;
+                    if (heroVideo.muted) {
+                        audioToggleIcon.setAttribute('data-lucide', 'volume-x');
+                        audioToggleText.textContent = 'Unmute';
+                    } else {
+                        audioToggleIcon.setAttribute('data-lucide', 'volume-2');
+                        audioToggleText.textContent = 'Mute';
+                    }
+                    // Refresh Lucide icon elements
+                    lucide.createIcons();
+                });
+            }
+
+            // Trigger animation on the active tab's cards initially
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab) {
+                activeTab.querySelectorAll('.perspective-card').forEach((card, index) => {
+                    card.style.animation = `fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards`;
+                    card.style.animationDelay = `${0.1 + index * 0.15}s`;
+                });
+            }
+        });
+    </script>
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/919035874229" class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+        title="Chat on WhatsApp">
+        <div class="whatsapp-icon">
+            <svg viewBox="0 0 448 512">
+                <path
+                    d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+            </svg>
+        </div>
+    </a>
+
+    <!-- Floating Admin Panel Button -->
+    <a href="admin/admin.html" id="admin-float-btn" title="Admin Panel" aria-label="Open Admin Panel">
+        <div class="admin-icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg>
+        </div>
+        <span class="admin-text">Admin Panel</span>
+    </a>
+
+    <div class="awards-popup-overlay" id="awardsPopupOverlay"></div>
+    <div class="awards-popup-modal" id="awardsPopupModal" role="dialog" aria-modal="true" aria-label="Award showcase"
+        tabindex="-1">
+        <div class="awards-popup-card">
+
+            <!-- Close btn: CSS-drawn X, spins on hover -->
+            <button class="awards-popup-close" id="awardsPopupClose" type="button"
+                aria-label="Close awards popup"></button>
+
+            <div class="awards-popup-shell">
+                <div class="sr-only" id="awardsPopupDesc">Award showcase. Press ESC or click outside to close.</div>
+
+                <!-- ── PREMIUM AUTHORITY HEADER ── -->
+                <div class="awards-popup-header">
+                    <!-- Logo pills strip: populated by JS -->
+                    <div class="awards-popup-logos-strip" id="awardsLogoStrip"></div>
+                </div>
+
+                <!-- ── CINEMATIC IMAGE FRAME ── -->
+                <div class="awards-popup-image-area">
+                    <div class="awards-logo-grid" id="awardsLogoGrid" aria-live="polite"></div>
+                </div>
+
+                <!-- ── PREMIUM INFO FOOTER ── -->
+                <div class="awards-popup-footer">
+
+                    <!-- Authority badge -->
+                    <div class="awards-popup-badge">
+                        <span class="awards-popup-badge-dot"></span>
+                        Award Winning Organization
+                    </div>
+
+                    <!-- Title -->
+                    <h2 class="awards-popup-title">Awards &amp; <span>Achievements</span></h2>
+
+                    <!-- Subtitle -->
+                    <p class="awards-popup-subtitle">Recognized for innovation, excellence &amp; technological
+                        leadership</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="assets/js/firebase-init.js?v=1.0.1"></script>
+    <script src="assets/js/main.js?v=1.0.1"></script>
+    <script>
+        window.addEventListener('load', async () => {
+            const defaultHome = {
+                heroTitle: 'Enabling Future Industrial Transformation<br>Through <span>Deep-Tech Innovation</span>.',
+                heroSub: 'SMPS Tech Lab is a research-driven technology and innovation division of SMPS Electric Control Pvt. Ltd. focused on <span class="highlight">DeepTech</span> <span class="highlight">R&D</span>, Artificial Intelligence, Power Electronics, Telecom Technologies, Industrial Automation, Embedded Systems, and Advanced Product Engineering.',
+                heroBadge: 'India’s Deep-Tech Innovation & Engineering Ecosystem',
+                btn1: 'Get Real Experience →',
+                btn2: 'Learn Our Mission',
+                stat1: '16+',
+                stat1l: 'Intellectual Properties',
+                stat2: '10+',
+                stat2l: 'Quantum Innovation Force',
+                stat3: '500+',
+                stat3l: 'R&D Contributor',
+                stat4: '100+',
+                stat4l: 'Research Ecosystem',
+                aboutHead: 'Graduates Need Placements. <span>Startups Need Experts.</span>',
+                aboutDesc: 'The job market presents a classic paradox: ambitious engineering students need real-world project experience to secure high-value placements, while startups and industries seek experienced, plug-and-play talent to scale their engineering operations.',
+                clientsBadge: 'The SMPS Ecosystem',
+                clientsHead: 'This is the <span>SMPS Ecosystem</span>',
+                clientsSub: 'An interconnected engineering ecosystem uniting academic researchers, startup innovators, and industrial experts under one collaborative roof. By providing hands-on project ownership and advanced corporate-scale resources, we translate emerging technologies into high-performance industrial solutions.'
+            };
+
+            function setText(id, value) {
+                const element = document.getElementById(id);
+                if (!element) return;
+                element.textContent = value ?? '';
+            }
+
+            function setHTML(id, value) {
+                const element = document.getElementById(id);
+                if (!element) return;
+                element.innerHTML = value ?? '';
+            }
+
+            async function loadHomeData() {
+                let homeData = null;
+                try {
+                    const res = await fetch('/api/settings/homeData');
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && Object.keys(data).length > 0) {
+                            homeData = data;
+                        }
+                    }
+                } catch (error) {
+                    console.warn('Failed to fetch homeData from backend API, trying DataStore...', error);
+                }
+                if (!homeData) {
+                    try {
+                        if (window.DataStore?.getDocument) {
+                            const remote = await DataStore.getDocument('homeData', null);
+                            if (remote && typeof remote === 'object') {
+                                homeData = remote;
+                            }
+                        }
+                    } catch (error) {
+                        console.warn('Failed to load homeData from DataStore:', error);
+                    }
+                }
+                return homeData || {};
+            }
+
+            const homeData = await loadHomeData();
+
+            // Self-healing migration for stored values to match the new beautiful design
+            let needSave = false;
+            if (homeData.heroSub && (homeData.heroSub.includes('Startups and industries need') || homeData.heroSub.includes('Industries are rapidly evolving'))) {
+                homeData.heroTitle = defaultHome.heroTitle;
+                homeData.heroSub = defaultHome.heroSub;
+                homeData.heroBadge = defaultHome.heroBadge;
+                needSave = true;
+            }
+            if (!homeData.stat1l || homeData.stat1l === 'Students Mentored' || homeData.stat1l === 'IP Patents & Research Papers') {
+                homeData.stat1 = defaultHome.stat1;
+                homeData.stat1l = defaultHome.stat1l;
+                homeData.stat2 = defaultHome.stat2;
+                homeData.stat2l = defaultHome.stat2l;
+                homeData.stat3 = defaultHome.stat3;
+                homeData.stat3l = defaultHome.stat3l;
+                homeData.stat4 = defaultHome.stat4;
+                homeData.stat4l = defaultHome.stat4l;
+                needSave = true;
+            }
+            if (!homeData.clientsSub || !homeData.clientsSub.startsWith('An interconnected engineering ecosystem') || homeData.clientsHead?.includes('Breaking')) {
+                homeData.clientsBadge = defaultHome.clientsBadge;
+                homeData.clientsHead = defaultHome.clientsHead;
+                homeData.clientsSub = defaultHome.clientsSub;
+                needSave = true;
+            }
+            if (needSave) {
+                try {
+                    if (window.DataStore?.saveDocument) {
+                        await window.DataStore.saveDocument('homeData', homeData);
+                    }
+                } catch (e) { }
+            }
+
+            setHTML('hp-heroTitle', homeData.heroTitle ?? defaultHome.heroTitle);
+            setHTML('hp-heroSub', homeData.heroSub ?? defaultHome.heroSub);
+            setText('hp-badge', homeData.heroBadge ?? defaultHome.heroBadge);
+            setText('hp-btn1', homeData.btn1 ?? defaultHome.btn1);
+            setText('hp-btn2', homeData.btn2 ?? defaultHome.btn2);
+            setText('hp-stat1', homeData.stat1 ?? defaultHome.stat1);
+            setText('hp-stat1l', homeData.stat1l ?? defaultHome.stat1l);
+            setText('hp-stat2', homeData.stat2 ?? defaultHome.stat2);
+            setText('hp-stat2l', homeData.stat2l ?? defaultHome.stat2l);
+            setText('hp-stat3', homeData.stat3 ?? defaultHome.stat3);
+            setText('hp-stat3l', homeData.stat3l ?? defaultHome.stat3l);
+            setText('hp-stat4', homeData.stat4 ?? defaultHome.stat4);
+            setText('hp-stat4l', homeData.stat4l ?? defaultHome.stat4l);
+            setHTML('hp-aboutHead', homeData.aboutHead ?? defaultHome.aboutHead);
+            setText('hp-aboutDesc', homeData.aboutDesc ?? defaultHome.aboutDesc);
+
+            // ── Clients Section ──
+            setText('hp-clients-badge', homeData.clientsBadge ?? defaultHome.clientsBadge);
+            setHTML('hp-clients-head', homeData.clientsHead ?? defaultHome.clientsHead);
+            setHTML('hp-clients-sub', homeData.clientsSub ?? defaultHome.clientsSub);
+
+            // ── Awards Section ──
+            setText('hp-awards-badge', homeData.awardsBadge ?? 'Recognition');
+            setHTML('hp-awards-head', homeData.awardsHead ?? 'Awards & <span>Achievements</span>');
+            setText('hp-awards-sub', homeData.awardsSub ?? 'Honored for our commitment to excellence, innovation, and technological leadership.');
+
+            // ── Partners Section ──
+            setText('hp-partners-badge', homeData.partnersBadge ?? 'Strategic Partners');
+            setHTML('hp-partners-head', homeData.partnersHead ?? 'Collaborating for <span>Future Excellence</span>');
+            setText('hp-partners-sub', homeData.partnersSub ?? 'Building a robust innovation ecosystem through strategic global alliances.');
+
+            // ── Strategic Alliances Section ──
+            setText('hp-alliances-badge', homeData.alliancesBadge ?? 'Strategic Alliances');
+            setHTML('hp-alliances-head', homeData.alliancesHead ?? 'Trusted by <span>Leading Organizations</span>');
+            setText('hp-alliances-sub', homeData.alliancesSub ?? 'We collaborate with top-tier industrial, academic, and government bodies to drive national technological excellence.');
+
+            // ── CTA Banner ──
+            setHTML('hp-cta-head', homeData.ctaHead ?? 'Your Career Starts Before <span>Your First Job</span>');
+            setText('hp-cta-sub', homeData.ctaSub ?? "Don't wait for a placement. Build the experience that makes you un-ignorable.");
+            setText('hp-cta-btn', homeData.ctaBtn ?? 'Build Your Future Today →');
+
+            // ── Updates Ticker (rebuild from saved items) ──
+            const tickerTrack = document.getElementById('ticker-track');
+            if (tickerTrack && homeData.tickerItems && homeData.tickerItems.length > 0) {
+                const items = homeData.tickerItems;
+                // Duplicate for seamless infinite scroll
+                const doubled = [...items, ...items];
+                tickerTrack.innerHTML = doubled.map(item =>
+                    `<span>${item}</span><span>•</span>`
+                ).join('');
+            }
+
+            // ── Dynamic Featured Products on Homepage ──
+            const defaultHomeProducts = [];
+
+            async function getHomeProducts() {
+                // Priority 1: Fetch from live SQLite backend API
+                try {
+                    const res = await fetch('/api/products');
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && Array.isArray(data)) {
+                            return data;
+                        }
+                    }
+                } catch (error) {
+                    console.warn('Failed to fetch products from backend API, trying DataStore...', error);
+                }
+
+                // Priority 2: DataStore (Firestore)
+                if (window.DataStore && typeof DataStore.getList === 'function') {
+                    try {
+                        const stored = await DataStore.getList('products', null);
+                        if (stored !== null && Array.isArray(stored)) {
+                            return stored;
+                        }
+                    } catch (error) {
+                        console.warn('Product DataStore load failed', error);
+                    }
+                }
+
+                return [];
+            }
+
+            async function renderHomeProducts() {
+                const products = await getHomeProducts();
+                const section = document.querySelector('.products-section');
+                if (products.length === 0) {
+                    if (section) section.style.display = 'none';
+                    return;
+                } else {
+                    if (section) section.style.display = '';
+                }
+
+                const grid = document.getElementById('featuredProductsGrid');
+                if (!grid) return;
+
+                // Take first 3 products
+                const featured = products.slice(0, 3);
+
+                grid.innerHTML = featured.map((p, i) => `
+                    <div class="product-card reveal" onclick="window.location.href='products.html'" style="animation-delay:${i * .1}s">
+                        <div class="product-img">
+                            <img src="${p.img || 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800'}" alt="${p.name}">
+                            <span class="product-tag ${p.tagClass || 'tag-blue'}">${(p.tagLabel || p.tag || 'HARDWARE').toUpperCase()}</span>
+                        </div>
+                        <div class="product-body">
+                            <h3>${p.name}</h3>
+                            <p>${p.desc}</p>
+                            <a href="products.html" class="product-link">Explore Track →</a>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Re-run intersection observer on new cards
+                if (typeof observer !== 'undefined' && observer.observe) {
+                    grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+                }
+            }
+
+            // Call renderHomeProducts on load
+            await renderHomeProducts();
+
+            // Listen for storage updates
+            window.addEventListener('storage', (e) => {
+                if (e && e.key === 'products') {
+                    renderHomeProducts();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
